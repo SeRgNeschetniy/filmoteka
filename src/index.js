@@ -5,6 +5,7 @@ const refs = {
 };
 
 const themoviedb = new themoviedbAPI();
+
 themoviedb
   .getPopularMovies()
   .then(data => {
@@ -26,13 +27,12 @@ const createMovieCards = data => {
         vote_average,
         vote_count,
       }) =>
-        `<li>
-        <img class="movie-card__img" src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title}" loading="lazy" />
-        </li>
-        <h2 class="movie-card__title" data-id="${id}">
-            ${title}
-        </h2>        
-        `
+        `<li data-id="${id}">
+            <img class="movie-card__img" src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title}" loading="lazy" />
+            <h2 class="movie-card__title">
+                ${title}
+            </h2>
+        </li>`
     )
     .join('');
 };
