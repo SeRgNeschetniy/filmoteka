@@ -5,12 +5,21 @@ export class themoviedbAPI {
   #BASE_URL = 'https://api.themoviedb.org/3';
   #page;
 
-  async getPopularMovies() {
+  async getTrendMovies(page) {
     const url = `${this.#BASE_URL}/trending/movie/week?api_key=${
       this.#API_KEY
-    }`;
+    }&page=${page}`;
     const response = await axios.get(url);
-    console.log(response.data.results);
+    console.log(response.data);
+    return response.data.results;
+  }
+
+  async getQueryMovies(query, page) {
+    const url = `${this.#BASE_URL}/search/movie?api_key=${
+      this.#API_KEY
+    }&query=${query}&page=${page}`;
+    const response = await axios.get(url);
+    console.log(response.data);
     return response.data.results;
   }
 
