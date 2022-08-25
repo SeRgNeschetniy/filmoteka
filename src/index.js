@@ -18,6 +18,8 @@ themoviedb
   .then(data => {})
   .catch(error => console.log(error));
 
+themoviedb.getMovieById(438148);
+
 themoviedb.getGenres();
 
 const createMovieCards = data => {
