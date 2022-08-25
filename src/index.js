@@ -1,4 +1,13 @@
 import { themoviedbAPI } from './js/api/API';
+import {
+  save,
+  load,
+  remove,
+  CURRENTFILMS_LOCALSTORAGE_KEY,
+  GENREFILMS_LOCALSTORAGE_KEY,
+  WATCHEDFILMS_LOCALSTORAGE_KEY,
+  QUEUEFILMS_LOCALSTORAGE_KEY,
+} from './js/storage/storage';
 
 const refs = {
   moviesList: document.querySelector('.movies'),
@@ -6,10 +15,13 @@ const refs = {
 
 const themoviedb = new themoviedbAPI();
 
+save(GENREFILMS_LOCALSTORAGE_KEY, themoviedb.getGenres());
+
 themoviedb
   .getTrendMovies(1)
   .then(data => {
-    refs.moviesList.innerHTML += createMovieCards(data.results);
+    save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
+    refs.moviesList.innerHTML += createMovieCards(load(CURRENTFILMS_LOCALSTORAGE_KEY));
   })
   .catch(error => console.log(error));
 
@@ -20,7 +32,7 @@ themoviedb
 
 themoviedb.getMovieById(438148);
 
-themoviedb.getGenres();
+themoviedb.getGenres()
 
 const createMovieCards = data => {
   console.log(data);
