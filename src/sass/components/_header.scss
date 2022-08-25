@@ -1,0 +1,94 @@
+.header {
+  background-image: url('../images/header-background/mob-header.jpg');
+
+  @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    background-image: url('../images/header-background/mob-header-2x.jpg');
+  }
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-top: 44px;
+
+  @media screen and (min-width: 768px) {
+    background-image: url('../images/header-background/tab-header.jpg');
+
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background-image: url('../images/header-background/tab-header-2x.jpg');
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    background-image: url('../images/header-background/desk-header.jpg');
+
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background-image: url('../images/header-background/desk-header-2x.jpg');
+    }
+  }
+}
+.header_container {
+  height: 230px;
+}
+.header__site-nav {
+  display: flex;
+justify-content: space-between
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.header-logo_text {
+  display: none;
+
+  @media screen and (min-width: 768px) {
+    display: inline;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 35px;
+    color: #ffffff;
+    margin-left: 10px;
+  }
+}
+.header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+}
+.header-nav__item {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.16;
+  text-transform: uppercase;
+  color: #ffffff;
+&:not(:last-child) {
+        margin-right: 39px;
+    }
+
+}
+.header-search {
+    margin-top: 82px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent
+}
+.header-search_box {
+   border: none;
+   background: transparent;
+   width: 250px;
+}
+.header-search_btn {
+    border: none;
+ background: transparent;
+}
+.header-search_icon {
+fill: #ffffff;
+
+}
