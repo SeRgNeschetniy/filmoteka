@@ -11,7 +11,7 @@ export class themoviedbAPI {
     }&page=${page}`;
     const response = await axios.get(url);
     console.log(response.data);
-    return response.data.results;
+    return response.data;
   }
 
   async getQueryMovies(query, page) {
@@ -20,12 +20,13 @@ export class themoviedbAPI {
     }&query=${query}&page=${page}`;
     const response = await axios.get(url);
     console.log(response.data);
-    return response.data.results;
+    return response.data;
   }
 
   async getGenres() {
     const url = `${this.#BASE_URL}/genre/movie/list?api_key=${this.#API_KEY}`;
     const response = await axios.get(url);
-    console.log(response);
+    console.log(response.data.genres);
+    return response.data.genres;
   }
 }

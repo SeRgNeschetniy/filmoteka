@@ -9,7 +9,7 @@ const themoviedb = new themoviedbAPI();
 themoviedb
   .getTrendMovies(1)
   .then(data => {
-    refs.moviesList.innerHTML += createMovieCards(data);
+    refs.moviesList.innerHTML += createMovieCards(data.results);
   })
   .catch(error => console.log(error));
 
@@ -17,6 +17,8 @@ themoviedb
   .getQueryMovies('Top Gun: Maverick', 1)
   .then(data => {})
   .catch(error => console.log(error));
+
+themoviedb.getGenres();
 
 const createMovieCards = data => {
   console.log(data);
