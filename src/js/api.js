@@ -13,4 +13,10 @@ export class themoviedbAPI {
     console.log(response.data.results);
     return response.data.results;
   }
+
+  async getGenres() {
+    const url = `${this.#BASE_URL}/genre/movie/list?api_key=${this.#API_KEY}`;
+    const response = await axios.get(url);
+    console.log(response);
+  }
 }
