@@ -1,4 +1,4 @@
-import { themoviedbAPI } from './js/API';
+import { themoviedbAPI } from './js/api/API';
 
 const refs = {
   moviesList: document.querySelector('.movies'),
