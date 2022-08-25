@@ -1,5 +1,37 @@
 <header class="header">
-  <div class="container">
-    <nav></nav>
+  <div class="container header_container">
+    <nav class="header__site-nav">
+      <a class="header-logo" href="./index.html">
+        <svg class="" width="24" height="24">
+          <use href="./images/symbol-defs.svg#icon-film"></use>
+        </svg>
+        <p class="header-logo_text">Filmoteka</p>
+      </a>
+      <ul class="header-nav">
+        <li class="header-nav__item">
+          <a class="header-nav__link" href="#">Home</a>
+        </li>
+        <li class="header-nav__item">
+          <a class="header-nav__link" href="#">my library</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="header-search">
+      <form class="header-search_form" id="search-form">
+        <input
+          type="text"
+          name="searchQuery"
+          class="header-search_box"
+          autocomplete="off"
+          placeholder="Movie search."
+        />
+        <button type="submit" class="header-search_btn">
+          <svg class="header-search_icon" width="12" height="12">
+            <use href="./images/symbol-defs.svg#icon-search"></use>
+          </svg>
+        </button>
+      </form>
+    </div>
   </div>
 </header>
+.
