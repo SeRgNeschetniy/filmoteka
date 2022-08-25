@@ -1,4 +1,4 @@
-import { themoviedbAPI } from './js/api';
+import { themoviedbAPI } from './js/api/API';
 
 const refs = {
   moviesList: document.querySelector('.movies'),
@@ -7,11 +7,20 @@ const refs = {
 const themoviedb = new themoviedbAPI();
 
 themoviedb
-  .getPopularMovies()
+  .getTrendMovies(1)
   .then(data => {
-    refs.moviesList.innerHTML += createMovieCards(data);
+    refs.moviesList.innerHTML += createMovieCards(data.results);
   })
   .catch(error => console.log(error));
+
+themoviedb
+  .getQueryMovies('Top Gun: Maverick', 1)
+  .then(data => {})
+  .catch(error => console.log(error));
+
+themoviedb.getMovieById(438148);
+
+themoviedb.getGenres();
 
 const createMovieCards = data => {
   console.log(data);
