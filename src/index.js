@@ -1,5 +1,5 @@
 import { themoviedbAPI } from './js/api/API';
-
+import './js/Pagination'
 const refs = {
   moviesList: document.querySelector('.movies'),
 };
