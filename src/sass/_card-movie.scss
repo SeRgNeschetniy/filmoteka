@@ -1,0 +1,89 @@
+.movies {
+    margin: 20px 0 40px 0;
+
+    @include mq(tablet) {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 32px;
+
+        margin: 60px 0;
+    }
+
+    @include mq(desktop) {
+        column-gap: 16px;
+    }
+}
+
+.movie-card {
+    width: 100%;
+
+    @include mq(mobile-only) {
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+
+    @include mq(tablet) {
+        width: calc((100% - 32px)/2);
+    }
+
+    @include mq(desktop) {
+        width: calc((100% - 2*16px)/3);
+    }
+
+    &-img {
+        margin-bottom: 8px;
+        border-radius: 5px;
+
+        @include mq(desktop) {
+            margin-bottom: 12px;
+        }
+    }
+    &-title {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 1.33;
+        text-transform: uppercase;
+        color: $main-dark-text-color;
+
+        @include mq(desktop) {
+            font-size: 20px;
+            line-height: 1.2;
+        }
+    }
+    &-details {
+        display: flex;
+
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 1.33;
+        color: $accent-text-color;
+
+        @include mq(desktop) {
+            font-size: 20px;
+            line-height: 1.2;
+        }
+    }
+    &-rating {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 9px;
+        align-self: flex-end;
+
+        font-size: 12px;
+        line-height: 1.17;
+        color: $white-text-color;
+
+        width: 36px;
+        height: 16px;
+        background-color: $button-accent-bg-color;
+        border-radius: 5px;
+
+        @include mq(desktop) {
+            width: 40px;
+            height: 20px;
+        }
+    }
+    
+}
