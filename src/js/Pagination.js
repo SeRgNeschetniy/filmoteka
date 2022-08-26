@@ -19,6 +19,7 @@ export default class MyPagimation {
     this.callGoTo;
     this.callNextBtn;
     this.callPrevBtn;
+    this.qwery;
     this.state = {
       currentNumPage: 0,
       postOnPerPage: 10,
@@ -27,21 +28,31 @@ export default class MyPagimation {
     };
   }
 
-  inicialization() {
-    // this.state.numOfPages = Math.ceil(
-    //   this.datatableUsers.length / this.state.postOnPerPage
-    // );
+  async inicialization() {
+    // this.state.numOfPages = load(`total_pages`); 
+   await this.reset();
+    await getNewMovi(this.qwery, this.state.currentNumPage + 1);
+
     this.state.numOfPages = load(`total_pages`);
+    this.qwery = load('qwery');
+    console.log("object");
 
     for (let i = 1; i <= this.state.numOfPages; i++) {
       this.state.numOfButtons.push(i);
     }
-    // console.log('this.state');
-    // console.log(this.state);
+    this.state.numOfPages = load(`total_pages`);
+    console.log(this.state.numOfPages);
+
     this.render();
   }
+  async reset() {
+    this.state.currentNumPage = 0;
+    this.state.numOfButtons.length = 0;
+   
+  }
+
   async goToPage(event) {
-    console.log(Number(event.target.textContent));
+    // console.log(Number(event.target.textContent));
     if (event.target.dataset.action === '-1') {
       this.previusPage();
       return;
@@ -54,8 +65,9 @@ export default class MyPagimation {
 
     if (Number(event.target.textContent)) {
       this.state.currentNumPage = Number(event.target.textContent) - 1;
-      // this.getMovisPerPage(this.state.currentNumPage);
-      await getNewMovi(this.state.currentNumPage + 1);
+      await getNewMovi(this.qwery, this.state.currentNumPage + 1);
+      this.state.numOfPages = load(`total_pages`);
+
       this.render();
     }
   }
@@ -66,6 +78,7 @@ export default class MyPagimation {
   }
   async nextPage() {
     // console.log(this);
+
     this.state.currentNumPage += 1;
 
     if (this.state.currentNumPage > this.state.numOfPages - 1) {
@@ -73,8 +86,8 @@ export default class MyPagimation {
       return;
     }
     // this.getMovisPerPage(this.state.currentNumPage);
-    await getNewMovi(this.state.currentNumPage + 1);
-
+    await getNewMovi(this.qwery, this.state.currentNumPage + 1);
+    this.state.numOfPages = load(`total_pages`);
     this.render();
   }
 
@@ -85,8 +98,8 @@ export default class MyPagimation {
       return;
     }
     // this.getMovisPerPage(this.state.currentNumPage);
-    await getNewMovi(this.state.currentNumPage + 1);
-
+    await getNewMovi(this.qwery, this.state.currentNumPage + 1);
+    this.state.numOfPages = load(`total_pages`);
     this.render();
   }
 
@@ -120,7 +133,6 @@ export default class MyPagimation {
   //     this.goToPage(e);
 
   // }
-  
 
   markap(array) {
     const result = renderCards(array);
@@ -128,6 +140,8 @@ export default class MyPagimation {
   }
 
   paginationButtons() {
+    this.state.numOfPages = load(`total_pages`);
+
     let dotsInitial = '...';
     let dotsLeft = '... ';
     let dotsRight = ' ...';
@@ -138,7 +152,6 @@ export default class MyPagimation {
     if (this.mobileDots === true) {
       if (numOfButtons.length < 6) {
         tempNumberOfButtons = numOfButtons;
-        alert('1');
       } else if (currentNumPage_1 < 3) {
         const sliced1 = [1, 2, 3, 4, 5];
         const sliced2 = numOfButtons.slice(
@@ -166,7 +179,6 @@ export default class MyPagimation {
     } else {
       if (numOfButtons.length < 10) {
         tempNumberOfButtons = numOfButtons;
-        alert('1');
       } else if (currentNumPage_1 >= 1 && currentNumPage_1 <= 3) {
         const sliced = numOfButtons.slice(0, 7);
         tempNumberOfButtons = [...sliced, dotsInitial, numOfButtons.length];
