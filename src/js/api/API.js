@@ -11,7 +11,9 @@ export class themoviedbAPI {
     const url = `${this.#BASE_URL}/trending/movie/week?api_key=${
       this.#API_KEY
     }&page=${page}`;
+
     const response = await axios.get(url);
+    
     console.log(response.data);
 
     this.setTotal_pages(response.data.total_pages);
