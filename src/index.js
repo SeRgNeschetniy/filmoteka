@@ -1,6 +1,6 @@
 import { themoviedbAPI } from './js/api/API';
 
-import './js/Pagination';
+import MyPagimation from './js/Pagination';
 
 import {
   save,
@@ -23,10 +23,17 @@ save(GENREFILMS_LOCALSTORAGE_KEY, themoviedb.getGenres());
 themoviedb
   .getTrendMovies(1)
   .then(data => {
+    console.log('data');
     save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
+
+    save('total_pages', data.total_pages);
+
+    // refs.moviesList.innerHTML += createMovieCards(load(CURRENTFILMS_LOCALSTORAGE_KEY));
+
     refs.moviesList.innerHTML += createMovieCards(
       load(CURRENTFILMS_LOCALSTORAGE_KEY)
     );
+
   })
   .catch(error => console.log(error));
 
@@ -39,8 +46,9 @@ themoviedb.getMovieById(438148);
 
 themoviedb.getGenres();
 
-const createMovieCards = data => {
+export const createMovieCards = data => {
   console.log(data);
+
   return data
     ?.map(
       ({
@@ -62,3 +70,21 @@ const createMovieCards = data => {
     )
     .join('');
 };
+
+const option = {
+  cardContainer: 'js-tbody',
+  paginationContainer: 'js-pg-container',
+};
+const slider = new MyPagimation(option);
+slider.inicialization();
+
+export async function getNewMovi(num) {
+  themoviedb
+    .getTrendMovies(num)
+    .then(data => {
+      save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
+      save('total_pages', data.total_pages);
+      console.log(`num = ${num}`);
+    })
+    .catch(error => console.log(error, `ERRRRR`));
+}
