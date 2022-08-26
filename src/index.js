@@ -25,9 +25,15 @@ themoviedb
   .then(data => {
     console.log('data');
     save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
+
     save('total_pages', data.total_pages);
 
     // refs.moviesList.innerHTML += createMovieCards(load(CURRENTFILMS_LOCALSTORAGE_KEY));
+
+    refs.moviesList.innerHTML += createMovieCards(
+      load(CURRENTFILMS_LOCALSTORAGE_KEY)
+    );
+
   })
   .catch(error => console.log(error));
 
