@@ -4,6 +4,8 @@ export class themoviedbAPI {
   #API_KEY = 'f2c538717486cd7dc01f7314dfb697ab';
   #BASE_URL = 'https://api.themoviedb.org/3';
   #page;
+  #total_pages;
+  #total_results;
 
   async getTrendMovies(page) {
     const url = `${this.#BASE_URL}/trending/movie/week?api_key=${
@@ -11,6 +13,10 @@ export class themoviedbAPI {
     }&page=${page}`;
     const response = await axios.get(url);
     console.log(response.data);
+
+    this.setTotal_pages(response.data.total_pages);
+    this.setTotal_results(response.data.total_results);
+
     return response.data;
   }
 
@@ -20,6 +26,10 @@ export class themoviedbAPI {
     }&query=${query}&page=${page}`;
     const response = await axios.get(url);
     console.log(response.data);
+
+    this.setTotal_pages(response.data.total_pages);
+    this.setTotal_results(response.data.total_results);
+
     return response.data;
   }
 
@@ -27,6 +37,10 @@ export class themoviedbAPI {
     const url = `${this.#BASE_URL}/movie/${id}?api_key=${this.#API_KEY}`;
     const response = await axios.get(url);
     console.log(response.data);
+
+    this.setTotal_pages(response.data.total_pages);
+    this.setTotal_results(response.data.total_results);
+
     return response.data;
   }
 
@@ -35,5 +49,18 @@ export class themoviedbAPI {
     const response = await axios.get(url);
     console.log(response.data.genres);
     return response.data.genres;
+  }
+
+  setTotal_pages(newTotal_pages) {
+    this.#total_pages = newTotal_pages;
+  }
+  getTotal_pages() {
+    return this.#total_pages;
+  }
+  setTotal_results(newTotal_results) {
+    this.#total_results = newTotal_results;
+  }
+  getTotal_results() {
+    return this.#total_results;
   }
 }
