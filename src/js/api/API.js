@@ -59,9 +59,9 @@ export class themoviedbAPI {
       num = 1;
     }
     if (qwery) {
-      return this.getQueryMovies(qwery, num); _
+      return await this.getQueryMovies(qwery, num); _
     }
-    return this.getTrendMovies(num);
+    return await this.getTrendMovies(num);
   }
 
   setTotal_pages(newTotal_pages) {

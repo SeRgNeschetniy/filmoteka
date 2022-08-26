@@ -11,11 +11,13 @@ import { getNewMovi, createMovieCards } from '../index';
 import { renderCards } from './renderCards';
 
 export default class MyPagimation {
-  constructor({ cardContainer, paginationContainer }) {
+  constructor({ cardContainer, paginationContainer, mobileDots }) {
     this.tbody = document.querySelector(`.${cardContainer}`);
-    this.pgContainer = document.querySelector(`.${paginationContainer}`);
+    this.paginationContainer = document.querySelector(
+      `.${paginationContainer}`
+    );
     this.datatableUsers = load(CURRENTFILMS_LOCALSTORAGE_KEY);
-    this.mobileDots = false;
+    this.mobileDots = mobileDots;
     this.callGoTo;
     this.callNextBtn;
     this.callPrevBtn;
@@ -29,26 +31,23 @@ export default class MyPagimation {
   }
 
   async inicialization() {
-    // this.state.numOfPages = load(`total_pages`); 
-   await this.reset();
+    this.reset();
     await getNewMovi(this.qwery, this.state.currentNumPage + 1);
-
-    this.state.numOfPages = load(`total_pages`);
-    this.qwery = load('qwery');
-    console.log("object");
+    this.loadDataForRender();
 
     for (let i = 1; i <= this.state.numOfPages; i++) {
       this.state.numOfButtons.push(i);
     }
-    this.state.numOfPages = load(`total_pages`);
-    console.log(this.state.numOfPages);
-
     this.render();
   }
-  async reset() {
+  reset() {
     this.state.currentNumPage = 0;
     this.state.numOfButtons.length = 0;
-   
+    this.qwery = load('qwery');
+  }
+  loadDataForRender() {
+    this.state.numOfPages = load(`total_pages`);
+    this.qwery = load('qwery');
   }
 
   async goToPage(event) {
@@ -66,7 +65,7 @@ export default class MyPagimation {
     if (Number(event.target.textContent)) {
       this.state.currentNumPage = Number(event.target.textContent) - 1;
       await getNewMovi(this.qwery, this.state.currentNumPage + 1);
-      this.state.numOfPages = load(`total_pages`);
+      this.loadDataForRender();
 
       this.render();
     }
@@ -87,7 +86,8 @@ export default class MyPagimation {
     }
     // this.getMovisPerPage(this.state.currentNumPage);
     await getNewMovi(this.qwery, this.state.currentNumPage + 1);
-    this.state.numOfPages = load(`total_pages`);
+    this.loadDataForRender();
+
     this.render();
   }
 
@@ -97,50 +97,36 @@ export default class MyPagimation {
       this.state.currentNumPage = 0;
       return;
     }
-    // this.getMovisPerPage(this.state.currentNumPage);
     await getNewMovi(this.qwery, this.state.currentNumPage + 1);
-    this.state.numOfPages = load(`total_pages`);
+    this.loadDataForRender();
+
     this.render();
   }
 
   render() {
     if (this.callGoTo) {
-      this.pgContainer.removeEventListener('click', this.callGoTo);
+      this.paginationContainer.removeEventListener('click', this.callGoTo);
     }
 
-    // const currentDataToRender = this.datatableUsers.slice(
-    //   this.state.currentNumPage * this.state.postOnPerPage,
-    //   (this.state.currentNumPage + 1) * this.state.postOnPerPage
-    // );
-    console.log('before currenr', load(CURRENTFILMS_LOCALSTORAGE_KEY));
     const currentDataToRender = load(CURRENTFILMS_LOCALSTORAGE_KEY);
-
-    const dataTable = this.markap(currentDataToRender);
+    const dataTable = renderCards(currentDataToRender);
     const navigation = this.paginationButtons();
 
     this.tbody.innerHTML = '';
-    this.pgContainer.innerHTML = '';
+    this.paginationContainer.innerHTML = '';
 
     this.tbody.insertAdjacentHTML('beforeend', dataTable);
-    this.pgContainer.insertAdjacentHTML('beforeend', navigation);
-    this.pgContainer.removeEventListener('click', this.goToPage.bind(this));
+    this.paginationContainer.insertAdjacentHTML('beforeend', navigation);
+    this.paginationContainer.removeEventListener(
+      'click',
+      this.goToPage.bind(this)
+    );
     this.callGoTo = this.goToPage.bind(this);
-
-    this.pgContainer.addEventListener('click', this.callGoTo);
-  }
-  // temp(e) {
-  //   console.log(e);
-  //     this.goToPage(e);
-
-  // }
-
-  markap(array) {
-    const result = renderCards(array);
-    return result;
+    this.paginationContainer.addEventListener('click', this.callGoTo);
   }
 
   paginationButtons() {
-    this.state.numOfPages = load(`total_pages`);
+    // this.state.numOfPages = load(`total_pages`);
 
     let dotsInitial = '...';
     let dotsLeft = '... ';
@@ -250,14 +236,3 @@ export default class MyPagimation {
     return [prevBTN, result, nextBTN].join('');
   }
 }
-
-// const slider = new MyPagimation('js-tbody', 'js-pg-container', datatableUsers);
-// slider.inicialization();
-// slider.render();
-
-// const tbody = document.querySelector('.js-tbody');
-// const plus = document.querySelector('.js-plus-pag');
-// const minus = document.querySelector('.js-minus-pag');
-
-// plus.addEventListener('click', () => slider.nextPage());
-// minus.addEventListener('click', () => slider.previusPage());
