@@ -1,6 +1,6 @@
 import { themoviedbAPI } from './js/api/API';
 
-import './js/Pagination'
+import './js/Pagination';
 
 import {
   save,
@@ -24,7 +24,9 @@ themoviedb
   .getTrendMovies(1)
   .then(data => {
     save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
-    refs.moviesList.innerHTML += createMovieCards(load(CURRENTFILMS_LOCALSTORAGE_KEY));
+    refs.moviesList.innerHTML += createMovieCards(
+      load(CURRENTFILMS_LOCALSTORAGE_KEY)
+    );
   })
   .catch(error => console.log(error));
 
@@ -35,7 +37,7 @@ themoviedb
 
 themoviedb.getMovieById(438148);
 
-themoviedb.getGenres()
+themoviedb.getGenres();
 
 const createMovieCards = data => {
   console.log(data);
