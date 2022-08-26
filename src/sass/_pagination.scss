@@ -51,7 +51,7 @@ a:focus {
 .thead-primary tr th {
   background-color: #5a8dee;
   border-color: #5a8dee;
-  color: #fff;
+  color: $main-dark-text-color;
 }
 .dt-pagination-ul {
   display: flex;
@@ -69,40 +69,65 @@ a:focus {
 
 .dt-pagination .dt-item .dt-link {
   padding: 6px 8px;
+
   min-width: 32px;
   min-height: 32px;
   border-radius: 8px;
   margin-left: 0;
   margin-right: 8px;
-  border: 1px solid #fff;
+  // border: 1px solid #fff;
   font-size: 12px;
   font-weight: 500;
-  color: #8a93a6;
+  // color: #8a93a6;
+  color: $main-dark-text-color;
+
   display: inline-block;
   text-align: center;
   cursor: pointer;
 }
 
-.dt-pagination .dt-item .dt-link:hover {
-  background-color: #ebf2fd;
-  color: #5a8dee;
-}
-
 .dt-pagination .dt-item.disabled .dt-link {
   background-color: #f6f7fb;
-  color: #d7dae0;
+  color: $main-dark-text-color;
   cursor: not-allowed;
 }
 
 .dt-pagination .dt-item:first-child .dt-link,
 .dt-pagination .dt-item:last-child .dt-link {
-  background-color: #f6f7fb;
+  background-color: $light-grey-bg-color;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  border-color: none;
+  background-size: auto;
+  background-repeat: no-repeat;
+  //  background-position: 0;
+  background-position: center;
+}
+.dt-pagination .dt-item:first-child .dt-link {
+  background-image: url('../images/pagination/previus.svg');
+}
+.dt-pagination .dt-item:last-child .dt-link {
+  background-image: url('../images/pagination/nexp.svg');
+}
+.dt-pagination .dt-item .dt-link:hover {
+  background-color: $button-accent-bg-color;
+  color: $white-text-color;
+  border-color: $accent-text-color;
 }
 
 .dt-pagination .dt-item.active .dt-link {
-  background-color: #5a8dee;
-  border-color: #5a8dee;
-  color: #fff;
+  background-color: $accent-text-color;
+  border-color: $accent-text-color;
+  color: $white-text-color;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .dt-pagination .dt-item.pg-none {
