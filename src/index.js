@@ -11,6 +11,7 @@ import {
   WATCHEDFILMS_LOCALSTORAGE_KEY,
   QUEUEFILMS_LOCALSTORAGE_KEY,
 } from './js/storage/storage';
+import { renderCards } from './js/renderCards';
 
 const refs = {
   moviesList: document.querySelector('.movies'),
@@ -26,13 +27,27 @@ themoviedb
     console.log('data');
     save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
 
+    // refs.moviesList.innerHTML += createMovieCards(
+    //   load(CURRENTFILMS_LOCALSTORAGE_KEY)
+    // );
+    renderCards(load(CURRENTFILMS_LOCALSTORAGE_KEY));
+
+
     save('total_pages', data.total_pages);
 
     // refs.moviesList.innerHTML += createMovieCards(load(CURRENTFILMS_LOCALSTORAGE_KEY));
 
+
     // refs.moviesList.innerHTML += createMovieCards(
     //   load(CURRENTFILMS_LOCALSTORAGE_KEY)
     // );
+
+    refs.moviesList.innerHTML += createMovieCards(
+      load(CURRENTFILMS_LOCALSTORAGE_KEY)
+    );
+
+
+
   })
   .catch(error => console.log(error));
 
@@ -43,7 +58,38 @@ themoviedb
 
 themoviedb.getMovieById(438148);
 
+
 themoviedb.getGenres();
+
+// const createMovieCards = data => {
+//   console.log(data);
+//   return data
+//     ?.map(
+//       ({
+//         id,
+//         title,
+//         original_title,
+//         overview,
+//         popularity,
+//         poster_path,
+//         vote_average,
+//         vote_count,
+//       }) =>
+//         `<li data-id="${id}">
+//             <img class="movie-card__img" src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title}" loading="lazy" />
+//             <h2 class="movie-card__title">
+//                 ${title}
+//             </h2>
+//         </li>`
+//     )
+//     .join('');
+// };
+
+themoviedb.getGenres()
+  .then(data => {
+  save(GENREFILMS_LOCALSTORAGE_KEY, data);
+})
+  .catch(error => console.log(error));
 
 export const createMovieCards = data => {
   console.log(data);
@@ -87,3 +133,4 @@ export async function getNewMovi(num) {
     })
     .catch(error => console.log(error, `ERRRRR`));
 }
+
