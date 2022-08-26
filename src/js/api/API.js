@@ -53,6 +53,17 @@ export class themoviedbAPI {
     return response.data.genres;
   }
 
+  async getMovies({ qwery, num }) {
+    console.log(`qwery, page ${qwery} ${num}`);
+    if (!num) {
+      num = 1;
+    }
+    if (qwery) {
+      return this.getQueryMovies(qwery, num); _
+    }
+    return this.getTrendMovies(num);
+  }
+
   setTotal_pages(newTotal_pages) {
     this.#total_pages = newTotal_pages;
   }
