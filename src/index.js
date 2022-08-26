@@ -44,7 +44,11 @@ themoviedb
 
 themoviedb.getMovieById(438148);
 
-themoviedb.getGenres();
+themoviedb.getGenres()
+  .then(data => {
+  save(GENREFILMS_LOCALSTORAGE_KEY, data);
+})
+  .catch(error => console.log(error));
 
 export const createMovieCards = data => {
   console.log(data);
