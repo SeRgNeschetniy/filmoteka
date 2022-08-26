@@ -8,6 +8,7 @@ import {
   WATCHEDFILMS_LOCALSTORAGE_KEY,
   QUEUEFILMS_LOCALSTORAGE_KEY,
 } from './js/storage/storage';
+import { renderCards } from './js/renderCards';
 
 const refs = {
   moviesList: document.querySelector('.movies'),
@@ -21,7 +22,10 @@ themoviedb
   .getTrendMovies(1)
   .then(data => {
     save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
-    refs.moviesList.innerHTML += createMovieCards(load(CURRENTFILMS_LOCALSTORAGE_KEY));
+    // refs.moviesList.innerHTML += createMovieCards(
+    //   load(CURRENTFILMS_LOCALSTORAGE_KEY)
+    // );
+    renderCards(load(CURRENTFILMS_LOCALSTORAGE_KEY));
   })
   .catch(error => console.log(error));
 
@@ -32,28 +36,28 @@ themoviedb
 
 themoviedb.getMovieById(438148);
 
-themoviedb.getGenres()
+themoviedb.getGenres();
 
-const createMovieCards = data => {
-  console.log(data);
-  return data
-    ?.map(
-      ({
-        id,
-        title,
-        original_title,
-        overview,
-        popularity,
-        poster_path,
-        vote_average,
-        vote_count,
-      }) =>
-        `<li data-id="${id}">
-            <img class="movie-card__img" src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title}" loading="lazy" />
-            <h2 class="movie-card__title">
-                ${title}
-            </h2>
-        </li>`
-    )
-    .join('');
-};
+// const createMovieCards = data => {
+//   console.log(data);
+//   return data
+//     ?.map(
+//       ({
+//         id,
+//         title,
+//         original_title,
+//         overview,
+//         popularity,
+//         poster_path,
+//         vote_average,
+//         vote_count,
+//       }) =>
+//         `<li data-id="${id}">
+//             <img class="movie-card__img" src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title}" loading="lazy" />
+//             <h2 class="movie-card__title">
+//                 ${title}
+//             </h2>
+//         </li>`
+//     )
+//     .join('');
+// };
