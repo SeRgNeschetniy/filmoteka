@@ -12,6 +12,7 @@ export class themoviedbAPI {
       this.#API_KEY
     }&page=${page}`;
     const response = await axios.get(url);
+    
     console.log(response.data);
 
     this.setTotal_pages(response.data.total_pages);
