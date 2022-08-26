@@ -1,4 +1,7 @@
 import { themoviedbAPI } from './js/api/API';
+
+import './js/Pagination'
+
 import {
   save,
   load,
