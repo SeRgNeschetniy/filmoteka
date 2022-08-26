@@ -37,9 +37,15 @@ themoviedb
 
     // refs.moviesList.innerHTML += createMovieCards(load(CURRENTFILMS_LOCALSTORAGE_KEY));
 
+
+    // refs.moviesList.innerHTML += createMovieCards(
+    //   load(CURRENTFILMS_LOCALSTORAGE_KEY)
+    // );
+
     refs.moviesList.innerHTML += createMovieCards(
       load(CURRENTFILMS_LOCALSTORAGE_KEY)
     );
+
 
 
   })
@@ -89,7 +95,7 @@ export const createMovieCards = data => {
   console.log(data);
 
   return data
-    ?.map(
+    .map(
       ({
         id,
         title,
@@ -100,7 +106,7 @@ export const createMovieCards = data => {
         vote_average,
         vote_count,
       }) =>
-        `<li data-id="${id}">
+        `<li data-id="${id}" class ="js-card-film">
             <img class="movie-card__img" src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title}" loading="lazy" />
             <h2 class="movie-card__title">
                 ${title}
@@ -118,12 +124,12 @@ const slider = new MyPagimation(option);
 slider.inicialization();
 
 export async function getNewMovi(num) {
-  themoviedb
+ await  themoviedb
     .getTrendMovies(num)
     .then(data => {
       save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
       save('total_pages', data.total_pages);
-      console.log(`num = ${num}`);
+      console.log(`num1 = ${num}`);
     })
     .catch(error => console.log(error, `ERRRRR`));
 }
