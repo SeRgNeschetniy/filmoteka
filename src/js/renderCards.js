@@ -33,6 +33,7 @@ export function renderCards(data) {
       }
     )
     .join('');
+  return movieCardMarkup;
 
   refs.moviesList.insertAdjacentHTML('beforeend', movieCardMarkup);
 }

@@ -8,6 +8,7 @@ import {
   QUEUEFILMS_LOCALSTORAGE_KEY,
 } from './storage/storage';
 import { getNewMovi, createMovieCards } from '../index';
+import { renderCards } from './renderCards';
 
 export default class MyPagimation {
   constructor({ cardContainer, paginationContainer }) {
@@ -119,9 +120,10 @@ export default class MyPagimation {
   //     this.goToPage(e);
 
   // }
+  
 
   markap(array) {
-    const result = createMovieCards(array);
+    const result = renderCards(array);
     return result;
   }
 
