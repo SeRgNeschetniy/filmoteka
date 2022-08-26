@@ -21,7 +21,6 @@ const refs = {
 
 save('qwery', '');
 
-
 const themoviedb = new themoviedbAPI();
 
 save(GENREFILMS_LOCALSTORAGE_KEY, themoviedb.getGenres());
@@ -118,6 +117,7 @@ export const createMovieCards = data => {
 const option = {
   cardContainer: 'movies',
   paginationContainer: 'js-pg-container',
+  mobileDots: false,
 };
 
 const slider = new MyPagimation(option);
@@ -139,12 +139,8 @@ export async function getNewMovi(qwery, num) {
     .catch(error => console.log(error, `ERRRRR`));
 }
 
-
 refs.form.addEventListener('submit', e => {
   e.preventDefault();
-  console.log('input');
-  console.log(refs.input.value);
   save('qwery', refs.input.value);
-slider.inicialization();
-
+  slider.inicialization();
 });
