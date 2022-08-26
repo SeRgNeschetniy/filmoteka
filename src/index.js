@@ -42,9 +42,9 @@ themoviedb
     //   load(CURRENTFILMS_LOCALSTORAGE_KEY)
     // );
 
-    refs.moviesList.innerHTML += createMovieCards(
-      load(CURRENTFILMS_LOCALSTORAGE_KEY)
-    );
+    // refs.moviesList.innerHTML += createMovieCards(
+    //   load(CURRENTFILMS_LOCALSTORAGE_KEY)
+    // );
 
 
 
@@ -115,11 +115,11 @@ export const createMovieCards = data => {
     )
     .join('');
 };
-
 const option = {
-  cardContainer: 'js-tbody',
+  cardContainer: 'movies',
   paginationContainer: 'js-pg-container',
 };
+
 const slider = new MyPagimation(option);
 slider.inicialization();
 
