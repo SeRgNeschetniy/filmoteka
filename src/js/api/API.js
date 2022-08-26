@@ -59,7 +59,8 @@ export class themoviedbAPI {
       num = 1;
     }
     if (qwery) {
-      return await this.getQueryMovies(qwery, num); _
+      return await this.getQueryMovies(qwery, num);
+      _;
     }
     return await this.getTrendMovies(num);
   }

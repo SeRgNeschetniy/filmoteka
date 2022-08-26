@@ -230,7 +230,7 @@ export default class MyPagimation {
     }" data-action ="-1"
                       >
                         <a class="dt-link js-next-page"data-action="-1">
-                          Prev
+                          
                         </a>
                       </li>`;
     const nextBTN = `    <li class="dt-item  ${
@@ -238,7 +238,7 @@ export default class MyPagimation {
     }" data-action ="+1"
                       >
                         <a class="dt-link" data-action="+1">
-                          Next
+                          
                         </a>
                       </li>`;
     const result = HTMLNumberOfButtonsDesktop.map(btn => {
