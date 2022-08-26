@@ -11,10 +11,18 @@ import { getNewMovi, createMovieCards } from '../index';
 import { renderCards } from './renderCards';
 
 export default class MyPagimation {
-  constructor({ cardContainer, paginationContainer, mobileDots }) {
+  constructor({
+    cardContainer,
+    paginationContainer,
+    paginationContainerMobile,
+    mobileDots,
+  }) {
     this.tbody = document.querySelector(`.${cardContainer}`);
     this.paginationContainer = document.querySelector(
       `.${paginationContainer}`
+    );
+    this.paginationContainerMobile = document.querySelector(
+      `.${paginationContainerMobile}`
     );
     this.datatableUsers = load(CURRENTFILMS_LOCALSTORAGE_KEY);
     this.mobileDots = mobileDots;
@@ -106,103 +114,117 @@ export default class MyPagimation {
   render() {
     if (this.callGoTo) {
       this.paginationContainer.removeEventListener('click', this.callGoTo);
+      this.paginationContainerMobile.removeEventListener(
+        'click',
+        this.callGoTo
+      );
     }
 
     const currentDataToRender = load(CURRENTFILMS_LOCALSTORAGE_KEY);
     const dataTable = renderCards(currentDataToRender);
-    const navigation = this.paginationButtons();
+    const { navigation, navigationMobile } = this.paginationButtons();
 
     this.tbody.innerHTML = '';
     this.paginationContainer.innerHTML = '';
+    this.paginationContainerMobile.innerHTML = '';
 
     this.tbody.insertAdjacentHTML('beforeend', dataTable);
     this.paginationContainer.insertAdjacentHTML('beforeend', navigation);
-    this.paginationContainer.removeEventListener(
-      'click',
-      this.goToPage.bind(this)
+    this.paginationContainerMobile.insertAdjacentHTML(
+      'beforeend',
+      navigationMobile
     );
+
     this.callGoTo = this.goToPage.bind(this);
     this.paginationContainer.addEventListener('click', this.callGoTo);
+    this.paginationContainerMobile.addEventListener('click', this.callGoTo);
   }
 
   paginationButtons() {
-    // this.state.numOfPages = load(`total_pages`);
-
     let dotsInitial = '...';
     let dotsLeft = '... ';
     let dotsRight = ' ...';
     const { currentNumPage, numOfPages, numOfButtons } = this.state;
-    let tempNumberOfButtons = [...numOfButtons];
+    let HTMLNumberOfButtonsDesktop = [...numOfButtons];
+    let HTMLNumberOfButtonsMobile = [...numOfButtons];
+
     const currentNumPage_1 = currentNumPage + 1;
 
-    if (this.mobileDots === true) {
-      if (numOfButtons.length < 6) {
-        tempNumberOfButtons = numOfButtons;
-      } else if (currentNumPage_1 < 3) {
-        const sliced1 = [1, 2, 3, 4, 5];
-        const sliced2 = numOfButtons.slice(
-          currentNumPage_1 + 2,
-          currentNumPage_1 + 5
-        );
-        // sliced1 (5, 5+1) -> [6]
-        tempNumberOfButtons = [...sliced1];
-      } else if (currentNumPage_1 > numOfButtons.length - 3) {
-        const sliced1 = numOfButtons.slice(numOfButtons.length - 5);
-        tempNumberOfButtons = [...sliced1];
-      } else {
-        const sliced1 = numOfButtons.slice(
-          currentNumPage_1 - 3,
-          currentNumPage_1
-        );
-        // sliced1 (5-2, 5) -> [4,5]
-        const sliced2 = numOfButtons.slice(
-          currentNumPage_1,
-          currentNumPage_1 + 2
-        );
-        // sliced1 (5, 5+1) -> [6]
-        tempNumberOfButtons = [...sliced1, ...sliced2];
-      }
+    if (numOfButtons.length < 6) {
+      HTMLNumberOfButtonsMobile = numOfButtons;
+    } else if (currentNumPage_1 < 3) {
+      const sliced1 = [1, 2, 3, 4, 5];
+      const sliced2 = numOfButtons.slice(
+        currentNumPage_1 + 2,
+        currentNumPage_1 + 5
+      );
+      // sliced1 (5, 5+1) -> [6]
+      HTMLNumberOfButtonsMobile = [...sliced1];
+    } else if (currentNumPage_1 > numOfButtons.length - 3) {
+      const sliced1 = numOfButtons.slice(numOfButtons.length - 5);
+      HTMLNumberOfButtonsMobile = [...sliced1];
     } else {
-      if (numOfButtons.length < 10) {
-        tempNumberOfButtons = numOfButtons;
-      } else if (currentNumPage_1 >= 1 && currentNumPage_1 <= 3) {
-        const sliced = numOfButtons.slice(0, 7);
-        tempNumberOfButtons = [...sliced, dotsInitial, numOfButtons.length];
-      } else if (currentNumPage_1 === 4) {
-        const sliced = numOfButtons.slice(0, 7);
-        tempNumberOfButtons = [...sliced, dotsInitial, numOfButtons.length];
-      } else if (
-        currentNumPage_1 > 4 &&
-        currentNumPage_1 < numOfButtons.length - 2
-      ) {
-        // from 5 to 8 -> (10 - 2)
-        const sliced1 = numOfButtons.slice(
-          currentNumPage_1 - 3,
-          currentNumPage_1
-        );
-        // sliced1 (5-2, 5) -> [4,5]
-        const sliced2 = numOfButtons.slice(
-          currentNumPage_1,
-          currentNumPage_1 + 2
-        );
-        // sliced1 (5, 5+1) -> [6]
-        tempNumberOfButtons = [
-          1,
-          dotsLeft,
-          ...sliced1,
-          ...sliced2,
-          dotsRight,
-          numOfButtons.length,
-        ];
-        // [1, '...', 4, 5, 6, '...', 10]
-      } else if (currentNumPage_1 > numOfButtons.length - 4) {
-        // > 7
-        const sliced = numOfButtons.slice(numOfButtons.length - 7);
-        // slice(10-4)
-        tempNumberOfButtons = [1, dotsLeft, ...sliced];
-      }
+      const sliced1 = numOfButtons.slice(
+        currentNumPage_1 - 3,
+        currentNumPage_1
+      );
+      // sliced1 (5-2, 5) -> [4,5]
+      const sliced2 = numOfButtons.slice(
+        currentNumPage_1,
+        currentNumPage_1 + 2
+      );
+      // sliced1 (5, 5+1) -> [6]
+      HTMLNumberOfButtonsMobile = [...sliced1, ...sliced2];
     }
-    console.log(tempNumberOfButtons);
+
+    if (numOfButtons.length < 10) {
+      HTMLNumberOfButtonsDesktop = numOfButtons;
+    } else if (currentNumPage_1 >= 1 && currentNumPage_1 <= 3) {
+      const sliced = numOfButtons.slice(0, 7);
+      HTMLNumberOfButtonsDesktop = [
+        ...sliced,
+        dotsInitial,
+        numOfButtons.length,
+      ];
+    } else if (currentNumPage_1 === 4) {
+      const sliced = numOfButtons.slice(0, 7);
+      HTMLNumberOfButtonsDesktop = [
+        ...sliced,
+        dotsInitial,
+        numOfButtons.length,
+      ];
+    } else if (
+      currentNumPage_1 > 4 &&
+      currentNumPage_1 < numOfButtons.length - 2
+    ) {
+      // from 5 to 8 -> (10 - 2)
+      const sliced1 = numOfButtons.slice(
+        currentNumPage_1 - 3,
+        currentNumPage_1
+      );
+      // sliced1 (5-2, 5) -> [4,5]
+      const sliced2 = numOfButtons.slice(
+        currentNumPage_1,
+        currentNumPage_1 + 2
+      );
+      // sliced1 (5, 5+1) -> [6]
+      HTMLNumberOfButtonsDesktop = [
+        1,
+        dotsLeft,
+        ...sliced1,
+        ...sliced2,
+        dotsRight,
+        numOfButtons.length,
+      ];
+      // [1, '...', 4, 5, 6, '...', 10]
+    } else if (currentNumPage_1 > numOfButtons.length - 4) {
+      // > 7
+      const sliced = numOfButtons.slice(numOfButtons.length - 7);
+      // slice(10-4)
+      HTMLNumberOfButtonsDesktop = [1, dotsLeft, ...sliced];
+    }
+
+    console.log(HTMLNumberOfButtonsDesktop);
     const prevBTN = `    <li  class= "dt-item ${
       currentNumPage_1 === 1 ? 'disabled' : ''
     }" data-action ="-1"
@@ -219,9 +241,8 @@ export default class MyPagimation {
                           Next
                         </a>
                       </li>`;
-    const result = tempNumberOfButtons
-      .map(btn => {
-        return `
+    const result = HTMLNumberOfButtonsDesktop.map(btn => {
+      return `
              <li class= "dt-item ${
                this.state.currentNumPage === btn - 1 ? 'active' : ''
              }">
@@ -230,9 +251,23 @@ export default class MyPagimation {
                         </a>
                       </li>
 `;
-      })
-      .join('');
+    }).join('');
 
-    return [prevBTN, result, nextBTN].join('');
+    const resultMobile = HTMLNumberOfButtonsMobile.map(btn => {
+      return `
+             <li class= "dt-item ${
+               this.state.currentNumPage === btn - 1 ? 'active' : ''
+             }">
+                        <a class="dt-link">
+                          ${btn}
+                        </a>
+                      </li>
+`;
+    }).join('');
+
+    return {
+      navigation: [prevBTN, result, nextBTN].join(''),
+      navigationMobile: [prevBTN, resultMobile, nextBTN].join(''),
+    };
   }
 }
