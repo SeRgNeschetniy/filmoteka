@@ -108,22 +108,33 @@ a:focus {
 .dt-pagination .dt-item.pg-none {
   display: none;
 }
-.js-tbody{
-    width: 100%;
-    padding: 10px;
-    display: flex;
-    flex-wrap: wrap;
-
+.js-tbody {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
 }
 .js-card-film {
   font-size: 10px;
-  
+
   display: block;
   margin: 10px;
-  width:50px;
+  width: 50px;
 }
-  
-.movie-card__title{
 
+.movie-card__title {
   font-size: 10px;
+}
+
+.js-pg-container {
+  display: none;
+  @include mq(tablet) {
+    display: flex;
+  }
+}
+.js-pg-container-mobile {
+  display: flex;
+  @include mq(tablet) {
+    display: none;
+  }
 }

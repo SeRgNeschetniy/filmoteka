@@ -116,7 +116,9 @@ export const createMovieCards = data => {
 };
 const option = {
   cardContainer: 'movies',
+  // cardContainerMobile:'movies-mobile',
   paginationContainer: 'js-pg-container',
+  paginationContainerMobile: 'js-pg-container-mobile',
   mobileDots: false,
 };
 
