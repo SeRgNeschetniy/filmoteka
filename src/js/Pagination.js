@@ -11,14 +11,25 @@ import { getNewMovi, createMovieCards } from '../index';
 import { renderCards } from './renderCards';
 
 export default class MyPagimation {
-  constructor({ cardContainer, paginationContainer }) {
+  constructor({
+    cardContainer,
+    paginationContainer,
+    paginationContainerMobile,
+    mobileDots,
+  }) {
     this.tbody = document.querySelector(`.${cardContainer}`);
-    this.pgContainer = document.querySelector(`.${paginationContainer}`);
+    this.paginationContainer = document.querySelector(
+      `.${paginationContainer}`
+    );
+    this.paginationContainerMobile = document.querySelector(
+      `.${paginationContainerMobile}`
+    );
     this.datatableUsers = load(CURRENTFILMS_LOCALSTORAGE_KEY);
-    this.mobileDots = false;
+    this.mobileDots = mobileDots;
     this.callGoTo;
     this.callNextBtn;
     this.callPrevBtn;
+    this.qwery;
     this.state = {
       currentNumPage: 0,
       postOnPerPage: 10,
@@ -27,21 +38,28 @@ export default class MyPagimation {
     };
   }
 
-  inicialization() {
-    // this.state.numOfPages = Math.ceil(
-    //   this.datatableUsers.length / this.state.postOnPerPage
-    // );
-    this.state.numOfPages = load(`total_pages`);
+  async inicialization() {
+    this.reset();
+    await getNewMovi(this.qwery, this.state.currentNumPage + 1);
+    this.loadDataForRender();
 
     for (let i = 1; i <= this.state.numOfPages; i++) {
       this.state.numOfButtons.push(i);
     }
-    // console.log('this.state');
-    // console.log(this.state);
     this.render();
   }
+  reset() {
+    this.state.currentNumPage = 0;
+    this.state.numOfButtons.length = 0;
+    this.qwery = load('qwery');
+  }
+  loadDataForRender() {
+    this.state.numOfPages = load(`total_pages`);
+    this.qwery = load('qwery');
+  }
+
   async goToPage(event) {
-    console.log(Number(event.target.textContent));
+    // console.log(Number(event.target.textContent));
     if (event.target.dataset.action === '-1') {
       this.previusPage();
       return;
@@ -54,8 +72,9 @@ export default class MyPagimation {
 
     if (Number(event.target.textContent)) {
       this.state.currentNumPage = Number(event.target.textContent) - 1;
-      // this.getMovisPerPage(this.state.currentNumPage);
-      await getNewMovi(this.state.currentNumPage + 1);
+      await getNewMovi(this.qwery, this.state.currentNumPage + 1);
+      this.loadDataForRender();
+
       this.render();
     }
   }
@@ -66,6 +85,7 @@ export default class MyPagimation {
   }
   async nextPage() {
     // console.log(this);
+
     this.state.currentNumPage += 1;
 
     if (this.state.currentNumPage > this.state.numOfPages - 1) {
@@ -73,7 +93,8 @@ export default class MyPagimation {
       return;
     }
     // this.getMovisPerPage(this.state.currentNumPage);
-    await getNewMovi(this.state.currentNumPage + 1);
+    await getNewMovi(this.qwery, this.state.currentNumPage + 1);
+    this.loadDataForRender();
 
     this.render();
   }
@@ -84,47 +105,39 @@ export default class MyPagimation {
       this.state.currentNumPage = 0;
       return;
     }
-    // this.getMovisPerPage(this.state.currentNumPage);
-    await getNewMovi(this.state.currentNumPage + 1);
+    await getNewMovi(this.qwery, this.state.currentNumPage + 1);
+    this.loadDataForRender();
 
     this.render();
   }
 
   render() {
     if (this.callGoTo) {
-      this.pgContainer.removeEventListener('click', this.callGoTo);
+      this.paginationContainer.removeEventListener('click', this.callGoTo);
+      this.paginationContainerMobile.removeEventListener(
+        'click',
+        this.callGoTo
+      );
     }
 
-    // const currentDataToRender = this.datatableUsers.slice(
-    //   this.state.currentNumPage * this.state.postOnPerPage,
-    //   (this.state.currentNumPage + 1) * this.state.postOnPerPage
-    // );
-    console.log('before currenr', load(CURRENTFILMS_LOCALSTORAGE_KEY));
     const currentDataToRender = load(CURRENTFILMS_LOCALSTORAGE_KEY);
-
-    const dataTable = this.markap(currentDataToRender);
-    const navigation = this.paginationButtons();
+    const dataTable = renderCards(currentDataToRender);
+    const { navigation, navigationMobile } = this.paginationButtons();
 
     this.tbody.innerHTML = '';
-    this.pgContainer.innerHTML = '';
+    this.paginationContainer.innerHTML = '';
+    this.paginationContainerMobile.innerHTML = '';
 
     this.tbody.insertAdjacentHTML('beforeend', dataTable);
-    this.pgContainer.insertAdjacentHTML('beforeend', navigation);
-    this.pgContainer.removeEventListener('click', this.goToPage.bind(this));
+    this.paginationContainer.insertAdjacentHTML('beforeend', navigation);
+    this.paginationContainerMobile.insertAdjacentHTML(
+      'beforeend',
+      navigationMobile
+    );
+
     this.callGoTo = this.goToPage.bind(this);
-
-    this.pgContainer.addEventListener('click', this.callGoTo);
-  }
-  // temp(e) {
-  //   console.log(e);
-  //     this.goToPage(e);
-
-  // }
-  
-
-  markap(array) {
-    const result = renderCards(array);
-    return result;
+    this.paginationContainer.addEventListener('click', this.callGoTo);
+    this.paginationContainerMobile.addEventListener('click', this.callGoTo);
   }
 
   paginationButtons() {
@@ -132,85 +145,92 @@ export default class MyPagimation {
     let dotsLeft = '... ';
     let dotsRight = ' ...';
     const { currentNumPage, numOfPages, numOfButtons } = this.state;
-    let tempNumberOfButtons = [...numOfButtons];
+    let HTMLNumberOfButtonsDesktop = [...numOfButtons];
+    let HTMLNumberOfButtonsMobile = [...numOfButtons];
+
     const currentNumPage_1 = currentNumPage + 1;
 
-    if (this.mobileDots === true) {
-      if (numOfButtons.length < 6) {
-        tempNumberOfButtons = numOfButtons;
-        alert('1');
-      } else if (currentNumPage_1 < 3) {
-        const sliced1 = [1, 2, 3, 4, 5];
-        const sliced2 = numOfButtons.slice(
-          currentNumPage_1 + 2,
-          currentNumPage_1 + 5
-        );
-        // sliced1 (5, 5+1) -> [6]
-        tempNumberOfButtons = [...sliced1];
-      } else if (currentNumPage_1 > numOfButtons.length - 3) {
-        const sliced1 = numOfButtons.slice(numOfButtons.length - 5);
-        tempNumberOfButtons = [...sliced1];
-      } else {
-        const sliced1 = numOfButtons.slice(
-          currentNumPage_1 - 3,
-          currentNumPage_1
-        );
-        // sliced1 (5-2, 5) -> [4,5]
-        const sliced2 = numOfButtons.slice(
-          currentNumPage_1,
-          currentNumPage_1 + 2
-        );
-        // sliced1 (5, 5+1) -> [6]
-        tempNumberOfButtons = [...sliced1, ...sliced2];
-      }
+    if (numOfButtons.length < 6) {
+      HTMLNumberOfButtonsMobile = numOfButtons;
+    } else if (currentNumPage_1 < 3) {
+      const sliced1 = [1, 2, 3, 4, 5];
+      const sliced2 = numOfButtons.slice(
+        currentNumPage_1 + 2,
+        currentNumPage_1 + 5
+      );
+      // sliced1 (5, 5+1) -> [6]
+      HTMLNumberOfButtonsMobile = [...sliced1];
+    } else if (currentNumPage_1 > numOfButtons.length - 3) {
+      const sliced1 = numOfButtons.slice(numOfButtons.length - 5);
+      HTMLNumberOfButtonsMobile = [...sliced1];
     } else {
-      if (numOfButtons.length < 10) {
-        tempNumberOfButtons = numOfButtons;
-        alert('1');
-      } else if (currentNumPage_1 >= 1 && currentNumPage_1 <= 3) {
-        const sliced = numOfButtons.slice(0, 7);
-        tempNumberOfButtons = [...sliced, dotsInitial, numOfButtons.length];
-      } else if (currentNumPage_1 === 4) {
-        const sliced = numOfButtons.slice(0, 7);
-        tempNumberOfButtons = [...sliced, dotsInitial, numOfButtons.length];
-      } else if (
-        currentNumPage_1 > 4 &&
-        currentNumPage_1 < numOfButtons.length - 2
-      ) {
-        // from 5 to 8 -> (10 - 2)
-        const sliced1 = numOfButtons.slice(
-          currentNumPage_1 - 3,
-          currentNumPage_1
-        );
-        // sliced1 (5-2, 5) -> [4,5]
-        const sliced2 = numOfButtons.slice(
-          currentNumPage_1,
-          currentNumPage_1 + 2
-        );
-        // sliced1 (5, 5+1) -> [6]
-        tempNumberOfButtons = [
-          1,
-          dotsLeft,
-          ...sliced1,
-          ...sliced2,
-          dotsRight,
-          numOfButtons.length,
-        ];
-        // [1, '...', 4, 5, 6, '...', 10]
-      } else if (currentNumPage_1 > numOfButtons.length - 4) {
-        // > 7
-        const sliced = numOfButtons.slice(numOfButtons.length - 7);
-        // slice(10-4)
-        tempNumberOfButtons = [1, dotsLeft, ...sliced];
-      }
+      const sliced1 = numOfButtons.slice(
+        currentNumPage_1 - 3,
+        currentNumPage_1
+      );
+      // sliced1 (5-2, 5) -> [4,5]
+      const sliced2 = numOfButtons.slice(
+        currentNumPage_1,
+        currentNumPage_1 + 2
+      );
+      // sliced1 (5, 5+1) -> [6]
+      HTMLNumberOfButtonsMobile = [...sliced1, ...sliced2];
     }
-    console.log(tempNumberOfButtons);
+
+    if (numOfButtons.length < 10) {
+      HTMLNumberOfButtonsDesktop = numOfButtons;
+    } else if (currentNumPage_1 >= 1 && currentNumPage_1 <= 3) {
+      const sliced = numOfButtons.slice(0, 7);
+      HTMLNumberOfButtonsDesktop = [
+        ...sliced,
+        dotsInitial,
+        numOfButtons.length,
+      ];
+    } else if (currentNumPage_1 === 4) {
+      const sliced = numOfButtons.slice(0, 7);
+      HTMLNumberOfButtonsDesktop = [
+        ...sliced,
+        dotsInitial,
+        numOfButtons.length,
+      ];
+    } else if (
+      currentNumPage_1 > 4 &&
+      currentNumPage_1 < numOfButtons.length - 2
+    ) {
+      // from 5 to 8 -> (10 - 2)
+      const sliced1 = numOfButtons.slice(
+        currentNumPage_1 - 3,
+        currentNumPage_1
+      );
+      // sliced1 (5-2, 5) -> [4,5]
+      const sliced2 = numOfButtons.slice(
+        currentNumPage_1,
+        currentNumPage_1 + 2
+      );
+      // sliced1 (5, 5+1) -> [6]
+      HTMLNumberOfButtonsDesktop = [
+        1,
+        dotsLeft,
+        ...sliced1,
+        ...sliced2,
+        dotsRight,
+        numOfButtons.length,
+      ];
+      // [1, '...', 4, 5, 6, '...', 10]
+    } else if (currentNumPage_1 > numOfButtons.length - 4) {
+      // > 7
+      const sliced = numOfButtons.slice(numOfButtons.length - 7);
+      // slice(10-4)
+      HTMLNumberOfButtonsDesktop = [1, dotsLeft, ...sliced];
+    }
+
+    console.log(HTMLNumberOfButtonsDesktop);
     const prevBTN = `    <li  class= "dt-item ${
       currentNumPage_1 === 1 ? 'disabled' : ''
     }" data-action ="-1"
                       >
                         <a class="dt-link js-next-page"data-action="-1">
-                          Prev
+                          
                         </a>
                       </li>`;
     const nextBTN = `    <li class="dt-item  ${
@@ -218,12 +238,11 @@ export default class MyPagimation {
     }" data-action ="+1"
                       >
                         <a class="dt-link" data-action="+1">
-                          Next
+                          
                         </a>
                       </li>`;
-    const result = tempNumberOfButtons
-      .map(btn => {
-        return `
+    const result = HTMLNumberOfButtonsDesktop.map(btn => {
+      return `
              <li class= "dt-item ${
                this.state.currentNumPage === btn - 1 ? 'active' : ''
              }">
@@ -232,20 +251,23 @@ export default class MyPagimation {
                         </a>
                       </li>
 `;
-      })
-      .join('');
+    }).join('');
 
-    return [prevBTN, result, nextBTN].join('');
+    const resultMobile = HTMLNumberOfButtonsMobile.map(btn => {
+      return `
+             <li class= "dt-item ${
+               this.state.currentNumPage === btn - 1 ? 'active' : ''
+             }">
+                        <a class="dt-link">
+                          ${btn}
+                        </a>
+                      </li>
+`;
+    }).join('');
+
+    return {
+      navigation: [prevBTN, result, nextBTN].join(''),
+      navigationMobile: [prevBTN, resultMobile, nextBTN].join(''),
+    };
   }
 }
-
-// const slider = new MyPagimation('js-tbody', 'js-pg-container', datatableUsers);
-// slider.inicialization();
-// slider.render();
-
-// const tbody = document.querySelector('.js-tbody');
-// const plus = document.querySelector('.js-plus-pag');
-// const minus = document.querySelector('.js-minus-pag');
-
-// plus.addEventListener('click', () => slider.nextPage());
-// minus.addEventListener('click', () => slider.previusPage());

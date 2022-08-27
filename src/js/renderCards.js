@@ -1,4 +1,10 @@
+
 const refs = { moviesList: document.querySelector('.movies') };
+
+// import { load, GENREFILMS_LOCALSTORAGE_KEY } from './storage/storage';
+
+// const refs = { moviesList: document.querySelector('.movies') };
+
 
 export function renderCards(data) {
   const movieCardMarkup = data
@@ -33,5 +39,5 @@ export function renderCards(data) {
     .join('');
   return movieCardMarkup;
 
-  refs.moviesList.insertAdjacentHTML('beforeend', movieCardMarkup);
+  // refs.moviesList.insertAdjacentHTML('beforeend', movieCardMarkup);
 }
