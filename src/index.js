@@ -4,7 +4,7 @@ import './js/team-modal'; // * скріпт модалки про команду
 //import './js/_sing-in-up-modal'; // * скрипт на відкриття модалки для реєстрації
 import { themoviedbAPI } from './js/api/API';
 
-import './js/popup';
+import { boboilHandler } from './js/popup';
 
 import MyPagimation from './js/Pagination';
 
