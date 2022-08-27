@@ -147,10 +147,6 @@ a:focus {
   width: 50px;
 }
 
-.movie-card__title {
-  font-size: 10px;
-}
-
 .js-pg-container {
   display: none;
   @include mq(tablet) {

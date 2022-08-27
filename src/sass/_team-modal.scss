@@ -1,0 +1,163 @@
+.overlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 300ms ease-in-out;
+
+  &--active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.team-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(85%);
+  padding-top: 25px;
+  background-color: #ffffff;
+  opacity: 0;
+  visibility: hidden;
+
+  &--active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @media screen and (min-width: 1200px) {
+    padding-bottom: 25px;
+  }
+}
+
+.team-modal__icon {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 30px;
+  height: 30px;
+  color: #000000;
+  transition: color 300ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    color: #FF6B01;
+  }
+}
+
+.team-modal__title {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.15;
+  text-align: center;
+  text-transform: uppercase;
+
+  @media screen and (min-width: 1200px) {
+    margin-bottom: 20px;
+    font-size: 30px;
+    line-height: 1.17;
+  }
+}
+
+// TODO потім видалити зайву розмітку
+.team-modal__list {
+  display: none;
+}
+
+.team-modal__item {
+  max-width: 350px;
+  border-radius: 5px;
+  padding: 25px;
+
+  @media screen and (min-width: 1200px) {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  }
+}
+
+.team-modal__img {
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background-color: gray;
+}
+
+.team-modal__subtitle {
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.15;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.socials__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  transition: border-color 300ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    & .socials__icon {
+      color: #FF6B01;
+    }
+  }
+}
+
+.socials__icon {
+  width: 30px;
+  height: 30px;
+  color: rgba(0, 0, 0, 0.5);
+  transition: color 300ms ease-in-out;
+}
+
+.swiper {
+  & .team-modal {
+    max-width: 350px;
+
+    @media screen and (min-width: 768px) {
+      max-width: 500px;
+    }
+  }
+
+  & .team-modal__item {
+    max-width: 350px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #ffffff;
+
+    @media screen and (min-width: 450px) {
+      padding-bottom: 50px;
+    }
+
+    @media screen and (min-width: 1200px) {
+      margin-bottom: 50px;
+    }
+  }
+
+  .swiper-pagination-bullet-active {
+    background-color: #FF6B01;
+  }
+
+  @media screen and (min-width: 1200px) {
+    // display: none;
+  }
+}
