@@ -1,4 +1,5 @@
 import './js/team-modal'; // * скріпт модалки про команду
+import './js/_sing-in-up-modal' // * скрипт на відкриття модалки для реєстрації
 import { themoviedbAPI } from './js/api/API';
 
 import MyPagimation from './js/Pagination';
