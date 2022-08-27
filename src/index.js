@@ -1,3 +1,4 @@
+import './js/team-modal'; // * скріпт модалки про команду
 import { themoviedbAPI } from './js/api/API';
 import {
   save,
@@ -27,7 +28,7 @@ themoviedb
 
 themoviedb
   .getQueryMovies('Top Gun: Maverick', 1)
-  .then(data => {})
+  .then(data => { })
   .catch(error => console.log(error));
 
 themoviedb.getMovieById(438148);
