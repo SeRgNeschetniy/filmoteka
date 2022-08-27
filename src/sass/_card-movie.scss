@@ -31,7 +31,7 @@
         width: calc((100% - 2*16px)/3);
     }
 
-    &-img {
+    &__img {
         margin-bottom: 8px;
         border-radius: 5px;
 
@@ -39,7 +39,7 @@
             margin-bottom: 12px;
         }
     }
-    &-title {
+    &__title {
         font-weight: 500;
         font-size: 12px;
         line-height: 1.33;
@@ -51,7 +51,7 @@
             line-height: 1.2;
         }
     }
-    &-details {
+    &__details {
         display: flex;
 
         font-weight: 500;
@@ -64,7 +64,7 @@
             line-height: 1.2;
         }
     }
-    &-rating {
+    &__rating {
         display: flex;
         justify-content: center;
         align-items: center;
