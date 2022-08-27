@@ -11,7 +11,9 @@ export class themoviedbAPI {
     const url = `${this.#BASE_URL}/trending/movie/week?api_key=${
       this.#API_KEY
     }&page=${page}`;
+
     const response = await axios.get(url);
+
     console.log(response.data);
 
     this.setTotal_pages(response.data.total_pages);
@@ -49,6 +51,18 @@ export class themoviedbAPI {
     const response = await axios.get(url);
     console.log(response.data.genres);
     return response.data.genres;
+  }
+
+  async getMovies({ qwery, num }) {
+    console.log(`qwery, page ${qwery} ${num}`);
+    if (!num) {
+      num = 1;
+    }
+    if (qwery) {
+      return await this.getQueryMovies(qwery, num);
+      _;
+    }
+    return await this.getTrendMovies(num);
   }
 
   setTotal_pages(newTotal_pages) {
