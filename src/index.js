@@ -1,8 +1,10 @@
-import { } from './js/preloader'
-import './js/auth'; // * authentification
+import {} from './js/preloader';
+//import './js/auth'; // * authentification
 import './js/team-modal'; // * скріпт модалки про команду
-import './js/_sing-in-up-modal' // * скрипт на відкриття модалки для реєстрації
+//import './js/_sing-in-up-modal'; // * скрипт на відкриття модалки для реєстрації
 import { themoviedbAPI } from './js/api/API';
+
+import './js/popup';
 
 import MyPagimation from './js/Pagination';
 
@@ -56,7 +58,7 @@ themoviedb
 
 themoviedb
   .getQueryMovies('Top Gun: Maverick', 1)
-  .then(data => { })
+  .then(data => {})
   .catch(error => console.log(error));
 
 themoviedb.getMovieById(438148);
@@ -134,6 +136,7 @@ export async function getNewMovi(qwery, num) {
     qwery: qwery,
     num: num,
   };
+
   await themoviedb
     .getMovies(option)
     .then(data => {
@@ -149,4 +152,9 @@ refs.form.addEventListener('submit', e => {
   e.preventDefault();
   save('qwery', refs.input.value);
   slider.inicialization();
+});
+
+refs.moviesList.addEventListener('click', e => {
+  e.preventDefault();
+  boboilHandler(e.target);
 });
