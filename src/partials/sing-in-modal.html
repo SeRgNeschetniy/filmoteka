@@ -6,13 +6,13 @@
           </svg>
         </button>
         <p class="loginModalText">Sing in</p>
-        <form action="submit" method="post" class="loginForm">
+        <form action="submit" method="post" class="loginForm" id="form">
           <span class="loginFormText">Email</span>
           <div class="loginFormUnit">
             <input
-              type="text"
+              type="email"
               name="name"
-              id="loginFormName"
+              id="loginFormEmail"
               class="loginFormInput"
               placeholder=" "
             />
@@ -29,7 +29,7 @@
             <span class="login-error"></span>
           </div>
           <div class="buttonLocation">
-            <button class="logFormButtonOne" type="submit">Log In</button>
+            <button class="logFormButtonOne" type="button" id="submitData">Log In</button>
           </div>
         
         </form>
