@@ -1,3 +1,4 @@
+@import './preloader';
 @import '../sass/utils/mixin';
 @import '../sass/utils/vars';
 @import './common';
@@ -8,4 +9,5 @@
 @import './pagination';
 @import './modal';
 @import './sing-in-modal';
-@import './sing-up-modal'
+@import './sing-up-modal';
+@import './sing-in-up-modal';
