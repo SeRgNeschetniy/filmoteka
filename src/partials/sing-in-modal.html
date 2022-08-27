@@ -1,6 +1,6 @@
-<div class="loginBackdrop is-hidden ">
-      <div class="loginModal">
-        <button class="loginBtnClose ">
+ <div class="loginBackdrop is-hidden js-loginBackdrop">
+      <div class="loginModal js-loginModal">
+        <button class="loginBtnClose js-loginBtnClose">
           <svg class="loginBtnCloseIcon">
             <use href="./images/symbol-defs.svg#icon-close"></use>
           </svg>
@@ -24,12 +24,14 @@
               name="password"
               id="loginFormPassword"
               class="loginFormInput"
-              placeholder=""
+              placeholder=" "
             />
+            <span class="login-error"></span>
           </div>
           <div class="buttonLocation">
             <button class="logFormButtonOne" type="submit">Log In</button>
-          </div>        
+          </div>
+        
         </form>
-         </div>
+      </div>
     </div>

@@ -1,46 +1,50 @@
 
-<div class="loginBackdrop is-hidden ">
-      <div class="loginModal">
-        <button class="loginBtnClose ">
-          <svg class="loginBtnCloseIcon">
+<div class="registerBackdrop is-hidden js-registerBackdrop">
+      <div class="registerModal js-registerModal">
+        <button class="registerBtnClose js-registerBtnClose">
+          <svg class="registerBtnCloseIcon">
             <use href="./images/symbol-defs.svg#icon-close"></use>
           </svg>
         </button>
-        <p class="loginModalText">Sing Up </p>
-        <form action="submit" method="post" class="loginForm">
-          <span class="loginFormText">Email</span>
-          <div class="loginFormUnit">
+        <p class="registerModalText">Sing up</p>
+        <form action="submit" method="post" class="registerForm">
+          <span class="registerFormText">Email</span>
+          <div class="registerFormUnit">
             <input
               type="text"
               name="name"
-              id="loginFormName"
-              class="loginFormInput"
+              id="registerFormName"
+              class="registerFormInput"
               placeholder=" "
             />
           </div>
-          <span class="loginFormText">Password</span>
-          <div class="loginFormUnit">
+          <span class="registerFormText">Password</span>
+          <div class="registerFormUnit">
             <input
               type="password"
               name="password"
-              id="loginFormPassword"
-              class="loginFormInput"
-              placeholder=""
+              id="registerFormPassword"
+              class="registerFormInput"
+              placeholder=" "
             />
+            <span class="reg-error"></span>
           </div>
-          <span class="loginFormText">Confirm password</span>
-          <div class="loginFormUnit">
+          <span class="registerFormText">Confirm password</span>
+          <div class="registerFormUnit">
             <input
               type="password"
               name="password"
-              id="loginFormPassword"
-              class="loginFormInput"
-              placeholder=""
+              id="registerFormPassword"
+              class="registerFormInput"
+              placeholder=" "
             />
+            <span class="reg-error"></span>
           </div>
           <div class="buttonLocation">
-            <button class="logFormButtonOne" type="submit">Log In</button>
-          </div>        
+            <button class="logFormButtonOne js-btn-reg" type="submit">
+              Sing up
+            </button>
+          </div>
         </form>
-         </div>
+      </div>
     </div>
