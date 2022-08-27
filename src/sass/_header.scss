@@ -35,10 +35,10 @@
 
 .header__container {
   padding-top: 42px;
-  padding-bottom: 92px;
+  padding-bottom: 76px;
   @media screen and (min-width: 768px) {
     padding-top: 47px;
-    padding-bottom: 80px;
+    padding-bottom: 60px;
   }
 }
 
@@ -73,6 +73,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
 }
 
 .header-nav__item {
@@ -85,17 +86,16 @@
   &:not(:last-child) {
     margin-right: 39px;
   }
+ 
 }
 .header-nav__link {
   padding: 12px 0;
   position: relative;
-  transition: font-size 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    line-height 250ms cubic-bezier(0.4, 0, 0.2, 1);
-
+  color: $white-text-color;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);   
   &:focus,
   &:hover {
-    font-size: 14px;
-    line-height: 1.71;
+    color: $secondary-dark-text-color;
   }
   &--current::after {
     content: '';
@@ -105,7 +105,11 @@
     position: absolute;
     bottom: 10px;
     left: 0;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
+&--current:hover::after{
+  background-color: $white-text-color;
+}
 }
 .header-search {
   position: relative;
@@ -117,7 +121,11 @@
     position: absolute;
     bottom: 0;
     left: 0;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
+    &--current:hover::after {
+      background-color:$red-accent-color;
+    }
   @media screen and (min-width: 768px) {
     width: 336px;
     margin-left: auto;
@@ -141,25 +149,44 @@
   outline: transparent;
   background: transparent;
   width: 100%;
+  padding: 4px;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.16;
   color: $white-text-color;
-  transition: font-size 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    line-height 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &::placeholder {
     color: $white-text-color;
   }
   &:hover {
-    font-size: 18px;
-    line-height: 1.71;
     outline: transparent;
   }
+   
 }
 
 .header-search__btn {
   border: none;
   background: transparent;
+  padding: 4px;
+  &:hover svg{
+      fill: transparent;
+    }
+}
+.header__massage-error {
+  color: $red-accent-color;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.14;
+  margin-top: 16px;
+
+  @media screen and (min-width: 768px) {
+    text-align: center;
+    margin-top: 20px;
+  }
+}
+
+.hidden-message-js {
+  visibility: hidden;
 }
 
 // header-library
