@@ -7,13 +7,13 @@
           </svg>
         </button>
         <p class="registerModalText">Sing up</p>
-        <form action="submit" method="post" class="registerForm">
+        <form action="submit" method="post" class="registerForm" id="form">
           <span class="registerFormText">Email</span>
           <div class="registerFormUnit">
             <input
-              type="text"
+              type="email"
               name="name"
-              id="registerFormName"
+              id="registerFormEmail"
               class="registerFormInput"
               placeholder=" "
             />
@@ -41,7 +41,7 @@
             <span class="reg-error"></span>
           </div>
           <div class="buttonLocation">
-            <button class="logFormButtonOne js-btn-reg" type="submit">
+            <button class="logFormButtonOne js-btn-reg" type="button" id="submitData">
               Sing up
             </button>
           </div>
