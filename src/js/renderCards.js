@@ -1,14 +1,11 @@
-
+import { getGenresById } from './getGenresById';
 const refs = { moviesList: document.querySelector('.movies') };
-
-// import { load, GENREFILMS_LOCALSTORAGE_KEY } from './storage/storage';
 
 // const refs = { moviesList: document.querySelector('.movies') };
 
-
 export function renderCards(data) {
   const movieCardMarkup = data
-    ?.map(
+    .map(
       ({
         id,
         title,
@@ -20,6 +17,7 @@ export function renderCards(data) {
         vote_average,
         genre_ids,
       }) => {
+        const genresNames = getGenresById(genre_ids);
         return `<li class="movie-card" data-id="${id}">
   <img
     src="https://image.tmdb.org/t/p/w400/${poster_path}"
@@ -27,7 +25,7 @@ export function renderCards(data) {
   <h2 class="movie-card__title">${title}</h2>
   <div class="movie-card__details">
     <p>
-      <span class="movie-card__genres">Genres</span>
+      <span class="movie-card__genres">${genresNames}</span>
       <span> | </span>
       <span class="movie-card__year">${release_date.slice(0, 4)}</span>
     </p>
