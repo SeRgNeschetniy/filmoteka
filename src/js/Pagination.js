@@ -49,7 +49,7 @@ export default class MyPagimation {
 
   async inicialization() {
     this.reset();
-    await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);
+    // await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);-----------------------------------
     await this.getNewFilm(this.qwery, this.state.currentNumPage + 1);
     this.loadDataForRender();
 
@@ -83,7 +83,7 @@ export default class MyPagimation {
     if (Number(event.target.textContent)) {
       this.state.currentNumPage = Number(event.target.textContent) - 1;
 
-      await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);
+      // await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);-------------------------------------------
 
       await this.getNewFilm(this.qwery, this.state.currentNumPage + 1);
 
@@ -108,7 +108,7 @@ export default class MyPagimation {
     }
     // this.getMovisPerPage(this.state.currentNumPage);
 
-    await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);
+    // await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);-------------------------------------------
 
     await this.getNewFilm(this.qwery, this.state.currentNumPage + 1);
 
@@ -124,7 +124,7 @@ export default class MyPagimation {
       return;
     }
 
-    await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);
+    // await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);-------------------------------------------
 
     await this.getNewFilm(this.qwery, this.state.currentNumPage + 1);
 
