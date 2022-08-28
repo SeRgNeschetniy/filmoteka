@@ -6,7 +6,7 @@ const refs = { moviesList: document.querySelector('.movies') };
 
 export function renderCards(data) {
   const movieCardMarkup = data
-    .map(
+    ?.map(
       ({
         id,
         title,
@@ -19,9 +19,9 @@ export function renderCards(data) {
         genre_ids,
       }) => {
         const genresNames = getGenresById(genre_ids);
-        if (!release_date) {
-          release_date = 'IIII';
-        }
+        // if (!release_date) {
+        //   release_date = 'IIII';
+        // }
         return `<li class="movie-card" data-id="${id}">
   <div class="img-container">
   ${
