@@ -54,7 +54,8 @@ const modalMoviemarkup = ({
   adult,
 }) => {
   const genresNames = getGenresById(genre_ids);
-  return ` <div class="close-btn">  
+  return `
+  <div class="close-btn">  
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="14"
@@ -75,15 +76,15 @@ const modalMoviemarkup = ({
         <h2 class="container_title">${original_title}</h2>
         <ul class="options">
           <li class="option">
-            Vote / Votes<span class="option_item"
-              ><span class="option_item--vote">${vote_average}</span> / <span class="option_item--votes">${vote_count}</span
+            Vote / Votes<span class="option_item">
+              <span class="option_item--vote">${vote_average}</span> / <span class="option_item--votes">${vote_count}</span
             >
           </li>
           <li class="option">
             Popularity<span class="option_item">${popularity}</span>
           </li>
           <li class="option">
-            Original Title<span class="option_item">${original_title} </span>
+            Original Title<span class="option_item">${original_title}</span>
           </li>
           <li class="option">Genre<span class="option_item">${genresNames} </span></li>
         </ul>
@@ -95,5 +96,7 @@ const modalMoviemarkup = ({
         <button class="btn1" type="button" data-id=${id}>add to Watched</button>
         <button class="btn2" type="button" data-id=${id}>add to queue</button>
       </div>
-      </div>`;
+      </div>
+
+  `;
 };
