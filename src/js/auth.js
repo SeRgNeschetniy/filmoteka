@@ -48,7 +48,7 @@ refs.submitData.addEventListener('click', e => {
           // Data saved successfully!
         })
         .catch(error => {
-          Notify(error);
+          Notify.failure(error);
           // The write failed...
         });
     })
@@ -80,7 +80,7 @@ refs.logInData.addEventListener('click', (e) => {
           // Data saved successfully!
         })
         .catch(error => {
-          Notify(error);
+          Notify.failure(error);
           // The write failed...
         });
     })
