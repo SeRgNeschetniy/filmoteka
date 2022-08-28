@@ -139,9 +139,12 @@ export async function getNewMovi(qwery, num) {
     .then(data => {
       save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
       save('total_pages', data.total_pages);
-  if (data.total_pages===0&&refs.errorText.classList.contains('hidden-message-js')) {
-    refs.errorText.classList.remove('hidden-message-js');
-  }
+      if (
+        data.total_pages === 0 &&
+        refs.errorText.classList.contains('hidden-message-js')
+      ) {
+        refs.errorText.classList.remove('hidden-message-js');
+      }
       console.log(`num1 = ${num}`);
     })
     .catch(error => {
