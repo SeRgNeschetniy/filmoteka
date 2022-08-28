@@ -1,4 +1,12 @@
+import {} from './js/preloader';
+
+import './js/auth'; // * authentification
+import './js/team-modal'; // * скріпт модалки про команду
+import './js/_sing-in-up-modal'; // * скрипт на відкриття модалки для реєстрації
+
 import { themoviedbAPI } from './js/api/API';
+
+import { boboilHandler } from './js/popup';
 
 import MyPagimation from './js/Pagination';
 
@@ -17,10 +25,14 @@ const refs = {
   moviesList: document.querySelector('.movies'),
   form: document.querySelector('.header-search__form'),
   input: document.querySelector('.header-search__box'),
+
   libraryMoviesList: document.querySelector('.library-movies'),
   libraryWatchedBtn: document.querySelector('button[data-watched]'),
   libraryQueueBtn: document.querySelector('button[data-queue]'),
   movieCardImg: document.querySelector('.movie-card-img'),
+
+  errorText: document.querySelector('.hidden-message-js'),
+
 };
 
 save('qwery', '');
@@ -120,21 +132,45 @@ export const createMovieCards = data => {
     .join('');
 };
 
+const option = {
+  cardContainer: 'movies',
+  // cardContainerMobile:'movies-mobile',
+  paginationContainer: 'js-pg-container',
+  paginationContainerMobile: 'js-pg-container-mobile',
+  mobileDots: false,
+  getNewFilm: getNewMovi,
+};
+
+const slider = new MyPagimation(option);
+slider.inicialization();
+
+
 export async function getNewMovi(qwery, num, localKey) {
   const option = {
     qwery: qwery,
     num: num,
     localKey: localKey,
   };
+
   await themoviedb
     .getMovies(option)
     .then(data => {
       save(localKey, data.results);
       save('total_pages', data.total_pages);
-
+      if (
+        data.total_pages === 0 &&
+        refs.errorText.classList.contains('hidden-message-js')
+      ) {
+        refs.errorText.classList.remove('hidden-message-js');
+      }
       console.log(`num1 = ${num}`);
     })
-    .catch(error => console.log(error, `ERRRRR`));
+    .catch(error => {
+      console.log(error, `ERRRRR`);
+      if (refs.errorText.classList.contains('hidden-message-js')) {
+        refs.errorText.classList.remove('hidden-message-js');
+      }
+    });
 }
 if (refs.form) {
   refs.form.addEventListener('submit', e => {
@@ -142,6 +178,7 @@ if (refs.form) {
     save('qwery', refs.input.value);
     slider.inicialization();
   });
+
 
   const option = {
     cardContainer: 'movies',
@@ -197,3 +234,18 @@ function onLibraryBtnClick(currentKey) {
     refs.libraryMoviesList.insertAdjacentHTML('beforeend', renderCards(load(currentKey)));
     console.log(load(currentKey));
   }
+
+refs.form.addEventListener('submit', e => {
+  if (!refs.errorText.classList.contains('hidden-message-js')) {
+    refs.errorText.classList.add('hidden-message-js');
+  }
+  e.preventDefault();
+  save('qwery', refs.input.value);
+  slider.inicialization();
+});
+
+refs.moviesList.addEventListener('click', e => {
+  e.preventDefault();
+  boboilHandler(e.target);
+});
+

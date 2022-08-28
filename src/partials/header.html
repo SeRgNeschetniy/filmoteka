@@ -2,17 +2,21 @@
   <div class="container header__container">
     <nav class="header__site-nav">
       <a class="header-logo" href="./index.html">
-        <svg  class="header-logo__svg"width="24" height="24">
+        <svg class="header-logo__svg" width="24" height="24">
           <use href="./images/symbol-defs.svg#icon-film"></use>
         </svg>
         <p class="header-logo__text">Filmoteka</p>
       </a>
       <ul class="header-nav">
         <li class="header-nav__item">
-          <a class="header-nav__link header-nav__link--current" href="./index.html">Home</a>
+          <a
+            class="header-nav__link header-nav__link--current"
+            href="./index.html"
+            >Home</a
+          >
         </li>
         <li class="header-nav__item">
-          <a class="header-nav__link" href="./library.html">my  library</a>
+          <a class="header-nav__link" href="./library.html">my library</a>
         </li>
       </ul>
     </nav>
@@ -32,5 +36,25 @@
         </button>
       </form>
     </div>
+    <p class="header__massage-error hidden-message-js">
+      Search result not successful. Enter the correct movie name and
+    </p>
+    <div class="authorization">
+      <ul class="authorization__list">
+      <li class="authorization__item">
+        <a class="authorization__link js-SignUp" href="#">
+          <svg class="authorization__icon" width="12" height="12">
+            <use href="./images/symbol-defs.svg#icon-user"></use>
+          </svg>Sing Up</a>
+      </li>
+      <li class="authorization__item">
+        <a class="authorization__link js-SignIn" href="#">
+          <svg class="authorization__icon" width="12" height="12">
+            <use href="./images/symbol-defs.svg#icon-user-check"></use>
+          </svg>Sing in</a>
+      </li>
+    </ul>
+    </div>
+    
   </div>
 </header>

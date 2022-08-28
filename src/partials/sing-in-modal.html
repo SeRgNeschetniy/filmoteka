@@ -1,0 +1,37 @@
+ <div class="loginBackdrop is-hidden js-loginBackdrop">
+      <div class="loginModal js-loginModal">
+        <button class="loginBtnClose js-loginBtnClose">
+          <svg class="loginBtnCloseIcon">
+            <use href="./images/symbol-defs.svg#icon-close"></use>
+          </svg>
+        </button>
+        <p class="loginModalText">Sing in</p>
+        <form action="submit" method="post" class="loginForm" id="form">
+          <span class="loginFormText">Email</span>
+          <div class="loginFormUnit">
+            <input
+              type="email"
+              name="name"
+              id="loginFormEmail"
+              class="loginFormInput"
+              placeholder=" "
+            />
+          </div>
+          <span class="loginFormText">Password</span>
+          <div class="loginFormUnit">
+            <input
+              type="password"
+              name="password"
+              id="loginFormPassword"
+              class="loginFormInput"
+              placeholder=" "
+            />
+            <span class="login-error"></span>
+          </div>
+          <div class="buttonLocation">
+            <button class="logFormButtonOne" type="button" id="submitData">Log In</button>
+          </div>
+        
+        </form>
+      </div>
+    </div>
