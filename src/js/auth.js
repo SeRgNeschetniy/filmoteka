@@ -8,7 +8,7 @@ import {
 } from 'firebase/auth';
 import { getDatabase, ref, set, update } from 'firebase/database';
 
-
+import { save } from './storage/storage.js'
 import Notiflix from 'notiflix';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
@@ -27,9 +27,11 @@ const auth = getAuth(app);
 const database = getDatabase(app);
 
 const refs = {
-submitData: document.querySelector('#submitData'),
-logInData: document.querySelector('#logInData'),
+  submitData: document.querySelector('#submitData'),
+  logInData: document.querySelector('#logInData'),
+  logOutData: document.querySelector('#logOutData')
 }
+
 
 if (refs.submitData) {
   refs.submitData.addEventListener('click', onSubmitData);
@@ -52,22 +54,20 @@ function onSubmitData(e) {
           // Data saved successfully!
         })
         .catch(error => {
-          Notify.failure(error);
+          Notify.failure('Something went wrong');
           // The write failed...
         });
     })
     .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      Notify.failure('Authorization failed');// ..
+      Notify.failure('User is currently exists');// ..
     });
   
 };
-
 if (refs.logInData) {
   refs.logInData.addEventListener('click', onLoginData);
-}
-
+} 
 function onLoginData(e) {
   e.preventDefault();
 
@@ -77,8 +77,12 @@ function onLoginData(e) {
   signInWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       const user = userCredential.user;
-      Notify.success('successfully logged');
+
+      
+
+      Notify.success('Successfully logged in');
       document.getElementById('logForm').reset();
+
 
       const logDate = new Date();
 
@@ -89,25 +93,36 @@ function onLoginData(e) {
           // Data saved successfully!
         })
         .catch(error => {
-          Notify.failure(error);
+          Notify.failure('Something went wrong')
           // The write failed...
         });
     })
     .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      Notify.failure('Login failed')
+      Notify.failure('Login failed, check email or password')
     });
 };
-// logOutData.addEventListener('click', (e) => {
+// if (refs.logOutData) {
+//   refs.logOutData.addEventListener('click', onLogOutData);
+// }
+// function onLogOutData(e) {
 //   e.preventDefault();
 //   signOut(auth).then(() => {
-//     alert('sign out done')
+//     Notify.success('Successfully logged out')
 //   }).catch((error) => {
-//     alert('oops, something went wrong')
+//     Notify.failure('Oops, something went wrong...')
 
 //   });
-// })
+  
+
+
+
+
+
+
+
+
 
 // function Validation() {
 //   let nameregex = /[a-zA-Z]+/;
