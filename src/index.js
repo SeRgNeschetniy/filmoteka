@@ -6,7 +6,7 @@ import './js/_sing-in-up-modal'; // * скрипт на відкриття мо�
 
 import { themoviedbAPI } from './js/api/API';
 
-import { boboilHandler } from './js/popup';
+import { popupHandler } from './js/popup';
 
 import MyPagimation from './js/Pagination';
 
@@ -273,19 +273,27 @@ if (refs.form) {
 }
 
 const popup = document.querySelector('.popup');
-const close = document.querySelector('.close_btn');
 
-if (refs.moviesList) {
-  refs.moviesList.addEventListener('click', e => {
-    e.preventDefault();
-    boboilHandler(e.target);
-    popup.classList.add('is-wisible');
-  });
+const close = document.querySelector('.close-btn');
+
+refs.moviesList.addEventListener('click', e => {
+  e.preventDefault();
+  popupHandler(e.target);
+  popup.classList.add('is-wisible');
+  window.addEventListener('keydown', escapeClose);
+});
+
+close.addEventListener('click', closePopup);
+function closePopup() {
+  popup.classList.remove('is-wisible');
+  window.removeEventListener('keydown', escapeClose);
 }
 
-if (close) {
-  close.addEventListener('click', closePopup);
-  function closePopup() {
-    popup.classList.remove('is-wisible');
+function escapeClose(event) {
+  if (event.code === 'Escape') {
+    closePopup();
+  } else {
+    return;
+
   }
 }

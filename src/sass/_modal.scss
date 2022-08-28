@@ -23,6 +23,7 @@
     align-items: center;
     justify-content: center;
     min-height: 100%;
+    position: relative;
 
 
 }
@@ -75,7 +76,7 @@
 
 
 
-.popup_btn {
+.popup-btn {
     display: flex;
     // justify-content: center;
     padding-top: 26px;
@@ -161,12 +162,12 @@
     }
 }
 
-.close_btn {
+.close-btn {
     position: absolute;
     top: 0;
     right: 10px;
     fill: #000000;
-    
+    z-index: 10;
 }
 
 .close_link {
@@ -179,7 +180,7 @@
     margin-right: 0;
 }
 
-.box_img {
+.popup_img {
     margin-bottom: 20px;
     @media screen and (min-width: 768px) {
         margin-right: 68px;
@@ -193,7 +194,7 @@
 }
 
 
-.modal_h2 {
+.container_title {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 500;
@@ -235,14 +236,14 @@
 
 }
 
-.option_item_vote {
+.option_item--vote {
     background: #FF6B01;
     border-radius: 4px;
     padding: 1px 10px;
     color: #FFFFFF;
 }
 
-.option_item_votes {
+.option_item--votes {
     padding: 1px 4px;
     background: #F7F7F7;
     border-radius: 5px;
@@ -274,7 +275,7 @@
 
 }
 
-.card_modal_h3 {
+.About-title {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 500;
@@ -286,7 +287,7 @@
     color: #000000;
 }
 
-.options_text {
+.About_text {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 500;
