@@ -72,6 +72,14 @@
 // TODO потім видалити зайву розмітку
 .team-modal__list {
   display: none;
+
+  // ! варіант з 3х3
+  @media screen and (min-width: 1200px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
 }
 
 .team-modal__item {
@@ -81,6 +89,15 @@
 
   @media screen and (min-width: 1200px) {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  }
+
+  // ! варіант з 3х3
+  @media screen and (min-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 220px;
+    padding: 10px;
   }
 }
 
@@ -158,6 +175,20 @@
   }
 
   @media screen and (min-width: 1200px) {
-    // display: none;
+    display: none;
   }
+}
+
+.notification {
+  display: none;
+  margin-top: 100px;
+  font-size: 16px;
+  line-height: 1.19;
+  color: #545454;
+  text-align: center;
+}
+
+.empty-notification--active,
+.guest-notification--active {
+  display: block;
 }

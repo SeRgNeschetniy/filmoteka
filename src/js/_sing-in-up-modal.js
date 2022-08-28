@@ -18,8 +18,12 @@ function onSignUpClick(event) {
     registerToggleModal();
     
 }
-refs.registerCloseModalBtn.addEventListener('click', onSignUpClick);
-refs.registerSignUp.addEventListener('click', onSignUpClick);
+if (refs.registerCloseModalBtn) {
+    refs.registerCloseModalBtn.addEventListener('click', onSignUpClick);
+}
+if (refs.registerSignUp) {
+    refs.registerSignUp.addEventListener('click', onSignUpClick);
+}
 
 function loginToggleModal() {
     refs.loginModalBackdrop.classList.toggle('is-hidden');
@@ -30,5 +34,10 @@ function onSignInClick(event) {
     loginToggleModal();
   
 }
-refs.loginCloseModalBtn.addEventListener('click', onSignInClick);
-refs.loginSignIn.addEventListener('click', onSignInClick);
+
+if (refs.loginCloseModalBtn) {
+    refs.loginCloseModalBtn.addEventListener('click', onSignInClick);
+}
+if (refs.loginSignIn) {
+    refs.loginSignIn.addEventListener('click', onSignInClick);
+}

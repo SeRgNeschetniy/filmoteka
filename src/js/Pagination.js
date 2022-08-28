@@ -7,7 +7,7 @@ import {
   WATCHEDFILMS_LOCALSTORAGE_KEY,
   QUEUEFILMS_LOCALSTORAGE_KEY,
 } from './storage/storage';
-import { getNewMovi, createMovieCards } from '../index';
+// import { this.getNewFilm, createMovieCards } from '../index';
 import { renderCards } from './renderCards';
 
 export default class MyPagimation {
@@ -15,7 +15,7 @@ export default class MyPagimation {
     cardContainer,
     paginationContainer,
     paginationContainerMobile,
-    mobileDots,
+    getNewFilm, //callback who  save sava data ('current film', lendth ) to local storege to render current page
   }) {
     this.tbody = document.querySelector(`.${cardContainer}`);
     this.paginationContainer = document.querySelector(
@@ -24,8 +24,8 @@ export default class MyPagimation {
     this.paginationContainerMobile = document.querySelector(
       `.${paginationContainerMobile}`
     );
+
     this.datatableUsers = load(CURRENTFILMS_LOCALSTORAGE_KEY);
-    this.mobileDots = mobileDots;
     this.callGoTo;
     this.callNextBtn;
     this.callPrevBtn;
@@ -36,11 +36,16 @@ export default class MyPagimation {
       numOfPages: 0,
       numOfButtons: [],
     };
+
+    this.getNewFilm = getNewFilm;
   }
 
   async inicialization() {
     this.reset();
-    await getNewMovi(this.qwery, this.state.currentNumPage + 1);
+
+    // await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);-----------------------------------
+
+    await this.getNewFilm(this.qwery, this.state.currentNumPage + 1);
     this.loadDataForRender();
 
     for (let i = 1; i <= this.state.numOfPages; i++) {
@@ -59,7 +64,7 @@ export default class MyPagimation {
   }
 
   async goToPage(event) {
-    // console.log(Number(event.target.textContent));
+    console.log(Number(event.target.textContent));
     if (event.target.dataset.action === '-1') {
       this.previusPage();
       return;
@@ -72,7 +77,12 @@ export default class MyPagimation {
 
     if (Number(event.target.textContent)) {
       this.state.currentNumPage = Number(event.target.textContent) - 1;
-      await getNewMovi(this.qwery, this.state.currentNumPage + 1);
+
+
+      // await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);-------------------------------------------
+
+
+      await this.getNewFilm(this.qwery, this.state.currentNumPage + 1);
       this.loadDataForRender();
 
       this.render();
@@ -81,7 +91,7 @@ export default class MyPagimation {
 
   getMovisPerPage(num) {
     console.log(`page ${num}`);
-    // await getNewMovi(page);
+    // await this.getNewFilm(page);
   }
   async nextPage() {
     // console.log(this);
@@ -93,7 +103,12 @@ export default class MyPagimation {
       return;
     }
     // this.getMovisPerPage(this.state.currentNumPage);
-    await getNewMovi(this.qwery, this.state.currentNumPage + 1);
+
+
+    // await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);-------------------------------------------
+
+
+    await this.getNewFilm(this.qwery, this.state.currentNumPage + 1);
     this.loadDataForRender();
 
     this.render();
@@ -105,13 +120,18 @@ export default class MyPagimation {
       this.state.currentNumPage = 0;
       return;
     }
-    await getNewMovi(this.qwery, this.state.currentNumPage + 1);
+
+
+    // await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);-------------------------------------------
+
+
+    await this.getNewFilm(this.qwery, this.state.currentNumPage + 1);
     this.loadDataForRender();
 
     this.render();
   }
 
-  render() {
+  async render() {
     if (this.callGoTo) {
       this.paginationContainer.removeEventListener('click', this.callGoTo);
       this.paginationContainerMobile.removeEventListener(
@@ -121,7 +141,7 @@ export default class MyPagimation {
     }
 
     const currentDataToRender = load(CURRENTFILMS_LOCALSTORAGE_KEY);
-    const dataTable = renderCards(currentDataToRender);
+    const dataTable = await renderCards(currentDataToRender);
     const { navigation, navigationMobile } = this.paginationButtons();
 
     this.tbody.innerHTML = '';
@@ -225,17 +245,19 @@ export default class MyPagimation {
     }
 
     console.log(HTMLNumberOfButtonsDesktop);
-    const prevBTN = `    <li  class= "dt-item ${
-      currentNumPage_1 === 1 ? 'disabled' : ''
-    }" data-action ="-1"
+    const prevBTN = `    <li  class= "dt-item 
+                    ${
+                      currentNumPage_1 === 1 ? 'disabled' : ''
+                    }" data-action ="-1"
                       >
                         <a class="dt-link js-next-page"data-action="-1">
                           
                         </a>
                       </li>`;
-    const nextBTN = `    <li class="dt-item  ${
-      currentNumPage_1 === numOfButtons.length ? 'disabled' : ''
-    }" data-action ="+1"
+    const nextBTN = `    <li class="dt-item  
+                    ${
+                      currentNumPage_1 === numOfButtons.length ? 'disabled' : ''
+                    }" data-action ="+1"
                       >
                         <a class="dt-link" data-action="+1">
                           
@@ -243,9 +265,8 @@ export default class MyPagimation {
                       </li>`;
     const result = HTMLNumberOfButtonsDesktop.map(btn => {
       return `
-             <li class= "dt-item ${
-               this.state.currentNumPage === btn - 1 ? 'active' : ''
-             }">
+                      <li class= "dt-item 
+                      ${this.state.currentNumPage === btn - 1 ? 'active' : ''}">
                         <a class="dt-link">
                           ${btn}
                         </a>

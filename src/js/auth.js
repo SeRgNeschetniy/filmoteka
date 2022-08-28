@@ -1,83 +1,127 @@
+import { initializeApp } from 'firebase/app';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from 'firebase/auth';
+import { getDatabase, ref, set, update } from 'firebase/database';
 
-import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { getDatabase, ref, set, update } from "firebase/database";
+import { save } from './storage/storage.js'
+import Notiflix from 'notiflix';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCkRsLU3jXV2QSp_hCd--4ayctHmz1-Kl8",
-  authDomain: "filmregapp.firebaseapp.com",
-  projectId: "filmregapp",
-  storageBucket: "filmregapp.appspot.com",
-  messagingSenderId: "383304824407",
-  appId: "1:383304824407:web:bf9c893387e73116cb9512"
+  apiKey: 'AIzaSyCkRsLU3jXV2QSp_hCd--4ayctHmz1-Kl8',
+  authDomain: 'filmregapp.firebaseapp.com',
+  projectId: 'filmregapp',
+  storageBucket: 'filmregapp.appspot.com',
+  messagingSenderId: '383304824407',
+  appId: '1:383304824407:web:bf9c893387e73116cb9512',
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
+const refs = {
+  submitData: document.querySelector('#submitData'),
+  logInData: document.querySelector('#logInData'),
+  logOutData: document.querySelector('#logOutData')
+}
 
-submitData.addEventListener('click', (e) => {
+
+if (refs.submitData) {
+  refs.submitData.addEventListener('click', onSubmitData);
+}
+function onSubmitData(e) {
   e.preventDefault();
-  const email = document.getElementById('loginFormEmail').value;
-  const password = document.getElementById('loginFormPassword').value;
-  
-  
+  const email = document.getElementById('registerFormEmail').value;
+  const password = document.getElementById('registerFormPassword').value;
+
   createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then(userCredential => {
       const user = userCredential.user;
-      alert("successfully  created");
-      document.getElementById('form').reset();
-      
+      Notify.success('successfully  created');
+      document.getElementById('regForm').reset();
+
       set(ref(database, 'users/' + user.uid), {
-      email: email,
-      }).then(() => {
-        // Data saved successfully!
+        email: email,
       })
-        .catch((error) => {
-          alert(error);
-        // The write failed...
-      });
-        
+        .then(() => {
+          // Data saved successfully!
+        })
+        .catch(error => {
+          Notify.failure('Something went wrong');
+          // The write failed...
+        });
     })
-    .catch((error) => {
+    .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // ..
+      Notify.failure('User is currently exists');// ..
     });
+  
+};
+if (refs.logInData) {
+  refs.logInData.addEventListener('click', onLoginData);
+} 
+function onLoginData(e) {
+  e.preventDefault();
+
+  const email = document.getElementById('loginFormEmail').value;
+  const password = document.getElementById('loginFormPassword').value;
+
   signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    const user = userCredential.user;
-    alert('successfully logged');
-    document.getElementById('form').reset();
-  
-    const logDate = new Date()
+    .then(userCredential => {
+      const user = userCredential.user;
+
+      
+
+      Notify.success('Successfully logged in');
+      document.getElementById('logForm').reset();
 
 
-    update(ref(database, 'users/' + user.uid), {
-      last_login: logDate,
-      }).then(() => {
-        // Data saved successfully!
+      const logDate = new Date();
+
+      update(ref(database, 'users/' + user.uid), {
+        last_login: logDate,
       })
-        .catch((error) => {
-          alert(error);
-        // The write failed...
-      });
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  });
-  
-});
-// logOutData.addEventListener('click', (e) => {
+        .then(() => {
+          // Data saved successfully!
+        })
+        .catch(error => {
+          Notify.failure('Something went wrong')
+          // The write failed...
+        });
+    })
+    .catch(error => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      Notify.failure('Login failed, check email or password')
+    });
+};
+// if (refs.logOutData) {
+//   refs.logOutData.addEventListener('click', onLogOutData);
+// }
+// function onLogOutData(e) {
 //   e.preventDefault();
 //   signOut(auth).then(() => {
-//     alert('sign out done')
+//     Notify.success('Successfully logged out')
 //   }).catch((error) => {
-//     alert('oops, something went wrong')
-  
+//     Notify.failure('Oops, something went wrong...')
+
 //   });
-// })
+  
+
+
+
+
+
+
+
 
 
 // function Validation() {
@@ -98,5 +142,3 @@ submitData.addEventListener('click', (e) => {
 //     return;
 //   }
 // }
-
-
