@@ -56,7 +56,7 @@ refs.submitData.addEventListener('click', e => {
     .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // ..
+      Notify.failure('Authorization failed');// ..
     });
   
 });
@@ -88,6 +88,7 @@ refs.logInData.addEventListener('click', (e) => {
     .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      Notify.failure('Login failed')
     });
 })
 // logOutData.addEventListener('click', (e) => {
