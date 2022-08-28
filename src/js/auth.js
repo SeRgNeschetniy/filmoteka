@@ -7,10 +7,8 @@ import {
 } from 'firebase/auth';
 import { getDatabase, ref, set, update } from 'firebase/database';
 
-
-import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { getDatabase, ref, set, update } from "firebase/database";
+import Notiflix from 'notiflix';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 
 const firebaseConfig = {
@@ -26,17 +24,22 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-const submitData = document.querySelector('#submitData');
-submitData.addEventListener('click', e => {
+const refs = {
+submitData: document.querySelector('#submitData'),
+logInData: document.querySelector('#logInData'),
+}
+
+
+refs.submitData.addEventListener('click', e => {
   e.preventDefault();
-  const email = document.getElementById('loginFormEmail').value;
-  const password = document.getElementById('loginFormPassword').value;
+  const email = document.getElementById('registerFormEmail').value;
+  const password = document.getElementById('registerFormPassword').value;
 
   createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       const user = userCredential.user;
-      alert('successfully  created');
-      document.getElementById('form').reset();
+      Notify.success('successfully  created');
+      document.getElementById('regForm').reset();
 
       set(ref(database, 'users/' + user.uid), {
         email: email,
@@ -45,7 +48,7 @@ submitData.addEventListener('click', e => {
           // Data saved successfully!
         })
         .catch(error => {
-          alert(error);
+          Notify(error);
           // The write failed...
         });
     })
@@ -54,11 +57,19 @@ submitData.addEventListener('click', e => {
       const errorMessage = error.message;
       // ..
     });
+  
+});
+refs.logInData.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById('loginFormEmail').value;
+  const password = document.getElementById('loginFormPassword').value;
+
   signInWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       const user = userCredential.user;
-      alert('successfully logged');
-      document.getElementById('form').reset();
+      Notify.success('successfully logged');
+      document.getElementById('logForm').reset();
 
       const logDate = new Date();
 
@@ -69,7 +80,7 @@ submitData.addEventListener('click', e => {
           // Data saved successfully!
         })
         .catch(error => {
-          alert(error);
+          Notify(error);
           // The write failed...
         });
     })
@@ -77,7 +88,7 @@ submitData.addEventListener('click', e => {
       const errorCode = error.code;
       const errorMessage = error.message;
     });
-});
+})
 // logOutData.addEventListener('click', (e) => {
 //   e.preventDefault();
 //   signOut(auth).then(() => {

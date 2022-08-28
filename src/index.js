@@ -2,10 +2,10 @@ import {} from './js/preloader';
 
 
 
-//import './js/auth'; // * authentification
+import './js/auth'; // * authentification
 
 import './js/team-modal'; // * скріпт модалки про команду
-//import './js/_sing-in-up-modal'; // * скрипт на відкриття модалки для реєстрації
+import './js/_sing-in-up-modal'; // * скрипт на відкриття модалки для реєстрації
 import { themoviedbAPI } from './js/api/API';
 
 import { boboilHandler } from './js/popup';
