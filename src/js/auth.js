@@ -7,6 +7,12 @@ import {
 } from 'firebase/auth';
 import { getDatabase, ref, set, update } from 'firebase/database';
 
+
+import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getDatabase, ref, set, update } from "firebase/database";
+
+
 const firebaseConfig = {
   apiKey: 'AIzaSyCkRsLU3jXV2QSp_hCd--4ayctHmz1-Kl8',
   authDomain: 'filmregapp.firebaseapp.com',
@@ -20,6 +26,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
+const submitData = document.querySelector('#submitData');
 submitData.addEventListener('click', e => {
   e.preventDefault();
   const email = document.getElementById('loginFormEmail').value;
