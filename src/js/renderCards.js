@@ -1,11 +1,10 @@
 import { getGenresById } from './getGenresById';
 import 'lazysizes';
+import placeholderImg from '../images/movie_img_placeholder.png';
 
 const refs = { moviesList: document.querySelector('.movies') };
 
 export function renderCards(data) {
-  const placeholderImg = './images/movie_img_placeholder.png';
-
   const movieCardMarkup = data
     .map(
       ({
@@ -20,6 +19,9 @@ export function renderCards(data) {
         genre_ids,
       }) => {
         const genresNames = getGenresById(genre_ids);
+        if (!release_date) {
+          release_date = 'IIII';
+        }
         return `<li class="movie-card" data-id="${id}">
   <div class="img-container">
   ${

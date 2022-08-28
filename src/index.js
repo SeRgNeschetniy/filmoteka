@@ -1,8 +1,14 @@
-import { } from './js/preloader'
-import './js/auth'; // * authentification
+import {} from './js/preloader';
+
+
+
+//import './js/auth'; // * authentification
+
 import './js/team-modal'; // * скріпт модалки про команду
-import './js/_sing-in-up-modal' // * скрипт на відкриття модалки для реєстрації
+//import './js/_sing-in-up-modal'; // * скрипт на відкриття модалки для реєстрації
 import { themoviedbAPI } from './js/api/API';
+
+import { boboilHandler } from './js/popup';
 
 import MyPagimation from './js/Pagination';
 
@@ -21,6 +27,7 @@ const refs = {
   moviesList: document.querySelector('.movies'),
   form: document.querySelector('.header-search__form'),
   input: document.querySelector('.header-search__box'),
+  errorText: document.querySelector('.hidden-message-js'),
 };
 
 save('qwery', '');
@@ -56,7 +63,7 @@ themoviedb
 
 themoviedb
   .getQueryMovies('Top Gun: Maverick', 1)
-  .then(data => { })
+  .then(data => {})
   .catch(error => console.log(error));
 
 themoviedb.getMovieById(438148);
@@ -124,6 +131,7 @@ const option = {
   paginationContainer: 'js-pg-container',
   paginationContainerMobile: 'js-pg-container-mobile',
   mobileDots: false,
+  getNewFilm: getNewMovi,
 };
 
 const slider = new MyPagimation(option);
@@ -134,19 +142,38 @@ export async function getNewMovi(qwery, num) {
     qwery: qwery,
     num: num,
   };
+
   await themoviedb
     .getMovies(option)
     .then(data => {
       save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
       save('total_pages', data.total_pages);
-
+      if (
+        data.total_pages === 0 &&
+        refs.errorText.classList.contains('hidden-message-js')
+      ) {
+        refs.errorText.classList.remove('hidden-message-js');
+      }
       console.log(`num1 = ${num}`);
     })
-    .catch(error => console.log(error, `ERRRRR`));
+    .catch(error => {
+      console.log(error, `ERRRRR`);
+      if (refs.errorText.classList.contains('hidden-message-js')) {
+        refs.errorText.classList.remove('hidden-message-js');
+      }
+    });
 }
 
 refs.form.addEventListener('submit', e => {
+  if (!refs.errorText.classList.contains('hidden-message-js')) {
+    refs.errorText.classList.add('hidden-message-js');
+  }
   e.preventDefault();
   save('qwery', refs.input.value);
   slider.inicialization();
+});
+
+refs.moviesList.addEventListener('click', e => {
+  e.preventDefault();
+  boboilHandler(e.target);
 });
