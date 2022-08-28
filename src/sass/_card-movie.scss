@@ -16,6 +16,7 @@
 
 .movie-card {
     width: 100%;
+    min-height: 442px;
 
     @include mq(mobile-only) {
         &:not(:last-child) {
@@ -25,10 +26,12 @@
 
     @include mq(tablet) {
         width: calc((100% - 32px)/2);
+        min-height: 495px;
     }
 
     @include mq(desktop) {
         width: calc((100% - 2*16px)/3);
+        min-height: 634px;
     }
 
     &__img {        
@@ -38,6 +41,7 @@
         object-fit: cover;
     }
     &__title {
+        flex-grow: 1;
         font-weight: 500;
         font-size: 12px;
         line-height: 1.33;
@@ -51,6 +55,7 @@
     }
     &__details {
         display: flex;
+        align-items: center;
 
         font-weight: 500;
         font-size: 12px;
@@ -62,12 +67,14 @@
             line-height: 1.2;
         }
     }
+    &__genres {
+        flex-shrink: 2;
+    }
     &__rating {
         display: flex;
         justify-content: center;
         align-items: center;
         margin-left: 9px;
-        align-self: flex-end;
 
         font-size: 12px;
         line-height: 1.17;
