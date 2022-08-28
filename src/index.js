@@ -38,42 +38,42 @@ save('qwery', '');
 
 const themoviedb = new themoviedbAPI();
 
-save(GENREFILMS_LOCALSTORAGE_KEY, themoviedb.getGenres());
+// save(GENREFILMS_LOCALSTORAGE_KEY, themoviedb.getGenres());
 
-themoviedb
-  .getTrendMovies(1)
-  .then(data => {
-    console.log('data');
-    console.log(`DATARESULTS: ${data.results}`);
-    save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
+// themoviedb
+//   .getTrendMovies(1)
+//   .then(data => {
+//     console.log('data');
+//     console.log(`DATARESULTS: ${data.results}`);
+//     save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
 
-    // refs.moviesList.innerHTML += createMovieCards(
-    //   load(CURRENTFILMS_LOCALSTORAGE_KEY)
-    // );
-    renderCards(load(CURRENTFILMS_LOCALSTORAGE_KEY));
+//     // refs.moviesList.innerHTML += createMovieCards(
+//     //   load(CURRENTFILMS_LOCALSTORAGE_KEY)
+//     // );
+//     renderCards(load(CURRENTFILMS_LOCALSTORAGE_KEY));
 
-    save('total_pages', data.total_pages);
+//     save('total_pages', data.total_pages);
 
-    // refs.moviesList.innerHTML += createMovieCards(load(CURRENTFILMS_LOCALSTORAGE_KEY));
+//     // refs.moviesList.innerHTML += createMovieCards(load(CURRENTFILMS_LOCALSTORAGE_KEY));
 
-    // refs.moviesList.innerHTML += createMovieCards(
-    //   load(CURRENTFILMS_LOCALSTORAGE_KEY)
-    // );
+//     // refs.moviesList.innerHTML += createMovieCards(
+//     //   load(CURRENTFILMS_LOCALSTORAGE_KEY)
+//     // );
 
-    // refs.moviesList.innerHTML += createMovieCards(
-    //   load(CURRENTFILMS_LOCALSTORAGE_KEY)
-    // );
-  })
-  .catch(error => console.log(error));
+//     // refs.moviesList.innerHTML += createMovieCards(
+//     //   load(CURRENTFILMS_LOCALSTORAGE_KEY)
+//     // );
+//   })
+//   .catch(error => console.log(error));
 
-themoviedb
-  .getQueryMovies('Top Gun: Maverick', 1)
-  .then(data => {})
-  .catch(error => console.log(error));
+// themoviedb
+//   .getQueryMovies('Top Gun: Maverick', 1)
+//   .then(data => {})
+//   .catch(error => console.log(error));
 
-themoviedb.getMovieById(438148);
+// themoviedb.getMovieById(438148);
 
-themoviedb.getGenres();
+// themoviedb.getGenres();
 
 // const createMovieCards = data => {
 //   console.log(data);
