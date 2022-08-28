@@ -7,12 +7,6 @@ import {
 } from 'firebase/auth';
 import { getDatabase, ref, set, update } from 'firebase/database';
 
-
-import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { getDatabase, ref, set, update } from "firebase/database";
-
-
 const firebaseConfig = {
   apiKey: 'AIzaSyCkRsLU3jXV2QSp_hCd--4ayctHmz1-Kl8',
   authDomain: 'filmregapp.firebaseapp.com',
