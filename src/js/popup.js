@@ -54,11 +54,19 @@ const modalMoviemarkup = ({
   adult,
 }) => {
   const genresNames = getGenresById(genre_ids);
-  return ` <div class="close-btn">
-  <p>close-btn</p>
-        <svg class="close_link"width="14" height="14">
-          <use href="./images/symbol-defs.svg#icon-user-check"></use>
-       </svg>
+  return ` <div class="close-btn">  
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            fill="currentColor"
+            class="bi bi-x-lg"
+            viewBox="0 0 16 16"
+          >
+        <path
+          d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
+        />
+      </svg>
       </div>
   <div class="popup_img">
         <img class="img_modal" src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="#"  /></div>
