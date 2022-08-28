@@ -31,6 +31,8 @@ const refs = {
   libraryQueueBtn: document.querySelector('button[data-queue]'),
   movieCardImg: document.querySelector('.movie-card-img'),
 
+  movieToClick: document.querySelector('.js-movie-container'),
+
   errorText: document.querySelector('.hidden-message-js'),
 };
 
@@ -260,7 +262,7 @@ const popup = document.querySelector('.popup');
 
 let close = document.querySelector('.close-btn');
 
-refs.moviesList.addEventListener('click', e => {
+refs.movieToClick.addEventListener('click', e => {
   e.preventDefault();
 
   popupHandler(e.target);
