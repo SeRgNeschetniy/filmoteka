@@ -64,7 +64,7 @@ export default class MyPagimation {
   }
 
   async goToPage(event) {
-    // console.log(Number(event.target.textContent));
+    console.log(Number(event.target.textContent));
     if (event.target.dataset.action === '-1') {
       this.previusPage();
       return;
