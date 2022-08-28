@@ -18,6 +18,9 @@ export function renderCards(data) {
         genre_ids,
       }) => {
         const genresNames = getGenresById(genre_ids);
+        if (!release_date) {
+          release_date = 'IIII';
+        }
         return `<li class="movie-card" data-id="${id}">
   <img
     src="https://image.tmdb.org/t/p/w400/${poster_path}"

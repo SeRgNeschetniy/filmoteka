@@ -124,6 +124,7 @@ const option = {
   paginationContainer: 'js-pg-container',
   paginationContainerMobile: 'js-pg-container-mobile',
   mobileDots: false,
+  getNewFilm: getNewMovi,
 };
 
 const slider = new MyPagimation(option);
