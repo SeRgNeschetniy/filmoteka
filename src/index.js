@@ -236,23 +236,31 @@ function onLibraryBtnClick(currentKey) {
     console.log(load(currentKey));
   }
 
-refs.form.addEventListener('submit', e => {
-  if (!refs.errorText.classList.contains('hidden-message-js')) {
-    refs.errorText.classList.add('hidden-message-js');
-  }
-  e.preventDefault();
-  save('qwery', refs.input.value);
-  slider.inicialization();
-});
+if (refs.form) {
+  refs.form.addEventListener('submit', e => {
+    if (!refs.errorText.classList.contains('hidden-message-js')) {
+      refs.errorText.classList.add('hidden-message-js');
+    }
+    e.preventDefault();
+    save('qwery', refs.input.value);
+    slider.inicialization();
+  });
+}
+
 const popup = document.querySelector('.popup');
 const close = document.querySelector('.close_btn');
-refs.moviesList.addEventListener('click', e => {
-  e.preventDefault();
-  boboilHandler(e.target);
-  popup.classList.add('is-wisible');
-});
 
-close.addEventListener('click', closePopup);
-function closePopup() {
-  popup.classList.remove('is-wisible');
+if (refs.moviesList) {
+  refs.moviesList.addEventListener('click', e => {
+    e.preventDefault();
+    boboilHandler(e.target);
+    popup.classList.add('is-wisible');
+  });
+}
+
+if (close) {
+  close.addEventListener('click', closePopup);
+  function closePopup() {
+    popup.classList.remove('is-wisible');
+  }
 }

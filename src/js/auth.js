@@ -31,8 +31,9 @@ submitData: document.querySelector('#submitData'),
 logInData: document.querySelector('#logInData'),
 }
 
-
-refs.submitData.addEventListener('click', onSubmitData);
+if (refs.submitData) {
+  refs.submitData.addEventListener('click', onSubmitData);
+}
 function onSubmitData(e) {
   e.preventDefault();
   const email = document.getElementById('registerFormEmail').value;
@@ -62,7 +63,11 @@ function onSubmitData(e) {
     });
   
 };
-refs.logInData.addEventListener('click', onLoginData);
+
+if (refs.logInData) {
+  refs.logInData.addEventListener('click', onLoginData);
+}
+
 function onLoginData(e) {
   e.preventDefault();
 
