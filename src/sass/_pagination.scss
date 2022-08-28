@@ -52,7 +52,7 @@ a:focus {
   border-color: #5a8dee;
   color: $main-dark-text-color;
 }
-.dt-pagination-ul {
+.dt-pagination-ul, .library-dt-pagination-ul {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,6 +153,19 @@ a:focus {
   }
 }
 .js-pg-container-mobile {
+  display: flex;
+  @include mq(tablet) {
+    display: none;
+  }
+}
+
+.js-pg-library-container {
+  display: none;
+  @include mq(tablet) {
+    display: flex;
+  }
+}
+.js-pg-library-container-mobile {
   display: flex;
   @include mq(tablet) {
     display: none;
