@@ -1,4 +1,4 @@
-.movies {
+.movies, .library-movies {
     margin: 20px 0 40px 0;
 
     @include mq(tablet) {
