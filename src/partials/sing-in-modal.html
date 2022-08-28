@@ -1,37 +1,39 @@
- <div class="loginBackdrop is-hidden js-loginBackdrop">
-      <div class="loginModal js-loginModal">
-        <button class="loginBtnClose js-loginBtnClose">
-          <svg class="loginBtnCloseIcon">
-            <use href="./images/symbol-defs.svg#icon-close"></use>
+ <div class="backgroup-auth is-hidden js-loginBackdrop">
+      <div class="auth-modal js-loginModal">
+        <button class="auth-modal__btn-close js-loginBtnClose">
+          <svg class="auth-modal__icon-close" width="30" height="30">
+            <use href="./images/_symbol-defs.svg#icon-close"></use>
           </svg>
         </button>
-        <p class="loginModalText">Sing in</p>
-        <form action="submit" method="post" class="loginForm" id="logForm">
-          <span class="loginFormText">Email</span>
-          <div class="loginFormUnit">
+        <h2 class="auth-modal__title">Sing in</h2>
+        <form action="submit" method="post" class="auth-modal-form" id="logForm">
+          <span class="auth-modal-form__label">Email</span>
+          
             <input
               type="email"
               name="name"
               id="loginFormEmail"
-              class="loginFormInput"
+              class="auth-modal-form__input"
               placeholder=" "
             />
-          </div>
-          <span class="loginFormText">Password</span>
-          <div class="loginFormUnit">
+          
+          <span class="auth-modal-form__label">Password</span>
+        
             <input
               type="password"
               name="password"
               id="loginFormPassword"
-              class="loginFormInput"
+              class="auth-modal-form__input"
               placeholder=" "
             />
-            <span class="login-error"></span>
-          </div>
-          <div class="buttonLocation">
-            <button class="logFormButtonOne" type="button" id="logInData">Log In</button>
+          
+         
+          <div class="auth-modal-form__btn-box ">
+            <button class="auth-modal-form__btn auth-modal-form__btn--margin" type="button" id="logInData">Log In</button>
+            <button class="auth-modal-form__btn" type="button" id="logOutData">log out</button>
           </div>
         
         </form>
       </div>
     </div>
+    

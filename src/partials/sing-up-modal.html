@@ -1,47 +1,39 @@
 
-<div class="registerBackdrop is-hidden js-registerBackdrop">
-      <div class="registerModal js-registerModal">
-        <button class="registerBtnClose js-registerBtnClose">
-          <svg class="registerBtnCloseIcon">
-            <use href="./images/symbol-defs.svg#icon-close"></use>
+<div class="backgroup-auth is-hidden js-registerBackdrop">
+      <div class="auth-modal js-registerModal">
+        <button class="auth-modal__btn-close js-registerBtnClose">
+          <svg class="auth-modal__icon-close" width="18" height="18">
+            <use href="./images/_symbol-defs.svg#icon-close"></use>
           </svg>
         </button>
-        <p class="registerModalText">Sing up</p>
-        <form action="submit" method="post" class="registerForm" id="regForm">
-          <span class="registerFormText">Email</span>
-          <div class="registerFormUnit">
+        <h2 class="auth-modal__title">Sing up</h2>
+        <form action="submit" method="post" class="auth-modal-form" id="regForm">
+          <span class="auth-modal-form__label">Email</span>
             <input
               type="email"
               name="name"
               id="registerFormEmail"
-              class="registerFormInput"
+              class="auth-modal-form__input"
               placeholder=" "
-            />
-          </div>
-          <span class="registerFormText">Password</span>
-          <div class="registerFormUnit">
+            />        
+          <span class="auth-modal-form__label">Password</span>         
             <input
               type="password"
               name="password"
               id="registerFormPassword"
-              class="registerFormInput"
+              class="auth-modal-form__input"
               placeholder=" "
             />
-            <span class="reg-error"></span>
-          </div>
-          <span class="registerFormText">Confirm password</span>
-          <div class="registerFormUnit">
+          <span class="auth-modal-form__label">Confirm password</span>     
             <input
               type="password"
               name="password"
               id="registerFormPassword"
-              class="registerFormInput"
+              class="auth-modal-form__input"
               placeholder=" "
             />
-            <span class="reg-error"></span>
-          </div>
-          <div class="buttonLocation">
-            <button class="logFormButtonOne js-btn-reg" type="button" id="submitData">
+          <div class="auth-modal-form__btn-box">
+            <button class="auth-modal-form__btn" type="button" id="submitData">
               Sing up
             </button>
           </div>
