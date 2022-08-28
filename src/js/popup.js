@@ -7,35 +7,12 @@ const refs = {
   close: document.querySelector('.close-btn'),
 };
 
-refs.moviesList.addEventListener('click', e => {
-  e.preventDefault();
-
-  popupHandler(e.target);
-  refs.close = document.querySelector('.close-btn');
-  refs.popup.classList.add('is-wisible');
-  window.addEventListener('keydown', escapeClose);
-  refs.close.addEventListener('click', closePopup);
-});
-
-function closePopup() {
-  refs.popup.classList.remove('is-wisible');
-  window.removeEventListener('keydown', escapeClose);
-}
-
-function escapeClose(event) {
-  if (event.code === 'Escape') {
-    closePopup();
-  } else {
-    return;
-  }
-}
-
-export function popupHandler(el) {
+function popupHandler(el) {
   const li = el.closest('.movie-card');
   const id = li.dataset.id;
   const films = JSON.parse(localStorage.getItem('current-films'));
   const film = films.find(el => el.id === parseInt(id));
-  console.log('film', film);
+  //console.log('film', film);
   const results = modalMoviemarkup(film);
 
   const popup = document.querySelector('.popup_content');
@@ -97,6 +74,28 @@ const modalMoviemarkup = ({
         <button class="btn2" type="button" data-id=${id}>add to queue</button>
       </div>
       </div>
-
   `;
 };
+
+refs.moviesList.addEventListener('click', e => {
+  e.preventDefault();
+
+  popupHandler(e.target);
+  refs.close = document.querySelector('.close-btn');
+  refs.popup.classList.add('is-wisible');
+  window.addEventListener('keydown', escapeClose);
+  refs.close.addEventListener('click', closePopup);
+});
+
+function closePopup() {
+  refs.popup.classList.remove('is-wisible');
+  window.removeEventListener('keydown', escapeClose);
+}
+
+function escapeClose(event) {
+  if (event.code === 'Escape') {
+    closePopup();
+  } else {
+    return;
+  }
+}
