@@ -16,7 +16,9 @@ export default class MyPagimation {
     paginationContainer,
     paginationContainerMobile,
     mobileDots,
+    localKey,
   }) {
+    this.localKey = localKey;
     this.tbody = document.querySelector(`.${cardContainer}`);
     this.paginationContainer = document.querySelector(
       `.${paginationContainer}`
@@ -24,7 +26,7 @@ export default class MyPagimation {
     this.paginationContainerMobile = document.querySelector(
       `.${paginationContainerMobile}`
     );
-    this.datatableUsers = load(CURRENTFILMS_LOCALSTORAGE_KEY);
+    this.datatableUsers = load(this.localKey);
     this.mobileDots = mobileDots;
     this.callGoTo;
     this.callNextBtn;
@@ -40,7 +42,7 @@ export default class MyPagimation {
 
   async inicialization() {
     this.reset();
-    await getNewMovi(this.qwery, this.state.currentNumPage + 1);
+    await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);
     this.loadDataForRender();
 
     for (let i = 1; i <= this.state.numOfPages; i++) {
@@ -72,7 +74,7 @@ export default class MyPagimation {
 
     if (Number(event.target.textContent)) {
       this.state.currentNumPage = Number(event.target.textContent) - 1;
-      await getNewMovi(this.qwery, this.state.currentNumPage + 1);
+      await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);
       this.loadDataForRender();
 
       this.render();
@@ -93,7 +95,7 @@ export default class MyPagimation {
       return;
     }
     // this.getMovisPerPage(this.state.currentNumPage);
-    await getNewMovi(this.qwery, this.state.currentNumPage + 1);
+    await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);
     this.loadDataForRender();
 
     this.render();
@@ -105,7 +107,7 @@ export default class MyPagimation {
       this.state.currentNumPage = 0;
       return;
     }
-    await getNewMovi(this.qwery, this.state.currentNumPage + 1);
+    await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);
     this.loadDataForRender();
 
     this.render();
@@ -120,7 +122,7 @@ export default class MyPagimation {
       );
     }
 
-    const currentDataToRender = load(CURRENTFILMS_LOCALSTORAGE_KEY);
+    const currentDataToRender = load(this.localKey);
     const dataTable = renderCards(currentDataToRender);
     const { navigation, navigationMobile } = this.paginationButtons();
 
