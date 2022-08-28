@@ -214,47 +214,47 @@ if (refs.form) {
 }
 
 // ---------------------------------------- Library -----------------------------------------------
+import './js/libraryFilms';
+// let watchedFilmsList = [];
 
-let watchedFilmsList = [];
-
-if (refs.moviesList) {
-  refs.moviesList.addEventListener('click', onMovieCardClick);
-}
-
-function onMovieCardClick(i) {
-  const cardId = i.target.dataset.id;
-  themoviedb
-    .getMovieById(cardId)
-    .then(data => {
-      watchedFilmsList.push(data);
-      save(WATCHEDFILMS_LOCALSTORAGE_KEY, watchedFilmsList);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-}
-
-if (refs.libraryWatchedBtn) {
-  refs.libraryWatchedBtn.addEventListener('click', e => {
-    e.preventDefault();
-    onLibraryBtnClick(WATCHEDFILMS_LOCALSTORAGE_KEY);
-  });
-}
-
-// if (refs.libraryQueueBtn) {
-//   refs.libraryQueueBtn.addEventListener('click', e => {
-//     e.preventDefault();
-//     onLibraryBtnClick(QUEUEFILMS_LOCALSTORAGE_KEY);
-//   })
+// if (refs.moviesList) {
+//   refs.moviesList.addEventListener('click', onMovieCardClick);
 // }
 
-function onLibraryBtnClick(currentKey) {
-  refs.libraryMoviesList.insertAdjacentHTML(
-    'beforeend',
-    renderCards(load(currentKey))
-  );
-  console.log(load(currentKey));
-}
+// function onMovieCardClick(i) {
+//   const cardId = i.target.dataset.id;
+//   themoviedb
+//     .getMovieById(cardId)
+//     .then(data => {
+//       watchedFilmsList.push(data);
+//       save(WATCHEDFILMS_LOCALSTORAGE_KEY, watchedFilmsList);
+//     })
+//     .catch(error => {
+//       console.log(error);
+//     });
+// }
+
+// if (refs.libraryWatchedBtn) {
+//   refs.libraryWatchedBtn.addEventListener('click', e => {
+//     e.preventDefault();
+//     onLibraryBtnClick(WATCHEDFILMS_LOCALSTORAGE_KEY);
+//   });
+// }
+
+// // if (refs.libraryQueueBtn) {
+// //   refs.libraryQueueBtn.addEventListener('click', e => {
+// //     e.preventDefault();
+// //     onLibraryBtnClick(QUEUEFILMS_LOCALSTORAGE_KEY);
+// //   })
+// // }
+
+// function onLibraryBtnClick(currentKey) {
+//   refs.libraryMoviesList.insertAdjacentHTML(
+//     'beforeend',
+//     renderCards(load(currentKey))
+//   );
+//   console.log(load(currentKey));
+// }
 
 const popup = document.querySelector('.popup');
 const close = document.querySelector('.close_btn');
