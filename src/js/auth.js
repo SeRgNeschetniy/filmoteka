@@ -1,73 +1,75 @@
+import { initializeApp } from 'firebase/app';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
+import { getDatabase, ref, set, update } from 'firebase/database';
 
-import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { getDatabase, ref, set, update } from "firebase/database";
 const firebaseConfig = {
-  apiKey: "AIzaSyCkRsLU3jXV2QSp_hCd--4ayctHmz1-Kl8",
-  authDomain: "filmregapp.firebaseapp.com",
-  projectId: "filmregapp",
-  storageBucket: "filmregapp.appspot.com",
-  messagingSenderId: "383304824407",
-  appId: "1:383304824407:web:bf9c893387e73116cb9512"
+  apiKey: 'AIzaSyCkRsLU3jXV2QSp_hCd--4ayctHmz1-Kl8',
+  authDomain: 'filmregapp.firebaseapp.com',
+  projectId: 'filmregapp',
+  storageBucket: 'filmregapp.appspot.com',
+  messagingSenderId: '383304824407',
+  appId: '1:383304824407:web:bf9c893387e73116cb9512',
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-
-submitData.addEventListener('click', (e) => {
+submitData.addEventListener('click', e => {
   e.preventDefault();
   const email = document.getElementById('loginFormEmail').value;
   const password = document.getElementById('loginFormPassword').value;
-  
-  
+
   createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then(userCredential => {
       const user = userCredential.user;
-      alert("successfully  created");
+      alert('successfully  created');
       document.getElementById('form').reset();
-      
+
       set(ref(database, 'users/' + user.uid), {
-      email: email,
-      }).then(() => {
-        // Data saved successfully!
+        email: email,
       })
-        .catch((error) => {
+        .then(() => {
+          // Data saved successfully!
+        })
+        .catch(error => {
           alert(error);
-        // The write failed...
-      });
-        
+          // The write failed...
+        });
     })
-    .catch((error) => {
+    .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
       // ..
     });
   signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    const user = userCredential.user;
-    alert('successfully logged');
-    document.getElementById('form').reset();
-  
-    const logDate = new Date()
+    .then(userCredential => {
+      const user = userCredential.user;
+      alert('successfully logged');
+      document.getElementById('form').reset();
 
+      const logDate = new Date();
 
-    update(ref(database, 'users/' + user.uid), {
-      last_login: logDate,
-      }).then(() => {
-        // Data saved successfully!
+      update(ref(database, 'users/' + user.uid), {
+        last_login: logDate,
       })
-        .catch((error) => {
+        .then(() => {
+          // Data saved successfully!
+        })
+        .catch(error => {
           alert(error);
-        // The write failed...
-      });
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  });
-  
+          // The write failed...
+        });
+    })
+    .catch(error => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
 });
 // logOutData.addEventListener('click', (e) => {
 //   e.preventDefault();
@@ -75,10 +77,9 @@ submitData.addEventListener('click', (e) => {
 //     alert('sign out done')
 //   }).catch((error) => {
 //     alert('oops, something went wrong')
-  
+
 //   });
 // })
-
 
 // function Validation() {
 //   let nameregex = /[a-zA-Z]+/;
@@ -98,5 +99,3 @@ submitData.addEventListener('click', (e) => {
 //     return;
 //   }
 // }
-
-
