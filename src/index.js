@@ -32,6 +32,7 @@ const refs = {
   movieCardImg: document.querySelector('.movie-card-img'),
 
   errorText: document.querySelector('.hidden-message-js'),
+  tumbler: document.querySelector('.tumbler-wrapper'),
 };
 
 save('qwery', '');
@@ -255,3 +256,7 @@ import './js/libraryFilms';
 //   );
 //   console.log(load(currentKey));
 // }
+
+refs.tumbler.addEventListener('click', e => {
+  document.body.classList.toggle('night-mode');
+});
