@@ -186,8 +186,9 @@ if (refs.form) {
     // cardContainerMobile:'movies-mobile',
     paginationContainer: 'js-pg-container',
     paginationContainerMobile: 'js-pg-container-mobile',
-    mobileDots: false,
+    // mobileDots: false,
     localKey: CURRENTFILMS_LOCALSTORAGE_KEY,
+    getNewFilm: getNewMovi
   };
   
   const slider = new MyPagimation(option);
