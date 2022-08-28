@@ -13,6 +13,7 @@ export function popupHandler(el) {
 
 import { getGenresById } from './getGenresById';
 const modalMoviemarkup = ({
+  id,
   poster_path,
   popularity,
   vote_average,
@@ -53,8 +54,8 @@ const modalMoviemarkup = ({
           ${overview}
         </p>
         <div class="popup-btn">
-        <button class="btn1" type="button">add to Watched</button>
-        <button class="btn2" type="button">add to queue</button>
+        <button class="btn1" type="button" data-id=${id}>add to Watched</button>
+        <button class="btn2" type="button" data-id=${id}>add to queue</button>
       </div>
       </div>`;
 };
