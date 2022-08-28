@@ -1,7 +1,14 @@
 import {} from './js/preloader';
 
+
+
+//import './js/auth'; // * authentification
+
 import './js/team-modal'; // * скріпт модалки про команду
+//import './js/_sing-in-up-modal'; // * скрипт на відкриття модалки для реєстрації
 import { themoviedbAPI } from './js/api/API';
+
+import { boboilHandler } from './js/popup';
 
 import MyPagimation from './js/Pagination';
 
@@ -135,6 +142,7 @@ export async function getNewMovi(qwery, num) {
     qwery: qwery,
     num: num,
   };
+
   await themoviedb
     .getMovies(option)
     .then(data => {
@@ -163,4 +171,9 @@ refs.form.addEventListener('submit', e => {
   e.preventDefault();
   save('qwery', refs.input.value);
   slider.inicialization();
+});
+
+refs.moviesList.addEventListener('click', e => {
+  e.preventDefault();
+  boboilHandler(e.target);
 });
