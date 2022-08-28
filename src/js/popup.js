@@ -1,17 +1,24 @@
 import { load, GENREFILMS_LOCALSTORAGE_KEY } from './storage/storage';
-export function popupHandler(el) {
+import { getGenresById } from './getGenresById';
+
+const refs = {
+  moviesList: document.querySelector('.movies'),
+  popup: document.querySelector('.popup'),
+  close: document.querySelector('.close-btn'),
+};
+
+function popupHandler(el) {
   const li = el.closest('.movie-card');
   const id = li.dataset.id;
   const films = JSON.parse(localStorage.getItem('current-films'));
   const film = films.find(el => el.id === parseInt(id));
-  console.log('film', film);
+  //console.log('film', film);
   const results = modalMoviemarkup(film);
 
   const popup = document.querySelector('.popup_content');
   popup.innerHTML = results;
 }
 
-import { getGenresById } from './getGenresById';
 const modalMoviemarkup = ({
   id,
   poster_path,
@@ -24,11 +31,20 @@ const modalMoviemarkup = ({
   adult,
 }) => {
   const genresNames = getGenresById(genre_ids);
-  return ` <div class="close-btn">
-  <p>close-btn</p>
-        <svg class="close_link"width="14" height="14">
-          <use href="./images/symbol-defs.svg#icon-user-check"></use>
-       </svg>
+  return `
+  <div class="close-btn">  
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            fill="currentColor"
+            class="bi bi-x-lg"
+            viewBox="0 0 16 16"
+          >
+        <path
+          d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
+        />
+      </svg>
       </div>
   <div class="popup_img">
         <img class="img_modal" src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="#"  /></div>
@@ -37,15 +53,15 @@ const modalMoviemarkup = ({
         <h2 class="container_title">${original_title}</h2>
         <ul class="options">
           <li class="option">
-            Vote / Votes<span class="option_item"
-              ><span class="option_item--vote">${vote_average}</span> / <span class="option_item--votes">${vote_count}</span
+            Vote / Votes<span class="option_item">
+              <span class="option_item--vote">${vote_average}</span> / <span class="option_item--votes">${vote_count}</span
             >
           </li>
           <li class="option">
             Popularity<span class="option_item">${popularity}</span>
           </li>
           <li class="option">
-            Original Title<span class="option_item">${original_title} </span>
+            Original Title<span class="option_item">${original_title}</span>
           </li>
           <li class="option">Genre<span class="option_item">${genresNames} </span></li>
         </ul>
@@ -57,5 +73,29 @@ const modalMoviemarkup = ({
         <button class="btn1" type="button" data-id=${id}>add to Watched</button>
         <button class="btn2" type="button" data-id=${id}>add to queue</button>
       </div>
-      </div>`;
+      </div>
+  `;
 };
+
+refs.moviesList.addEventListener('click', e => {
+  e.preventDefault();
+
+  popupHandler(e.target);
+  refs.close = document.querySelector('.close-btn');
+  refs.popup.classList.add('is-wisible');
+  window.addEventListener('keydown', escapeClose);
+  refs.close.addEventListener('click', closePopup);
+});
+
+function closePopup() {
+  refs.popup.classList.remove('is-wisible');
+  window.removeEventListener('keydown', escapeClose);
+}
+
+function escapeClose(event) {
+  if (event.code === 'Escape') {
+    closePopup();
+  } else {
+    return;
+  }
+}
