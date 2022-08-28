@@ -6,7 +6,7 @@ const refs = { moviesList: document.querySelector('.movies') };
 
 export function renderCards(data) {
   const movieCardMarkup = data
-    .map(
+    ?.map(
       ({
         id,
         title,
@@ -19,9 +19,6 @@ export function renderCards(data) {
         genre_ids,
       }) => {
         const genresNames = getGenresById(genre_ids);
-        if (!release_date) {
-          release_date = 'IIII';
-        }
         return `<li class="movie-card" data-id="${id}">
   <div class="img-container">
   ${
@@ -34,18 +31,17 @@ export function renderCards(data) {
   }
   </div>
   <h2 class="movie-card__title">${title}</h2>
-  <div class="movie-card__details">
-    <p>
-      <span class="movie-card__genres">${genresNames}</span>
+  <div class="movie-card__details">   
+      <p class="movie-card__genres">${genresNames} </p>
       ${
         release_date
-          ? `<span class="movie-card__year"> | ${release_date.slice(
+          ? `<p class="movie-card__year">&nbsp;|&nbsp;${release_date.slice(
               0,
               4
-            )}</span>`
+            )}</p>`
           : ''
       }
-    </p>
+    
     ${
       vote_average
         ? `<p class="movie-card__rating">${vote_average.toFixed(1)}</p>`
