@@ -154,16 +154,17 @@ refs.form.addEventListener('submit', e => {
   slider.inicialization();
 });
 const popup = document.querySelector('.popup');
-const close = document.querySelector('.close-btn');
-
+let close = document.querySelector('.close-btn');
 refs.moviesList.addEventListener('click', e => {
   e.preventDefault();
+
   popupHandler(e.target);
+  close = document.querySelector('.close-btn');
   popup.classList.add('is-wisible');
   window.addEventListener('keydown', escapeClose);
+  close.addEventListener('click', closePopup);
 });
 
-close.addEventListener('click', closePopup);
 function closePopup() {
   popup.classList.remove('is-wisible');
   window.removeEventListener('keydown', escapeClose);

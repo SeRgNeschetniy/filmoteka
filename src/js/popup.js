@@ -24,6 +24,7 @@ const modalMoviemarkup = ({
 }) => {
   const genresNames = getGenresById(genre_ids);
   return ` <div class="close-btn">
+  <p>close-btn</p>
         <svg class="close_link"width="14" height="14">
           <use href="./images/symbol-defs.svg#icon-user-check"></use>
        </svg>
