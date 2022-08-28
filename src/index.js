@@ -131,18 +131,6 @@ export const createMovieCards = data => {
     .join('');
 };
 
-const option = {
-  cardContainer: 'movies',
-  // cardContainerMobile:'movies-mobile',
-  paginationContainer: 'js-pg-container',
-  paginationContainerMobile: 'js-pg-container-mobile',
-  mobileDots: false,
-  getNewFilm: getNewMovi,
-};
-
-const slider = new MyPagimation(option);
-slider.inicialization();
-
 export async function getNewMovi(qwery, num, localKey) {
   const option = {
     qwery: qwery,
@@ -198,12 +186,6 @@ export async function getNewMovi_main(qwery, num) {
 }
 
 if (refs.form) {
-  refs.form.addEventListener('submit', e => {
-    e.preventDefault();
-    save('qwery', refs.input.value);
-    slider.inicialization();
-  });
-
   const option = {
     cardContainer: 'movies',
     // cardContainerMobile:'movies-mobile',
@@ -216,6 +198,19 @@ if (refs.form) {
 
   const slider = new MyPagimation(option);
   slider.inicialization();
+  refs.form.addEventListener('submit', e => {
+    e.preventDefault();
+    save('qwery', refs.input.value);
+    slider.inicialization();
+  });
+    refs.form.addEventListener('submit', e => {
+      if (!refs.errorText.classList.contains('hidden-message-js')) {
+        refs.errorText.classList.add('hidden-message-js');
+      }
+      e.preventDefault();
+      save('qwery', refs.input.value);
+      slider.inicialization();
+    });
 }
 
 // ---------------------------------------- Library -----------------------------------------------
@@ -259,17 +254,6 @@ function onLibraryBtnClick(currentKey) {
     renderCards(load(currentKey))
   );
   console.log(load(currentKey));
-}
-
-if (refs.form) {
-  refs.form.addEventListener('submit', e => {
-    if (!refs.errorText.classList.contains('hidden-message-js')) {
-      refs.errorText.classList.add('hidden-message-js');
-    }
-    e.preventDefault();
-    save('qwery', refs.input.value);
-    slider.inicialization();
-  });
 }
 
 const popup = document.querySelector('.popup');
