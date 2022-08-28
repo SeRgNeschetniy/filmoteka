@@ -32,7 +32,8 @@ logInData: document.querySelector('#logInData'),
 }
 
 
-refs.submitData.addEventListener('click', e => {
+refs.submitData.addEventListener('click', onSubmitData);
+function onSubmitData(e) {
   e.preventDefault();
   const email = document.getElementById('registerFormEmail').value;
   const password = document.getElementById('registerFormPassword').value;
@@ -60,8 +61,9 @@ refs.submitData.addEventListener('click', e => {
       Notify.failure('Authorization failed');// ..
     });
   
-});
-refs.logInData.addEventListener('click', (e) => {
+};
+refs.logInData.addEventListener('click', onLoginData);
+function onLoginData(e) {
   e.preventDefault();
 
   const email = document.getElementById('loginFormEmail').value;
@@ -91,7 +93,7 @@ refs.logInData.addEventListener('click', (e) => {
       const errorMessage = error.message;
       Notify.failure('Login failed')
     });
-})
+};
 // logOutData.addEventListener('click', (e) => {
 //   e.preventDefault();
 //   signOut(auth).then(() => {
