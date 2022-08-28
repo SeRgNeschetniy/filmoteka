@@ -14,8 +14,6 @@ export class themoviedbAPI {
 
     const response = await axios.get(url);
 
-    console.log(response.data);
-
     this.setTotal_pages(response.data.total_pages);
     this.setTotal_results(response.data.total_results);
 
@@ -27,7 +25,6 @@ export class themoviedbAPI {
       this.#API_KEY
     }&query=${query}&page=${page}`;
     const response = await axios.get(url);
-    console.log(response.data);
 
     this.setTotal_pages(response.data.total_pages);
     this.setTotal_results(response.data.total_results);
@@ -38,7 +35,6 @@ export class themoviedbAPI {
   async getMovieById(id) {
     const url = `${this.#BASE_URL}/movie/${id}?api_key=${this.#API_KEY}`;
     const response = await axios.get(url);
-    console.log(response.data);
 
     this.setTotal_pages(response.data.total_pages);
     this.setTotal_results(response.data.total_results);
@@ -49,12 +45,12 @@ export class themoviedbAPI {
   async getGenres() {
     const url = `${this.#BASE_URL}/genre/movie/list?api_key=${this.#API_KEY}`;
     const response = await axios.get(url);
-    console.log(response.data.genres);
+
     return response.data.genres;
   }
 
   async getMovies({ qwery, num }) {
-    console.log(`qwery, page ${qwery} ${num}`);
+    // console.log(`qwery, page ${qwery} ${num}`);
     if (!num) {
       num = 1;
     }

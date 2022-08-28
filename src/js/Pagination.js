@@ -226,7 +226,6 @@ export default class MyPagimation {
       HTMLNumberOfButtonsDesktop = [1, dotsLeft, ...sliced];
     }
 
-    console.log(HTMLNumberOfButtonsDesktop);
     const prevBTN = `    <li  class= "dt-item 
                     ${
                       currentNumPage_1 === 1 ? 'disabled' : ''

@@ -45,8 +45,6 @@ save(GENREFILMS_LOCALSTORAGE_KEY, themoviedb.getGenres());
 themoviedb
   .getTrendMovies(1)
   .then(data => {
-    console.log('data');
-    console.log(`DATARESULTS: ${data.results}`);
     save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
 
     // refs.moviesList.innerHTML += createMovieCards(
@@ -164,7 +162,7 @@ export async function getNewMovi(qwery, num, localKey) {
       ) {
         refs.errorText.classList.remove('hidden-message-js');
       }
-      console.log(`num1 = ${num}`);
+      // console.log(`num1 = ${num}`);
     })
     .catch(error => {
       console.log(error, `ERRRRR`);

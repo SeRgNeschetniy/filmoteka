@@ -19,7 +19,6 @@ const swiper = new Swiper('.swiper', {
   }
 });
 
-console.log('hello')
 
 refs = {
   open: document.querySelector('[data-open-modal]'),
