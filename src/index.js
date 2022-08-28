@@ -1,11 +1,10 @@
 import {} from './js/preloader';
 
 
-
 import './js/auth'; // * authentification
-
 import './js/team-modal'; // * скріпт модалки про команду
 import './js/_sing-in-up-modal'; // * скрипт на відкриття модалки для реєстрації
+
 import { themoviedbAPI } from './js/api/API';
 
 import { boboilHandler } from './js/popup';
@@ -27,7 +26,14 @@ const refs = {
   moviesList: document.querySelector('.movies'),
   form: document.querySelector('.header-search__form'),
   input: document.querySelector('.header-search__box'),
+
+  libraryMoviesList: document.querySelector('.library-movies'),
+  libraryWatchedBtn: document.querySelector('button[data-watched]'),
+  libraryQueueBtn: document.querySelector('button[data-queue]'),
+  movieCardImg: document.querySelector('.movie-card-img'),
+
   errorText: document.querySelector('.hidden-message-js'),
+
 };
 
 save('qwery', '');
@@ -40,6 +46,7 @@ themoviedb
   .getTrendMovies(1)
   .then(data => {
     console.log('data');
+    console.log(`DATARESULTS: ${data.results}`);
     save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
 
     // refs.moviesList.innerHTML += createMovieCards(
@@ -125,6 +132,7 @@ export const createMovieCards = data => {
     )
     .join('');
 };
+
 const option = {
   cardContainer: 'movies',
   // cardContainerMobile:'movies-mobile',
@@ -137,16 +145,18 @@ const option = {
 const slider = new MyPagimation(option);
 slider.inicialization();
 
-export async function getNewMovi(qwery, num) {
+
+export async function getNewMovi(qwery, num, localKey) {
   const option = {
     qwery: qwery,
     num: num,
+    localKey: localKey,
   };
 
   await themoviedb
     .getMovies(option)
     .then(data => {
-      save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
+      save(localKey, data.results);
       save('total_pages', data.total_pages);
       if (
         data.total_pages === 0 &&
@@ -163,6 +173,68 @@ export async function getNewMovi(qwery, num) {
       }
     });
 }
+if (refs.form) {
+  refs.form.addEventListener('submit', e => {
+    e.preventDefault();
+    save('qwery', refs.input.value);
+    slider.inicialization();
+  });
+
+
+  const option = {
+    cardContainer: 'movies',
+    // cardContainerMobile:'movies-mobile',
+    paginationContainer: 'js-pg-container',
+    paginationContainerMobile: 'js-pg-container-mobile',
+    mobileDots: false,
+    localKey: CURRENTFILMS_LOCALSTORAGE_KEY,
+  };
+  
+  const slider = new MyPagimation(option);
+  slider.inicialization();
+} 
+
+
+// ---------------------------------------- Library -----------------------------------------------
+
+
+let watchedFilmsList = [];
+
+if (refs.moviesList) {
+  refs.moviesList.addEventListener('click', onMovieCardClick);
+}
+
+function onMovieCardClick(i) {
+    const cardId = i.target.dataset.id;
+    themoviedb 
+    .getMovieById(cardId)
+    .then(data => {
+    watchedFilmsList.push(data);
+    save(WATCHEDFILMS_LOCALSTORAGE_KEY, watchedFilmsList);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+}
+
+if (refs.libraryWatchedBtn) {
+  refs.libraryWatchedBtn.addEventListener('click', e => {
+    e.preventDefault();
+    onLibraryBtnClick(WATCHEDFILMS_LOCALSTORAGE_KEY);
+  })
+}
+
+// if (refs.libraryQueueBtn) {
+//   refs.libraryQueueBtn.addEventListener('click', e => {
+//     e.preventDefault();
+//     onLibraryBtnClick(QUEUEFILMS_LOCALSTORAGE_KEY);
+//   })
+// }
+
+function onLibraryBtnClick(currentKey) {
+    refs.libraryMoviesList.insertAdjacentHTML('beforeend', renderCards(load(currentKey)));
+    console.log(load(currentKey));
+  }
 
 refs.form.addEventListener('submit', e => {
   if (!refs.errorText.classList.contains('hidden-message-js')) {
@@ -177,3 +249,4 @@ refs.moviesList.addEventListener('click', e => {
   e.preventDefault();
   boboilHandler(e.target);
 });
+
