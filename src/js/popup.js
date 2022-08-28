@@ -1,4 +1,35 @@
 import { load, GENREFILMS_LOCALSTORAGE_KEY } from './storage/storage';
+import { getGenresById } from './getGenresById';
+
+const refs = {
+  moviesList: document.querySelector('.movies'),
+  popup: document.querySelector('.popup'),
+  close: document.querySelector('.close-btn'),
+};
+
+refs.moviesList.addEventListener('click', e => {
+  e.preventDefault();
+
+  popupHandler(e.target);
+  refs.close = document.querySelector('.close-btn');
+  refs.popup.classList.add('is-wisible');
+  window.addEventListener('keydown', escapeClose);
+  refs.close.addEventListener('click', closePopup);
+});
+
+function closePopup() {
+  refs.popup.classList.remove('is-wisible');
+  window.removeEventListener('keydown', escapeClose);
+}
+
+function escapeClose(event) {
+  if (event.code === 'Escape') {
+    closePopup();
+  } else {
+    return;
+  }
+}
+
 export function popupHandler(el) {
   const li = el.closest('.movie-card');
   const id = li.dataset.id;
@@ -11,7 +42,6 @@ export function popupHandler(el) {
   popup.innerHTML = results;
 }
 
-import { getGenresById } from './getGenresById';
 const modalMoviemarkup = ({
   id,
   poster_path,

@@ -6,7 +6,7 @@ import './js/_sing-in-up-modal'; // * скрипт на відкриття мо�
 
 import { themoviedbAPI } from './js/api/API';
 
-import { popupHandler } from './js/popup';
+import './js/popup';
 
 import MyPagimation from './js/Pagination';
 
@@ -203,14 +203,14 @@ if (refs.form) {
     save('qwery', refs.input.value);
     slider.inicialization();
   });
-    refs.form.addEventListener('submit', e => {
-      if (!refs.errorText.classList.contains('hidden-message-js')) {
-        refs.errorText.classList.add('hidden-message-js');
-      }
-      e.preventDefault();
-      save('qwery', refs.input.value);
-      slider.inicialization();
-    });
+  refs.form.addEventListener('submit', e => {
+    if (!refs.errorText.classList.contains('hidden-message-js')) {
+      refs.errorText.classList.add('hidden-message-js');
+    }
+    e.preventDefault();
+    save('qwery', refs.input.value);
+    slider.inicialization();
+  });
 }
 
 // ---------------------------------------- Library -----------------------------------------------
@@ -255,31 +255,3 @@ import './js/libraryFilms';
 //   );
 //   console.log(load(currentKey));
 // }
-
-const popup = document.querySelector('.popup');
-
-let close = document.querySelector('.close-btn');
-
-refs.moviesList.addEventListener('click', e => {
-  e.preventDefault();
-
-  popupHandler(e.target);
-  close = document.querySelector('.close-btn');
-  popup.classList.add('is-wisible');
-  window.addEventListener('keydown', escapeClose);
-  close.addEventListener('click', closePopup);
-});
-
-function closePopup() {
-  popup.classList.remove('is-wisible');
-  window.removeEventListener('keydown', escapeClose);
-}
-
-function escapeClose(event) {
-  if (event.code === 'Escape') {
-    closePopup();
-  } else {
-    return;
-
-  }
-}
