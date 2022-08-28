@@ -1,8 +1,10 @@
-import Swiper, { Pagination } from 'swiper';
+import Swiper, { Pagination, Autoplay } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 
+// import { showEmptyLibrary, hideEmptyLibrary, showGuest, hideGuest } from './empty-library';
+
 const swiper = new Swiper('.swiper', {
-  modules: [Pagination],
+  modules: [Pagination, Autoplay],
 
   direction: 'horizontal',
   loop: true,
@@ -11,17 +13,16 @@ const swiper = new Swiper('.swiper', {
     el: '.swiper-pagination',
     type: 'bullets',
     clickable: true,
+    dynamicBullets: true
   },
   breakpoints: {
     1200: {
       slidesPerView: 3,
     }
-  }
+  },
 });
 
-console.log('hello')
-
-refs = {
+const refs = {
   open: document.querySelector('[data-open-modal]'),
   close: document.querySelector('[data-close-modal]'),
   overlay: document.querySelector('[data-overlay]'),
