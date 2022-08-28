@@ -153,8 +153,14 @@ refs.form.addEventListener('submit', e => {
   save('qwery', refs.input.value);
   slider.inicialization();
 });
-
+const popup = document.querySelector('.popup');
+const close = document.querySelector('.close_btn');
 refs.moviesList.addEventListener('click', e => {
   e.preventDefault();
   boboilHandler(e.target);
+  popup.classList.add('is-wisible');
 });
+close.addEventListener('click', closePopup);
+function closePopup() {
+  popup.classList.remove('is-wisible');
+}
