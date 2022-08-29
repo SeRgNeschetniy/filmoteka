@@ -16,7 +16,7 @@ function onScroll() {
     refs.toTop.classList.add('visually-hidden');
   }
 }
-export function onToTopBtn() {
+function onToTopBtn() {
   if (window.pageYOffset > 0) {
     window.scrollTo({ top: 300, behavior: 'smooth' });
   }
@@ -25,5 +25,4 @@ export function onToTopBtn() {
 onScroll();
 onToTopBtn();
 
-export {onScroll, onToTopBtn };
-
+export { onScroll, onToTopBtn };
