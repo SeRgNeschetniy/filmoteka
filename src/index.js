@@ -259,18 +259,18 @@ import './js/libraryFilms';
 //   console.log(load(currentKey));
 // }
 
-const popup = document.querySelector('.popup');
-let close = document.querySelector('.close-btn');
+// const popup = document.querySelector('.popup');
+// let close = document.querySelector('.close-btn');
 
-refs.movieToClick.addEventListener('click', e => {
-  e.preventDefault();
+// refs.movieToClick.addEventListener('click', e => {
+//   e.preventDefault();
 
-  popupHandler(e.target);
-  close = document.querySelector('.close-btn');
-  popup.classList.add('is-wisible');
-  window.addEventListener('keydown', escapeClose);
-  close.addEventListener('click', closePopup);
-});
+//   popupHandler(e.target);
+//   close = document.querySelector('.close-btn');
+//   popup.classList.add('is-wisible');
+//   window.addEventListener('keydown', escapeClose);
+//   close.addEventListener('click', closePopup);
+// });
 
 refs.tumbler.addEventListener('click', e => {
   document.body.classList.toggle('night-mode');
