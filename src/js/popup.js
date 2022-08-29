@@ -89,12 +89,14 @@ if (refs.libraryMoviesList) {
 
 function createCardMovieInfo(e) {
   e.preventDefault();
-  popupHandler(e.target);
-  refs.popup.classList.toggle('is-hidden');
-  document.body.classList.toggle('overflow-hidden');
-  window.addEventListener('keydown', escapeClose);
 
+  popupHandler(e.target);
+
+  document.body.classList.toggle('overflow-hidden');
+  refs.popup.classList.toggle('is-hidden');
+  refs.popupClose = document.querySelector('.js-close-btn');
   refs.popupClose.addEventListener('click', closePopup);
+  window.addEventListener('keydown', escapeClose);
 }
 
 function closePopup() {
