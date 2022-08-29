@@ -71,6 +71,7 @@ body {
 
     & .auth-modal {
       background-color: #0e171e;
+      box-shadow: 0 0 59px -17px #ff6b01;
 
       & .auth-modal__icon-close {
         color: #fff;
@@ -78,6 +79,7 @@ body {
     }
     & .team-modal {
       background-color: #0e171e;
+      box-shadow: 0 0 59px -17px #ff6b01;
 
       & .team-modal__item {
         background-color: #213646;
