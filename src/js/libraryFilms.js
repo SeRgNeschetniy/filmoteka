@@ -112,7 +112,12 @@ if (refs.libraryWatchedBtn) {
     getNewFilm: getNewWatchedMovie,
   };
 
+  const libraryWatchedSlider = new MyPagimation(option);
+  libraryWatchedSlider.inicialization();
+
   refs.libraryWatchedBtn.addEventListener('click', () => {
+    refs.libraryQueueBtn.classList.remove('header__btn--activ');
+    refs.libraryWatchedBtn.classList.add('header__btn--activ');
     const libraryWatchedSlider = new MyPagimation(option);
     libraryWatchedSlider.inicialization();
   });
@@ -132,6 +137,8 @@ if (refs.libraryQueueBtn) {
   };
 
   refs.libraryQueueBtn.addEventListener('click', () => {
+    refs.libraryWatchedBtn.classList.remove('header__btn--activ');
+    refs.libraryQueueBtn.classList.add('header__btn--activ');
     const libraryQueueSlider = new MyPagimation(option);
     libraryQueueSlider.inicialization();
   })
