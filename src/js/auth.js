@@ -63,6 +63,7 @@ function onSubmitData(e) {
           // Data saved successfully!
         })
         .catch(error => {
+          save('userUID', false);
           Notify.failure('Something went wrong');
           // The write failed...
         });
@@ -98,6 +99,7 @@ function onLoginData(e) {
           // Data saved successfully!
         })
         .catch(error => {
+          save('userUID', false);
           Notify.failure('Something went wrong');
           // The write failed...
         });
@@ -114,6 +116,7 @@ if (refs.logOutData) {
 function onLogOutData(e) {
   e.preventDefault();
   signOut(auth).then(() => {
+    save('userUID', false);
     Notify.success('Successfully logged out')
   }).catch((error) => {
     Notify.failure('Something went wrong...')
