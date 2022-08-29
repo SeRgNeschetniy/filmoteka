@@ -63,6 +63,7 @@ function onSubmitData(e) {
           // Data saved successfully!
         })
         .catch(error => {
+          save('userUID', false);
           Notify.failure('Something went wrong');
           // The write failed...
         });
@@ -98,6 +99,7 @@ function onLoginData(e) {
           // Data saved successfully!
         })
         .catch(error => {
+          save('userUID', false);
           Notify.failure('Something went wrong');
           // The write failed...
         });
@@ -108,17 +110,19 @@ function onLoginData(e) {
       Notify.failure('Login failed, check email or password');
     });
 }
-// if (refs.logOutData) {
-//   refs.logOutData.addEventListener('click', onLogOutData);
-// }
-// function onLogOutData(e) {
-//   e.preventDefault();
-//   signOut(auth).then(() => {
-//     Notify.success('Successfully logged out')
-//   }).catch((error) => {
-//     Notify.failure('Oops, something went wrong...')
+if (refs.logOutData) {
+  refs.logOutData.addEventListener('click', onLogOutData);
+}
+function onLogOutData(e) {
+  e.preventDefault();
+  signOut(auth).then(() => {
+    save('userUID', false);
+    Notify.success('Successfully logged out')
+  }).catch((error) => {
+    Notify.failure('Something went wrong...')
 
-//   });
+  });
+}
 
 // function Validation() {
 //   let nameregex = /[a-zA-Z]+/;
