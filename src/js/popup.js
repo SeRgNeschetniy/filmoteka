@@ -1,17 +1,23 @@
 import { load, GENREFILMS_LOCALSTORAGE_KEY } from './storage/storage';
 import { getAllGenresForModal } from './getAllGenresForModal';
 import { refs } from './refs';
-
-function popupHandler(el) {
+import { themoviedbAPI } from './api/API';
+const themoviedb = new themoviedbAPI();
+let linkToYutube = '';
+async function popupHandler(el) {
   const li = el.closest('.movie-card');
   const id = li.dataset.id;
   const films = JSON.parse(localStorage.getItem('current-films'));
   const film = films.find(el => el.id === parseInt(id));
-  console.log(film);
+  const res = await themoviedb.getVideoById(id);
+  linkToYutube = `https://www.youtube.com/embed/${res.results[0].key}`;
+  console.log('themoviedb.getMovieById(id)');
+  console.log(linkToYutube);
   const results = modalMoviemarkup(film);
 
   const popup = document.querySelector('.js-popup__content');
   popup.innerHTML = results;
+  searchVideoFrame();
 }
 
 const modalMoviemarkup = ({
@@ -80,6 +86,10 @@ const modalMoviemarkup = ({
     <button class="popup__btn" type="button" data-id=${id}>add to Watched</button>
     <button class="popup__btn" type="button" data-id=${id}>add to queue</button>
   </div>
+  <div id="video-overlay" class="video-overlay">
+  <a class="video-overlay-close">&times;</a>
+  <div class="js-pleyer"><iframe width="560" height="315" src="${linkToYutube}" frameborder="0" allowfullscreen></iframe></div>
+</div>
 </div>
 
   `;
@@ -88,33 +98,33 @@ const modalMoviemarkup = ({
 if (refs.moviesList) {
   refs.moviesList.addEventListener('click', createCardMovieInfo);
 }
-
 if (refs.libraryMoviesList) {
   refs.libraryMoviesList.addEventListener('click', createCardMovieInfo);
 }
 
-function createCardMovieInfo(e) {
+async function createCardMovieInfo(e) {
   e.preventDefault();
 
-  popupHandler(e.target);
+  await popupHandler(e.target);
 
   document.body.classList.toggle('overflow-hidden');
   refs.popup.classList.toggle('is-hidden');
   refs.popupClose = document.querySelector('.js-close-btn');
   refs.popupClose.addEventListener('click', closePopup);
 
-  window.addEventListener('keydown', escapeClose);
+  // window.addEventListener('keydown', escapeClose);
 }
 
 const backdropPpup = document.querySelector('.popup.backdrop-popup');
 const popupContent = document.querySelector('.popup__content');
-backdropPpup.addEventListener('click', e => {
+function popapbeckClose(e) {
   const click = e.composedPath().includes(popupContent);
   console.log(click);
   if (click === false) {
     closePopup();
   }
-});
+}
+backdropPpup.addEventListener('click', popapbeckClose);
 
 function closePopup() {
   refs.popup.classList.toggle('is-hidden');
@@ -130,3 +140,34 @@ function escapeClose(event) {
   }
 }
 // ------------------------------------------------- player--------------
+function searchVideoFrame() {
+  const varName = document.querySelector('cssSelector');
+  const toOpen = document.querySelector('.video-overlay');
+  const toPleyer = document.querySelector('.js-pleyer');
+  const player = document.getElementById('play-video');
+  const closeVideo = document.querySelector('.video-overlay-close');
+  const overlay = document.querySelector('.video-overlay');
+
+  player.addEventListener('click', function (e) {
+    e.preventDefault();
+    console.log('object');
+    toOpen.classList.add('open');
+    backdropPpup.removeEventListener('click', popapbeckClose);
+
+    // toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
+  });
+  overlay.addEventListener('click', function (e) {
+    e.preventDefault();
+    close_video();
+  });
+  closeVideo.addEventListener('click', function (e) {
+    e.preventDefault();
+    close_video();
+  });
+  function close_video() {
+    backdropPpup.addEventListener('click', popapbeckClose);
+
+    toPleyer.innerHTML = '';
+    document.querySelector('.video-overlay.open').classList.remove('open');
+  }
+}
