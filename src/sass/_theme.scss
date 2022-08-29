@@ -76,6 +76,15 @@ body {
       & .auth-modal__icon-close {
         color: #fff;
       }
+
+      & .auth-modal__box input {
+        color: #fff;
+        border-bottom: 1px solid #fff;
+      }
+
+      & .auth-modal__box label {
+        color: #fff;
+      }
     }
     & .team-modal {
       background-color: #0e171e;
