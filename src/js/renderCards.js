@@ -1,8 +1,8 @@
+import { refs } from './refs';
+
 import { getGenresById } from './getGenresById';
 import 'lazysizes';
 import placeholderImg from '../images/movie_img_placeholder.png';
-
-const refs = { moviesList: document.querySelector('.movies') };
 
 export function renderCards(data) {
   const movieCardMarkup = data

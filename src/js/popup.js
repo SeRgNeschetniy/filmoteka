@@ -1,11 +1,6 @@
 import { load, GENREFILMS_LOCALSTORAGE_KEY } from './storage/storage';
 import { getGenresById } from './getGenresById';
-
-const refs = {
-  moviesList: document.querySelector('.movies'),
-  popup: document.querySelector('.popup'),
-  close: document.querySelector('.close-btn'),
-};
+import { refs } from './refs';
 
 function popupHandler(el) {
   const li = el.closest('.movie-card');

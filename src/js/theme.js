@@ -1,10 +1,7 @@
 import { save, load } from './storage/storage';
+import { refs } from './refs';
 
 const THEME_LOCALSTORAGE_KEY = 'theme';
-
-const refs = {
-  tumbler: document.querySelector('.tumbler-wrapper'),
-};
 
 const theme = load('THEME_LOCALSTORAGE_KEY');
 document.body.classList.add(theme);
