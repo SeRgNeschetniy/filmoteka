@@ -51,6 +51,7 @@ body {
     .popup__content {
       background-color: #0e171e;
       color: white;
+      box-shadow: 0 0 59px -17px #ff6b01;
 
       & .film-info {
         color: white;
@@ -72,6 +73,7 @@ body {
 
       & .auth-modal__icon-close {
         color: #fff;
+        background: #fff;
       }
     }
 
