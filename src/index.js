@@ -259,9 +259,7 @@ import './js/libraryFilms';
 //   console.log(load(currentKey));
 // }
 
-
 const popup = document.querySelector('.popup');
-
 let close = document.querySelector('.close-btn');
 
 refs.movieToClick.addEventListener('click', e => {
@@ -272,8 +270,8 @@ refs.movieToClick.addEventListener('click', e => {
   popup.classList.add('is-wisible');
   window.addEventListener('keydown', escapeClose);
   close.addEventListener('click', closePopup);
+});
 
 refs.tumbler.addEventListener('click', e => {
   document.body.classList.toggle('night-mode');
-
 });
