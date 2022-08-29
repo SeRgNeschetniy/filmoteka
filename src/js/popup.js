@@ -90,6 +90,7 @@ if (refs.moviesList) {
 
     popupHandler(e.target);
     refs.close = document.querySelector('.js-close-btn');
+    document.body.classList.toggle('overflow-hidden');
     refs.popup.classList.toggle('is-hidden');
     window.addEventListener('keydown', escapeClose);
     refs.close.addEventListener('click', closePopup);
@@ -98,6 +99,7 @@ if (refs.moviesList) {
 
 function closePopup() {
   refs.popup.classList.toggle('is-hidden');
+  document.body.classList.toggle('overflow-hidden');
   window.removeEventListener('keydown', escapeClose);
 }
 
