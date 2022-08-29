@@ -1,4 +1,5 @@
 import { load, GENREFILMS_LOCALSTORAGE_KEY } from './storage/storage';
+
 import { getAllGenresForModal } from './getAllGenresForModal';
 
 const refs = {
@@ -6,6 +7,10 @@ const refs = {
   popup: document.querySelector('.popup'),
   close: document.querySelector('.js-close-btn'),
 };
+
+import { getGenresById } from './getGenresById';
+import { refs } from './refs';
+
 
 function popupHandler(el) {
   const li = el.closest('.movie-card');
@@ -89,10 +94,14 @@ if (refs.moviesList) {
     e.preventDefault();
 
     popupHandler(e.target);
+
     refs.close = document.querySelector('.js-close-btn');
     refs.popup.classList.toggle('is-hidden');
+   //refs.popupClose = document.querySelector('.close-btn');
+   // refs.popup.classList.add('is-wisible');
+
     window.addEventListener('keydown', escapeClose);
-    refs.close.addEventListener('click', closePopup);
+    refs.popupClose.addEventListener('click', closePopup);
   });
 }
 

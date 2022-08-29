@@ -1,3 +1,4 @@
+import { refs } from './refs';
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
@@ -33,12 +34,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-const refs = {
-  submitData: document.querySelector('#submitData'),
-  logInData: document.querySelector('#logInData'),
-  logOutData: document.querySelector('#logOutData'),
-};
-
 if (refs.submitData) {
   refs.submitData.addEventListener('click', onSubmitData);
 }
@@ -63,6 +58,7 @@ function onSubmitData(e) {
           // Data saved successfully!
         })
         .catch(error => {
+          save('userUID', false);
           Notify.failure('Something went wrong');
           // The write failed...
         });
@@ -98,6 +94,7 @@ function onLoginData(e) {
           // Data saved successfully!
         })
         .catch(error => {
+          save('userUID', false);
           Notify.failure('Something went wrong');
           // The write failed...
         });
@@ -108,17 +105,20 @@ function onLoginData(e) {
       Notify.failure('Login failed, check email or password');
     });
 }
-// if (refs.logOutData) {
-//   refs.logOutData.addEventListener('click', onLogOutData);
-// }
-// function onLogOutData(e) {
-//   e.preventDefault();
-//   signOut(auth).then(() => {
-//     Notify.success('Successfully logged out')
-//   }).catch((error) => {
-//     Notify.failure('Oops, something went wrong...')
-
-//   });
+if (refs.logOutData) {
+  refs.logOutData.addEventListener('click', onLogOutData);
+}
+function onLogOutData(e) {
+  e.preventDefault();
+  signOut(auth)
+    .then(() => {
+      save('userUID', false);
+      Notify.success('Successfully logged out');
+    })
+    .catch(error => {
+      Notify.failure('Something went wrong...');
+    });
+}
 
 // function Validation() {
 //   let nameregex = /[a-zA-Z]+/;
@@ -175,3 +175,5 @@ function savetoCLG(data, key) {
   save(key, data);
 }
 // writeUserData('BdiVz1qXmJfMcByu0rr4OqbGTU53', [{name: 'cccc'}], 'wahedMyFilmbyId');
+
+save('userUID', 'BdiVz1qXmJfMcByu0rr4OqbGTU53');
