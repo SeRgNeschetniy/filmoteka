@@ -1,5 +1,6 @@
 import { load, CURRENTFILMS_LOCALSTORAGE_KEY } from './storage/storage';
 import { renderCards } from './renderCards';
+import { onScroll, onToTopBtn } from './scroll';
 
 export default class MyPagimation {
   constructor({
@@ -74,7 +75,6 @@ export default class MyPagimation {
   }
 
   async nextPage() {
-
     this.state.currentNumPage += 1;
 
     if (this.state.currentNumPage > this.state.numOfPages - 1) {
@@ -102,6 +102,8 @@ export default class MyPagimation {
   }
 
   async render() {
+    onScroll();
+    onToTopBtn();
     if (this.callGoTo) {
       this.paginationContainer.removeEventListener('click', this.callGoTo);
       this.paginationContainerMobile.removeEventListener(

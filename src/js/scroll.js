@@ -24,3 +24,6 @@ function onToTopBtn() {
 
 onScroll();
 onToTopBtn();
+
+export {onScroll, onToTopBtn };
+
