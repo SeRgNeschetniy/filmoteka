@@ -17,7 +17,12 @@ import {
   onValue,
 } from 'firebase/database';
 
-import { save, load } from './storage/storage.js';
+import {
+  save,
+  load,
+  WATCHEDFILMS_LOCALSTORAGE_KEY,
+  QUEUEFILMS_LOCALSTORAGE_KEY,
+} from './storage/storage.js';
 import Notiflix from 'notiflix';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
@@ -35,9 +40,10 @@ const auth = getAuth(app);
 const database = getDatabase(app);
 
 if (refs.submitData) {
-  refs.submitData.addEventListener('click', onSubmitData);
+  refs.submitData.addEventListener('click', registrationNewUser);
 }
-function onSubmitData(e) {
+
+function registrationNewUser(e) {
   e.preventDefault();
   const email = document.getElementById('registerFormEmail').value;
   const password = document.getElementById('registerFormPassword').value;
@@ -47,6 +53,7 @@ function onSubmitData(e) {
       const user = userCredential.user;
       Notify.success('successfully  created');
       document.getElementById('regForm').reset();
+      save('userUID', user.uid);
 
       set(ref(database, 'users/' + user.uid), {
         email: email,
@@ -54,7 +61,15 @@ function onSubmitData(e) {
         queueFilm: [],
       })
         .then(() => {
-          save('userUID', user.uid);
+          readUserData({
+            userId: user.uid,
+            key: WATCHEDFILMS_LOCALSTORAGE_KEY,
+          });
+          readUserData({
+            userId: user.uid,
+            key: QUEUEFILMS_LOCALSTORAGE_KEY,
+          });
+
           // Data saved successfully!
         })
         .catch(error => {
@@ -85,6 +100,16 @@ function onLoginData(e) {
       Notify.success('Successfully logged in');
       document.getElementById('logForm').reset();
 
+      save('userUID', user.uid);
+      console.log(WATCHEDFILMS_LOCALSTORAGE_KEY);
+      readUserData({
+        userId: user.uid,
+        key: WATCHEDFILMS_LOCALSTORAGE_KEY,
+      });
+      readUserData({
+        userId: user.uid,
+        key: QUEUEFILMS_LOCALSTORAGE_KEY,
+      });
       const logDate = new Date();
 
       update(ref(database, 'users/' + user.uid), {
@@ -141,11 +166,13 @@ function onLogOutData(e) {
 
 let myfilm = [];
 
-async function readUserData(userId, key) {
+async function readUserData({ userId, key }) {
+  alert(`Save film to local ${key}`);
+
   onValue(
-    ref(database, '/users/' + userId),
+    ref(database, 'users/' + userId),
     snapshot => {
-      const myFilm = (snapshot.val() && snapshot.val()[key]) || 'Anonymous';
+      const myFilm = (snapshot.val() && snapshot.val()[key]) || [];
       myfilm = [...myFilm];
       savetoCLG(myFilm, key);
       // ...
@@ -156,9 +183,10 @@ async function readUserData(userId, key) {
   );
 }
 
-async function writeUserData(userId, data, key) {
+async function setUserData({ userId, data, key }) {
   const options = {};
   options[key] = data;
+  alert(userId);
   update(ref(database, 'users/' + userId), options)
     .then(() => {
       // Data saved successfully!
@@ -169,9 +197,9 @@ async function writeUserData(userId, data, key) {
     });
 }
 
-readUserData('BdiVz1qXmJfMcByu0rr4OqbGTU53', 'email');
 function savetoCLG(data, key) {
-  console.log(`eeeee ${data}`);
+  // console.log(`eeeee ${data}`);
   save(key, data);
 }
 // writeUserData('BdiVz1qXmJfMcByu0rr4OqbGTU53', [{name: 'cccc'}], 'wahedMyFilmbyId');
+export { setUserData, readUserData };
