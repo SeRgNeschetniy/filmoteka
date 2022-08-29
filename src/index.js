@@ -7,6 +7,7 @@ import './js/_sing-in-up-modal'; // * скрипт на відкриття мо�
 import { themoviedbAPI } from './js/api/API';
 
 import './js/popup';
+import './js/theme';
 
 import MyPagimation from './js/Pagination';
 
@@ -34,7 +35,6 @@ const refs = {
   movieToClick: document.querySelector('.js-movie-container'),
 
   errorText: document.querySelector('.hidden-message-js'),
-  tumbler: document.querySelector('.tumbler-wrapper'),
 };
 
 save('qwery', '');
@@ -157,9 +157,3 @@ if (refs.form) {
 
 // ---------------------------------------- Library -----------------------------------------------
 import './js/libraryFilms';
-
-if (refs.tumbler) {
-  refs.tumbler.addEventListener('click', e => {
-    document.body.classList.toggle('night-mode');
-  });
-}
