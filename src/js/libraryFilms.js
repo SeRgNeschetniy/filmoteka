@@ -43,7 +43,7 @@ const refs = {
   };
 
 let watchedFilmsList = [];
-let queueFilmsList
+let queueFilmsList = [];
 
 if (refs.body) {
     refs.body.addEventListener('click', onWatchedBtnClick);
@@ -109,7 +109,7 @@ if (refs.libraryWatchedBtn) {
     paginationContainerMobile: 'js-pg-library-container-mobile',
     // mobileDots: false,
     localKey: WATCHEDFILMS_LOCALSTORAGE_KEY,
-    getNewFilm: getNewMovi_main(localKey),
+    getNewFilm: getNewWatchedMovie,
   };
 
   refs.libraryWatchedBtn.addEventListener('click', () => {
@@ -128,7 +128,7 @@ if (refs.libraryQueueBtn) {
     paginationContainerMobile: 'js-pg-library-container-mobile',
     // mobileDots: false,
     localKey: QUEUEFILMS_LOCALSTORAGE_KEY,
-    getNewFilm: getNewMovi_main(localKey),
+    getNewFilm: getNewQueueMovie,
   };
 
   refs.libraryQueueBtn.addEventListener('click', () => {
@@ -137,44 +137,32 @@ if (refs.libraryQueueBtn) {
   })
 }
 
-export async function getNewMovi_main(localKey) {
-  // const option = {
-  //   qwery: qwery,
-  //   num: num,
-  // };
+function getNewWatchedMovie(qwery, num) {
+  const option = {
+    qwery: qwery,
+    num: num,
+  };
   const cof = 20;
   const indexStart = num * cof - cof;
   const indexEnd = num * cof;
-  const watchedFilms = load(localKey);
+  const watchedFilms = load(WATCHEDFILMS_LOCALSTORAGE_KEY);
   const filmResult = watchedFilms.slice(indexStart, indexEnd);
   save(CURRENTFILMS_LOCALSTORAGE_KEY, filmResult);
-  save('total_pages', Math.ceil(load(localKey).length / 20));
+  save('total_pages', Math.ceil(load(WATCHEDFILMS_LOCALSTORAGE_KEY).length / 20));
 }
 
+function getNewQueueMovie(qwery, num) {
+  const option = {
+    qwery: qwery,
+    num: num,
+  };
+  const cof = 20;
+  const indexStart = num * cof - cof;
+  const indexEnd = num * cof;
+  const watchedFilms = load(QUEUEFILMS_LOCALSTORAGE_KEY);
+  const filmResult = watchedFilms.slice(indexStart, indexEnd);
+  save(CURRENTFILMS_LOCALSTORAGE_KEY, filmResult);
+  save('total_pages', Math.ceil(load(QUEUEFILMS_LOCALSTORAGE_KEY).length / 20));
+}
 
-
-
-
-
-// if (refs.libraryQueueBtn) {
-//   refs.libraryQueueBtn.addEventListener('click', e => {
-//     e.preventDefault();
-//     onLibraryBtnClick(QUEUEFILMS_LOCALSTORAGE_KEY);
-//   })
-// }
-
-// function onLibraryBtnClick(currentKey) {
-//     refs.libraryMoviesList.insertAdjacentHTML('beforeend', renderCards(load(currentKey)));
-//     console.log(load(currentKey));
-//   }
-
-
-// const li = el.closest('.movie-card');
-// const id = li.dataset.id;
-
-// const libraryFilms = JSON.parse(localStorage.getItem(CURRENTFILMS_LOCALSTORAGE_KEY));
-
-// console.log(libraryFilms);
-
-// const libraryFilm = libraryFilms.find(el => el.id === parseInt(id));
 
