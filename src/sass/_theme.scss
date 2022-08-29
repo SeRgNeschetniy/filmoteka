@@ -90,6 +90,11 @@ body {
       & .team-modal__icon {
         color: #fff;
       }
+
+      & .swiper .swiper-button-next,
+      & .swiper .swiper-button-prev {
+        color: #fff;
+      }
     }
     & .footer {
       background-color: #0e171e;
