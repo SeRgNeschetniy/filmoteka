@@ -38,10 +38,20 @@ export class themoviedbAPI {
   async getMovieById(id) {
     const url = `${this.#BASE_URL}/movie/${id}?api_key=${this.#API_KEY}`;
     const response = await axios.get(url);
-    console.log(response.data);
+    // console.log(response.data);
 
     this.setTotal_pages(response.data.total_pages);
     this.setTotal_results(response.data.total_results);
+
+    return response.data;
+  }
+  async getVideoById(id) {
+    
+    const url = `${this.#BASE_URL}/movie/${id}/videos?api_key=${this.#API_KEY}`;
+    const response = await axios.get(url);
+    // console.log(response.data);
+
+
 
     return response.data;
   }
