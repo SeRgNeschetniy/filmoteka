@@ -7,25 +7,27 @@
     </button>
     <h2 class="auth-modal__title">Sing in</h2>
     <form action="submit" method="post" class="auth-modal-form" id="logForm">
-      <span class="auth-modal-form__label">Email</span>
+      <div class="auth-modal__box">
+        <input
+          type="email"
+          name="name"
+          id="loginFormEmail"
+          class="auth-modal-form__input"
+          placeholder=" "
+        />
+        <label>Username</label>
+      </div>
 
-      <input
-        type="email"
-        name="name"
-        id="loginFormEmail"
-        class="auth-modal-form__input"
-        placeholder=" "
-      />
-
-      <span class="auth-modal-form__label">Password</span>
-
-      <input
-        type="password"
-        name="password"
-        id="loginFormPassword"
-        class="auth-modal-form__input"
-        placeholder=" "
-      />
+      <div class="auth-modal__box">
+        <input
+          type="password"
+          name="password"
+          id="loginFormPassword"
+          class="auth-modal-form__input"
+          placeholder=" "
+        />
+        <label>Password</label>
+      </div>
 
       <div class="auth-modal-form__btn-box">
         <button class="auth-modal-form__btn" type="button" id="logInData">
