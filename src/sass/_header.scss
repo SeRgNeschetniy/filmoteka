@@ -3,7 +3,6 @@
   display: none;
 }
 
-
 .header {
   background: $light-grey-bg-color;
   background-image: url('../images/header-background/mob-header.jpg');
@@ -130,10 +129,8 @@
   margin-right: 5px;
 }
 
-
 .authorization__btn-out {
   color: $white-text-color;
-  padding-right: 0;
   font-weight: 500;
   font-size: 12px;
   line-height: 1.16;
@@ -157,7 +154,6 @@
   fill: $white-text-color;
   margin-right: 5px;
 }
-
 .header-search {
   position: relative;
 
@@ -249,11 +245,10 @@
   pointer-events: none;
 }
 
+
 .header-nav-container {
   display: flex;
 }
-
-
 
 
 // header-library

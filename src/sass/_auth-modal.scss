@@ -12,7 +12,7 @@
   min-height: 100%;
 }
 
-.backgroup-auth.is-hidden {
+.is-hidden {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -104,7 +104,7 @@
 .auth-modal-form__btn {
   width: 130px;
   height: 44px;
-  padding: 13px 13px;
+
   background: $button-accent-bg-color;
   font-weight: 400;
   font-size: 12px;
@@ -120,31 +120,27 @@
 
   &:hover {
     background-color: transparent;
-    border: 1px solid #000000;
-    color: $main-dark-text-color;
+    border: 1px solid $secondary-dark-text-color;
+    color: $secondary-dark-text-color;
   }
 
   @media screen and (min-width: 768px) {
-    padding: 13px 46px;
     width: 152px;
   }
 
   @media screen and (min-width: 1280px) {
-    padding: 13px 46px;
     width: 147px;
   }
 }
 .auth-modal-form__link {
-    margin: auto;
-  width: 130px;
-  height: 44px;
-  padding: 13px 13px;
-  background: $button-accent-bg-color;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 1.33;
-  color: $white-text-color;
-  text-align: center;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+color: $white-text-color;
+background: $button-accent-bg-color;
   text-transform: uppercase;
   border: transparent;
   border-radius: 5px;
@@ -154,22 +150,24 @@
 
   &:hover {
     background-color: transparent;
-    border: 1px solid #000000;
-    color: $main-dark-text-color;
+    border: 1px solid $secondary-dark-text-color;
+    color: $secondary-dark-text-color;
   }
-
+}
+.auth-modal-form__link-container {
+  margin: auto;
+  width: 130px;
+  height: 44px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.33;
+  color: $white-text-color;
+  text-align: center;
   @media screen and (min-width: 768px) {
-    padding: 13px 46px;
     width: 152px;
   }
 
   @media screen and (min-width: 1280px) {
-    padding: 13px 46px;
     width: 147px;
   }
-}
-.auth-modal-form__link-container {
-    display: flex;
-        justify-content: center;
-       
 }
