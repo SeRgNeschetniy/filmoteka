@@ -1,5 +1,6 @@
 import { refs } from './refs';
 import MyPagimation from './Pagination';
+import { addSpinner, removeSpinner } from './spinner';
 import {
   save,
   load,
@@ -39,6 +40,7 @@ if (refs.form) {
 }
 
 async function getNewMovi(qwery, num) {
+  addSpinner();
   const option = {
     qwery: qwery,
     num: num,
@@ -55,9 +57,11 @@ async function getNewMovi(qwery, num) {
         refs.errorText.classList.remove('hidden-message-js');
       }
       console.log(`num1 = ${num}`);
+      removeSpinner()
     })
     .catch(error => {
       console.log(error, `ERRRRR`);
+      removeSpinner()
       if (refs.errorText.classList.contains('hidden-message-js')) {
         refs.errorText.classList.remove('hidden-message-js');
       }
