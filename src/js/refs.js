@@ -39,6 +39,7 @@ const refs = {
   modal: document.querySelector('[data-modal]'),
 
   tumbler: document.querySelector('.tumbler-wrapper'),
+  toTop: document.querySelector('.btn-to-top'),
 };
 
 export { refs };

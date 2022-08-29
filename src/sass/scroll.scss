@@ -1,0 +1,16 @@
+.btn-to-top {
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  background-color: $accent-text-color;
+  color: $white-text-color;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  position: fixed;
+  bottom: 3vh;
+  right: 40px;
+  z-index: 1;
+}
