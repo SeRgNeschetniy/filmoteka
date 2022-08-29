@@ -46,21 +46,22 @@ body {
       color: #fff;
     }
 
-    .popup_content {
+    .popup__content {
       background-color: #0e171e;
-      color: darken(white, 15%);
+      color: white;
 
-      & .container_title {
-        color: darken(white, 15%);
+      & .film-info {
+        color: white;
       }
-      & .option_item {
-        color: darken(white, 15%);
+      & .popup__btn {
+        border: 1px solid #fff;
+        color: white;
       }
-      & .About-title {
-        color: darken(white, 15%);
+      & .film-info__value--votes {
+        color: #000;
       }
-      & .About_text {
-        color: darken(white, 15%);
+      & .popup__svg--close {
+        fill: #fff;
       }
     }
 
