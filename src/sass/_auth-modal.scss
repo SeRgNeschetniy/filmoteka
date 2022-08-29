@@ -88,7 +88,8 @@
     outline: none;
     background: transparent;
 
-    &:focus ~ label {
+    &:focus ~ label,
+    &:valid ~ label {
       top: -20px;
       left: 0;
       color: $accent-text-color;
