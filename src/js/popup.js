@@ -87,11 +87,7 @@ const modalMoviemarkup = ({
     <button class="popup__btn" type="button" data-id=${id}>add to queue</button>
   </div>
 
-</div>
-  <div id="video-overlay" class="video-overlay">
-  <a class="video-overlay-close">&times;</a>
-  <div class="js-pleyer"></div>
-</div>
+
 
   `;
 };
@@ -161,6 +157,7 @@ function searchVideoFrame() {
     // toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
   });
   overlay.addEventListener('click', function (e) {
+    console.log(e.target);
     e.preventDefault();
     close_video();
   });
