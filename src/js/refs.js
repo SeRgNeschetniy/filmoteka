@@ -29,7 +29,7 @@ const refs = {
 
   moviesList: document.querySelector('.movies'),
   popup: document.querySelector('.popup'),
-  close: document.querySelector('.close-btn'),
+  popupClose: document.querySelector('.close-btn'),
 
   moviesList: document.querySelector('.movies'),
 

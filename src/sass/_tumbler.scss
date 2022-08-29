@@ -63,5 +63,13 @@ body {
         color: darken(white, 15%);
       }
     }
+
+    & .auth-modal {
+      background-color: #0e171e;
+
+      & .auth-modal__icon-close {
+        color: #fff;
+      }
+    }
   }
 }

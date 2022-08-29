@@ -77,10 +77,10 @@ if (refs.moviesList) {
     e.preventDefault();
 
     popupHandler(e.target);
-    refs.close = document.querySelector('.close-btn');
+    refs.popupClose = document.querySelector('.close-btn');
     refs.popup.classList.add('is-wisible');
     window.addEventListener('keydown', escapeClose);
-    refs.close.addEventListener('click', closePopup);
+    refs.popupClose.addEventListener('click', closePopup);
   });
 }
 
