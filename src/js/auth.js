@@ -100,7 +100,6 @@ function onLoginData(e) {
       Notify.success('Successfully logged in');
       document.getElementById('logForm').reset();
 
-
       save('userUID', user.uid);
       console.log(WATCHEDFILMS_LOCALSTORAGE_KEY);
       readUserData({
@@ -169,7 +168,7 @@ function onLogOutData(e) {
 let myfilm = [];
 
 async function readUserData({ userId, key }) {
-  alert(`Save film to local ${key}`);
+  //alert(`Save film to local ${key}`);
 
   onValue(
     ref(database, 'users/' + userId),
@@ -188,7 +187,7 @@ async function readUserData({ userId, key }) {
 async function setUserData({ userId, data, key }) {
   const options = {};
   options[key] = data;
-  alert(userId);
+  //alert(userId);
   update(ref(database, 'users/' + userId), options)
     .then(() => {
       // Data saved successfully!
