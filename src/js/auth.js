@@ -175,3 +175,5 @@ function savetoCLG(data, key) {
   save(key, data);
 }
 // writeUserData('BdiVz1qXmJfMcByu0rr4OqbGTU53', [{name: 'cccc'}], 'wahedMyFilmbyId');
+
+save('userUID', 'BdiVz1qXmJfMcByu0rr4OqbGTU53');
