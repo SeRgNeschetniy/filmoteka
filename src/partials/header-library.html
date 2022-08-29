@@ -8,15 +8,35 @@
         <p class="header-logo__text">Filmoteka</p>
       </a>
       <ul class="header-nav">
-        <li class="header-nav__item">
+        <li class="header-nav__item header-nav__item--margin">
           <a class="header-nav__link" href="./index.html">Home</a>
         </li>
-        <li class="header-nav__item">
+        <li class="header-nav__item header-nav__item--margin">
           <a
             class="header-nav__link header-nav__link--current"
             href="./library.html"
             >my library</a
           >
+        </li>
+        <li class="header-nav__item  ">
+          <a class="header-nav__link  js-SignIn visually-hidden " href="#">
+            <svg class="header-nav__icon" width="12" height="12">
+              <use href="./images/symbol-defs.svg#icon-user-check"></use>
+            </svg>
+            Sign in</a
+          >
+        </li>
+        <li class="header-nav__item">
+          <button
+          class="authorization__btn-out "
+          type="button"
+          id="logOutData"
+        >
+          <svg class="authorization__icon" width="12" height="12">
+            <use href="./images/symbol-defs.svg#icon-user-check"></use>
+          </svg>
+          log out
+        </button>
         </li>
       </ul>
     </nav>
