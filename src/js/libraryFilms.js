@@ -43,12 +43,20 @@ const refs = {
   };
 
 let watchedFilmsList = [];
+let queueFilmsList
 
 if (refs.body) {
-    refs.body.addEventListener('click', onAddToWatchedBtn);
+    refs.body.addEventListener('click', onWatchedBtnClick);
 }
 
-function onAddToWatchedBtn(i) {
+if (refs.body) {
+  refs.body.addEventListener('click', onQueueBtnClick);
+}
+
+function onWatchedBtnClick(i) {
+    if (i.target.textContent !== "add to Watched") {
+      return;
+    }
     const movieId = Number(i.target.dataset.id);
 
     if (movieId) {
@@ -68,6 +76,29 @@ function onAddToWatchedBtn(i) {
     } 
 }
 
+function onQueueBtnClick(i) {
+  if (i.target.textContent !== "add to queue") {
+    return;
+  }
+  const movieId = Number(i.target.dataset.id);
+
+  if (movieId) {
+    const libraryFilms = JSON.parse(localStorage.getItem(CURRENTFILMS_LOCALSTORAGE_KEY));
+
+    const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
+
+    console.log(selectedFilm);
+
+    if (load(QUEUEFILMS_LOCALSTORAGE_KEY)) {
+      queueFilmsList = load(QUEUEFILMS_LOCALSTORAGE_KEY);
+    }
+  
+    queueFilmsList.push(selectedFilm);
+    save(QUEUEFILMS_LOCALSTORAGE_KEY, queueFilmsList);
+    save('total_pages', Math.ceil(load(QUEUEFILMS_LOCALSTORAGE_KEY).length / 20));
+  } 
+}
+
 if (refs.libraryWatchedBtn) {
   save('total_pages', Math.ceil(load(WATCHEDFILMS_LOCALSTORAGE_KEY).length / 20));
 
@@ -78,45 +109,46 @@ if (refs.libraryWatchedBtn) {
     paginationContainerMobile: 'js-pg-library-container-mobile',
     // mobileDots: false,
     localKey: WATCHEDFILMS_LOCALSTORAGE_KEY,
-    getNewFilm: getNewMovi_main,
+    getNewFilm: getNewMovi_main(localKey),
   };
 
-  const librarySlider = new MyPagimation(option);
-  librarySlider.inicialization();
+  refs.libraryWatchedBtn.addEventListener('click', () => {
+    const libraryWatchedSlider = new MyPagimation(option);
+    libraryWatchedSlider.inicialization();
+  });
 }
 
-export async function getNewMovi_main(qwery, num) {
+if (refs.libraryQueueBtn) {
+  save('total_pages', Math.ceil(load(QUEUEFILMS_LOCALSTORAGE_KEY).length / 20));
+
   const option = {
-    qwery: qwery,
-    num: num,
+    cardContainer: 'library-movies',
+    // cardContainerMobile:'movies-mobile',
+    paginationContainer: 'js-pg-library-container',
+    paginationContainerMobile: 'js-pg-library-container-mobile',
+    // mobileDots: false,
+    localKey: QUEUEFILMS_LOCALSTORAGE_KEY,
+    getNewFilm: getNewMovi_main(localKey),
   };
+
+  refs.libraryQueueBtn.addEventListener('click', () => {
+    const libraryQueueSlider = new MyPagimation(option);
+    libraryQueueSlider.inicialization();
+  })
+}
+
+export async function getNewMovi_main(localKey) {
+  // const option = {
+  //   qwery: qwery,
+  //   num: num,
+  // };
   const cof = 20;
   const indexStart = num * cof - cof;
   const indexEnd = num * cof;
-  const watchedFilms = load(WATCHEDFILMS_LOCALSTORAGE_KEY);
+  const watchedFilms = load(localKey);
   const filmResult = watchedFilms.slice(indexStart, indexEnd);
   save(CURRENTFILMS_LOCALSTORAGE_KEY, filmResult);
-  save('total_pages', Math.ceil(load(WATCHEDFILMS_LOCALSTORAGE_KEY).length / 20));
-
-//   await themoviedb
-//     .getMovies(option)
-//     .then(data => {
-//       save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
-//       save('total_pages', data.total_pages);
-//       if (
-//         data.total_pages === 0 &&
-//         refs.errorText.classList.contains('hidden-message-js')
-//       ) {
-//         refs.errorText.classList.remove('hidden-message-js');
-//       }
-//       console.log(`num1 = ${num}`);
-//     })
-//     .catch(error => {
-//       console.log(error, `ERRRRR`);
-//       if (refs.errorText.classList.contains('hidden-message-js')) {
-//         refs.errorText.classList.remove('hidden-message-js');
-//       }
-//     });
+  save('total_pages', Math.ceil(load(localKey).length / 20));
 }
 
 
