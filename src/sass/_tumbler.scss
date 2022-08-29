@@ -30,9 +30,11 @@
 }
 
 body {
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
   &.night-mode {
     background-color: #0e171e;
-    color: darken(white, 15%);
+    color: white;
 
     .tumbler {
       transform: translateX(calc(100% - 2px));
