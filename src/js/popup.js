@@ -91,12 +91,14 @@ function createCardMovieInfo(e) {
   e.preventDefault();
   popupHandler(e.target);
   refs.popup.classList.toggle('is-hidden');
+  document.body.classList.toggle('overflow-hidden');
   window.addEventListener('keydown', escapeClose);
   refs.popupClose.addEventListener('click', closePopup);
 }
 
 function closePopup() {
   refs.popup.classList.toggle('is-hidden');
+  document.body.classList.toggle('overflow-hidden');
   window.removeEventListener('keydown', escapeClose);
 }
 
