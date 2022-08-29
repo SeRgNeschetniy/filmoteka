@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
 @import url(https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css);
 
-body {
-  background-color: #e0e3e8;
-}
-
 a,
 a:hover,
 a:focus {
@@ -52,13 +48,14 @@ a:focus {
   border-color: #5a8dee;
   color: $main-dark-text-color;
 }
-.dt-pagination-ul, .library-dt-pagination-ul {
+.dt-pagination-ul,
+.library-dt-pagination-ul {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 0;
   padding-left: 0;
-  border-top: 1px solid #dee2e6;
+  //border-top: 1px solid #dee2e6;
   padding-top: 15px;
 }
 
