@@ -4,7 +4,9 @@ import { refs } from './refs';
 const THEME_LOCALSTORAGE_KEY = 'theme-mode';
 
 const theme = load(THEME_LOCALSTORAGE_KEY);
+console.log('theme', theme);
 if (theme === 'undefined') {
+  console.log('theme1', theme);
   save(THEME_LOCALSTORAGE_KEY, 'light-mode');
   document.body.classList.add('light-mode');
 } else {
