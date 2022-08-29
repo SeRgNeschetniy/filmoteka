@@ -1,4 +1,4 @@
-import {} from './js/preloader';
+import './js/preloader';
 
 import './js/auth'; // * authentification
 import './js/team-modal'; // * скріпт модалки про команду
