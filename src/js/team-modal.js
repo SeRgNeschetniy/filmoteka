@@ -1,25 +1,36 @@
-import Swiper, { Pagination, Autoplay } from 'swiper';
+import Swiper, { Navigation, Autoplay } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 import { refs } from './refs';
 
 // import { showEmptyLibrary, hideEmptyLibrary, showGuest, hideGuest } from './empty-library';
 
 const swiper = new Swiper('.swiper', {
-  modules: [Pagination, Autoplay],
+  modules: [Navigation, Autoplay],
 
   direction: 'horizontal',
   loop: true,
 
-  pagination: {
-    el: '.swiper-pagination',
-    type: 'bullets',
-    clickable: true,
-    dynamicBullets: true,
+  // pagination: {
+  //   el: '.swiper-pagination',
+  //   type: 'bullets',
+  //   clickable: true,
+  //   dynamicBullets: true,
+  // },
+
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
   },
   breakpoints: {
-    1200: {
+    768: {
+      slidesPerView: 2,
+    },
+    1000: {
       slidesPerView: 3,
     },
+  },
+  autoplay: {
+    delay: 5000,
   },
 });
 
