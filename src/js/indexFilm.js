@@ -1,4 +1,4 @@
-import { refs } from './refs'
+import { refs } from './refs';
 import MyPagimation from './Pagination';
 import {
   save,
@@ -12,8 +12,6 @@ import {
 import { renderCards } from './renderCards';
 import { themoviedbAPI } from './api/API';
 const themoviedb = new themoviedbAPI();
-
-
 
 if (refs.form) {
   const option = {
@@ -40,8 +38,7 @@ if (refs.form) {
   });
 }
 
-
- async function getNewMovi(qwery, num) {
+async function getNewMovi(qwery, num) {
   const option = {
     qwery: qwery,
     num: num,
