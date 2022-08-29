@@ -7,7 +7,7 @@ function popupHandler(el) {
   const id = li.dataset.id;
   const films = JSON.parse(localStorage.getItem('current-films'));
   const film = films.find(el => el.id === parseInt(id));
-
+  console.log(film);
   const results = modalMoviemarkup(film);
 
   const popup = document.querySelector('.js-popup__content');
@@ -35,12 +35,17 @@ const modalMoviemarkup = ({
   </svg>
 </button>
 <div class="popup__img-wrapper">
+<a id="play-video" class="video-play-button" href="#">
+  <span></span>
+</a>
+
   ${
     poster_path === null
       ? `<img src="${placeholderImg}" alt="${title}" class="popup__img">`
-      : `<img src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title}" class="popup__img">`
+      : `<img src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title}" class="popup__img"> `
   }
 </div>
+
 <div class="popup__info-container film-info">
   <h2 class="film-info__title">${title}</h2>
   <ul class="film-info__details-list">
@@ -76,6 +81,7 @@ const modalMoviemarkup = ({
     <button class="popup__btn" type="button" data-id=${id}>add to queue</button>
   </div>
 </div>
+
   `;
 };
 
@@ -123,3 +129,4 @@ function escapeClose(event) {
     return;
   }
 }
+// ------------------------------------------------- player--------------
