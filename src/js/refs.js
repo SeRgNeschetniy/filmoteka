@@ -4,7 +4,6 @@ const refs = {
   input: document.querySelector('.header-search__box'),
   body: document.querySelector('body'),
 
-  libraryMain: document.querySelector('main'),
   libraryMoviesList: document.querySelector('.library-movies'),
   libraryWatchedBtn: document.querySelector('button[data-watched]'),
   libraryQueueBtn: document.querySelector('button[data-queue]'),
@@ -37,6 +36,8 @@ const refs = {
   close: document.querySelector('[data-close-modal]'),
   overlay: document.querySelector('[data-overlay]'),
   modal: document.querySelector('[data-modal]'),
+  modalAddToWatchedBtn: document.querySelector('.btn1'),
+  modalAddToQueueBtn: document.querySelector('.btn2'),
 
   tumbler: document.querySelector('.tumbler-wrapper'),
 };
