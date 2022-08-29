@@ -1,17 +1,19 @@
 import { refs } from './refs';
 
-export const showEmptyLibrary = () => {
+const showEmptyLibrary = () => {
   refs.emptyLibrary.classList.add('empty-notification--active');
 };
 
-export const hideEmptyLibrary = () => {
+const hideEmptyLibrary = () => {
   refs.emptyLibrary.classList.remove('empty-notification--active');
 };
 
-export const showGuest = () => {
+const showGuest = () => {
   refs.guest.classList.add('guest-notification--active');
 };
 
-export const hideGuest = () => {
+const hideGuest = () => {
   refs.guest.classList.remove('guest-notification--active');
 };
+
+export { showEmptyLibrary, hideEmptyLibrary, showGuest, hideGuest };
