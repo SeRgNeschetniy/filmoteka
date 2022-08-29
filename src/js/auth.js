@@ -55,6 +55,8 @@ function registrationNewUser(e) {
       document.getElementById('regForm').reset();
       save('userUID', user.uid);
 
+      refs.registerModalBackdrop.classList.toggle('is-hidden');
+
       set(ref(database, 'users/' + user.uid), {
         email: email,
         watchedFilm: [],
@@ -100,6 +102,10 @@ function onLoginData(e) {
       Notify.success('Successfully logged in');
       document.getElementById('logForm').reset();
 
+      refs.loginModalBackdrop.classList.toggle('is-hidden');
+      refs.loginSignIn.classList.toggle('visually-hidden');
+      refs.logOutData.classList.toggle('visually-hidden');
+
       save('userUID', user.uid);
       console.log(WATCHEDFILMS_LOCALSTORAGE_KEY);
       readUserData({
@@ -140,6 +146,9 @@ function onLogOutData(e) {
     .then(() => {
       save('userUID', false);
       Notify.success('Successfully logged out');
+
+      refs.loginSignIn.classList.toggle('visually-hidden');
+      refs.logOutData.classList.toggle('visually-hidden');
     })
     .catch(error => {
       Notify.failure('Something went wrong...');
@@ -207,3 +216,13 @@ function savetoCLG(data, key) {
 export { setUserData, readUserData };
 
 //save('userUID', 'BdiVz1qXmJfMcByu0rr4OqbGTU53');
+
+function authUser() {
+  const authUser = load('userUID');
+  console.log('userUID', authUser);
+  if (authUser !== 'undefined' && authUser !== false) {
+    refs.loginSignIn.classList.toggle('visually-hidden');
+    refs.logOutData.classList.toggle('visually-hidden');
+  }
+}
+authUser();

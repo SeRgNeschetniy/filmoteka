@@ -5,6 +5,7 @@ function registerToggleModal() {
 }
 function onSignUpClick(event) {
   event.preventDefault();
+  loginToggleModal();
   registerToggleModal();
 }
 if (refs.registerCloseModalBtn) {
@@ -17,6 +18,7 @@ if (refs.registerSignUp) {
 function loginToggleModal() {
   refs.loginModalBackdrop.classList.toggle('is-hidden');
 }
+
 function onSignInClick(event) {
   event.preventDefault();
   loginToggleModal();
