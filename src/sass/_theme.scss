@@ -76,7 +76,21 @@ body {
         color: #fff;
       }
     }
+    & .team-modal {
+      background-color: #0e171e;
 
+      & .team-modal__item {
+        background-color: #213646;
+      }
+
+      & .socials__icon {
+        color: #fff;
+      }
+
+      & .team-modal__icon {
+        color: #fff;
+      }
+    }
     & .footer {
       background-color: #0e171e;
       border-top: 1px solid #fff;
