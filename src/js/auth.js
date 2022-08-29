@@ -218,11 +218,14 @@ export { setUserData, readUserData };
 //save('userUID', 'BdiVz1qXmJfMcByu0rr4OqbGTU53');
 
 function authUser() {
-  const authUser = load('userUID');
-  console.log('userUID', authUser);
-  if (authUser !== 'undefined' && authUser !== false) {
-    refs.loginSignIn.classList.toggle('visually-hidden');
-    refs.logOutData.classList.toggle('visually-hidden');
+  const authUser = load('userUID') ? load('userUID') : 'false';
+
+  if (authUser === 'false') {
+    refs.loginSignIn.classList.remove('visually-hidden');
+    refs.logOutData.classList.add('visually-hidden');
+  } else {
+    refs.loginSignIn.classList.add('visually-hidden');
+    refs.logOutData.classList.remove('visually-hidden');
   }
 }
 authUser();
