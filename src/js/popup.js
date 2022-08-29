@@ -93,6 +93,7 @@ function createCardMovieInfo(e) {
   refs.popup.classList.toggle('is-hidden');
   document.body.classList.toggle('overflow-hidden');
   window.addEventListener('keydown', escapeClose);
+
   refs.popupClose.addEventListener('click', closePopup);
 }
 
