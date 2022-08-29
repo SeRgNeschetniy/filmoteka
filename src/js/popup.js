@@ -1,16 +1,6 @@
 import { load, GENREFILMS_LOCALSTORAGE_KEY } from './storage/storage';
-
 import { getAllGenresForModal } from './getAllGenresForModal';
-
-const refs = {
-  moviesList: document.querySelector('.movies'),
-  popup: document.querySelector('.popup'),
-  close: document.querySelector('.js-close-btn'),
-};
-
-import { getGenresById } from './getGenresById';
 import { refs } from './refs';
-
 
 function popupHandler(el) {
   const li = el.closest('.movie-card');
@@ -90,19 +80,19 @@ const modalMoviemarkup = ({
 };
 
 if (refs.moviesList) {
-  refs.moviesList.addEventListener('click', e => {
-    e.preventDefault();
+  refs.moviesList.addEventListener('click', createCardMovieInfo);
+}
 
-    popupHandler(e.target);
+if (refs.libraryMoviesList) {
+  refs.libraryMoviesList.addEventListener('click', createCardMovieInfo);
+}
 
-    refs.close = document.querySelector('.js-close-btn');
-    refs.popup.classList.toggle('is-hidden');
-   //refs.popupClose = document.querySelector('.close-btn');
-   // refs.popup.classList.add('is-wisible');
-
-    window.addEventListener('keydown', escapeClose);
-    refs.popupClose.addEventListener('click', closePopup);
-  });
+function createCardMovieInfo(e) {
+  e.preventDefault();
+  popupHandler(e.target);
+  refs.popup.classList.toggle('is-hidden');
+  window.addEventListener('keydown', escapeClose);
+  refs.popupClose.addEventListener('click', closePopup);
 }
 
 function closePopup() {

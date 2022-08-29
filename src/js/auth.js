@@ -85,6 +85,10 @@ function onLoginData(e) {
       Notify.success('Successfully logged in');
       document.getElementById('logForm').reset();
 
+      refs.loginSignIn.classList.toggle('visually-hidden');
+      refs.registerSignUp.classList.toggle('visually-hidden');
+      refs.logOutData.classList.toggle('visually-hidden');
+
       const logDate = new Date();
 
       update(ref(database, 'users/' + user.uid), {
