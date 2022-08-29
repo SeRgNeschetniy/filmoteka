@@ -1,13 +1,4 @@
-import {
-  save,
-  load,
-  remove,
-  CURRENTFILMS_LOCALSTORAGE_KEY,
-  GENREFILMS_LOCALSTORAGE_KEY,
-  WATCHEDFILMS_LOCALSTORAGE_KEY,
-  QUEUEFILMS_LOCALSTORAGE_KEY,
-} from './storage/storage';
-// import { this.getNewFilm, createMovieCards } from '../index';
+import { load, CURRENTFILMS_LOCALSTORAGE_KEY } from './storage/storage';
 import { renderCards } from './renderCards';
 
 export default class MyPagimation {
@@ -43,8 +34,6 @@ export default class MyPagimation {
   async inicialization() {
     this.reset();
 
-    // await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);-----------------------------------
-
     await this.getNewFilm(this.qwery, this.state.currentNumPage + 1);
     this.loadDataForRender();
 
@@ -64,7 +53,6 @@ export default class MyPagimation {
   }
 
   async goToPage(event) {
-    console.log(Number(event.target.textContent));
     if (event.target.dataset.action === '-1') {
       this.previusPage();
       return;
@@ -78,10 +66,6 @@ export default class MyPagimation {
     if (Number(event.target.textContent)) {
       this.state.currentNumPage = Number(event.target.textContent) - 1;
 
-
-      // await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);-------------------------------------------
-
-
       await this.getNewFilm(this.qwery, this.state.currentNumPage + 1);
       this.loadDataForRender();
 
@@ -89,12 +73,7 @@ export default class MyPagimation {
     }
   }
 
-  getMovisPerPage(num) {
-    console.log(`page ${num}`);
-    // await this.getNewFilm(page);
-  }
   async nextPage() {
-    // console.log(this);
 
     this.state.currentNumPage += 1;
 
@@ -102,11 +81,6 @@ export default class MyPagimation {
       this.state.currentNumPage = this.state.numOfPages;
       return;
     }
-    // this.getMovisPerPage(this.state.currentNumPage);
-
-
-    // await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);-------------------------------------------
-
 
     await this.getNewFilm(this.qwery, this.state.currentNumPage + 1);
     this.loadDataForRender();
@@ -120,10 +94,6 @@ export default class MyPagimation {
       this.state.currentNumPage = 0;
       return;
     }
-
-
-    // await getNewMovi(this.qwery, this.state.currentNumPage + 1, this.localKey);-------------------------------------------
-
 
     await this.getNewFilm(this.qwery, this.state.currentNumPage + 1);
     this.loadDataForRender();
@@ -244,7 +214,6 @@ export default class MyPagimation {
       HTMLNumberOfButtonsDesktop = [1, dotsLeft, ...sliced];
     }
 
-    console.log(HTMLNumberOfButtonsDesktop);
     const prevBTN = `    <li  class= "dt-item 
                     ${
                       currentNumPage_1 === 1 ? 'disabled' : ''
