@@ -1,14 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   setTimeout(() => {
-    let loader = document.getElementById('preloader');
+    const loader = document.getElementById('preloader');
     loader.classList.add('preloader--hide')
   }, 1500);
 
-  let percents = document.getElementById('percents')
+  const percents = document.getElementById('percents')
   let progressValue = 0
   let progressEndValue = 100
-  let speed = 10
 
   let progress = setInterval (() => {
     progressValue++
@@ -16,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (progressValue == progressEndValue) {
       clearInterval(progress)
     }
-  }, speed)
+  }, 10)
 
 })
 
