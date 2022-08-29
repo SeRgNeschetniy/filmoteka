@@ -32,6 +32,7 @@ const modalMoviemarkup = ({
   overview,
   adult,
 }) => {
+  refs.popup.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${backdrop_path})`;
   const genresNames = getAllGenresForModal(genre_ids);
   return `<button class="popup__btn--close js-close-btn" type="button" data-modal-close>
   <svg class="popup__svg--close" viewBox="0 0 30 30" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -73,7 +74,7 @@ const modalMoviemarkup = ({
 </ul>
   <h3 class="film-info__about-title">About</h3>
   <p class="film-info__about-text">
-    ${overview}
+    ${overview ? overview : "We can't find more information about this film."}
   </p>
   <div class="popup__btn-container">
     <button class="popup__btn" type="button" data-id=${id}>add to Watched</button>
