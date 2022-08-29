@@ -1,3 +1,4 @@
+import { refs } from './refs';
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
@@ -32,12 +33,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
-
-const refs = {
-  submitData: document.querySelector('#submitData'),
-  logInData: document.querySelector('#logInData'),
-  logOutData: document.querySelector('#logOutData'),
-};
 
 if (refs.submitData) {
   refs.submitData.addEventListener('click', onSubmitData);
@@ -115,13 +110,14 @@ if (refs.logOutData) {
 }
 function onLogOutData(e) {
   e.preventDefault();
-  signOut(auth).then(() => {
-    save('userUID', false);
-    Notify.success('Successfully logged out')
-  }).catch((error) => {
-    Notify.failure('Something went wrong...')
-
-  });
+  signOut(auth)
+    .then(() => {
+      save('userUID', false);
+      Notify.success('Successfully logged out');
+    })
+    .catch(error => {
+      Notify.failure('Something went wrong...');
+    });
 }
 
 // function Validation() {
@@ -179,4 +175,5 @@ function savetoCLG(data, key) {
   save(key, data);
 }
 // writeUserData('BdiVz1qXmJfMcByu0rr4OqbGTU53', [{name: 'cccc'}], 'wahedMyFilmbyId');
+
 save('userUID', 'BdiVz1qXmJfMcByu0rr4OqbGTU53');

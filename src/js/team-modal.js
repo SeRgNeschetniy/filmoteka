@@ -1,5 +1,6 @@
 import Swiper, { Pagination, Autoplay } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
+import { refs } from './refs';
 
 // import { showEmptyLibrary, hideEmptyLibrary, showGuest, hideGuest } from './empty-library';
 
@@ -13,21 +14,14 @@ const swiper = new Swiper('.swiper', {
     el: '.swiper-pagination',
     type: 'bullets',
     clickable: true,
-    dynamicBullets: true
+    dynamicBullets: true,
   },
   breakpoints: {
     1200: {
       slidesPerView: 3,
-    }
+    },
   },
 });
-
-const refs = {
-  open: document.querySelector('[data-open-modal]'),
-  close: document.querySelector('[data-close-modal]'),
-  overlay: document.querySelector('[data-overlay]'),
-  modal: document.querySelector('[data-modal]'),
-}
 
 refs.open.addEventListener('click', openModal);
 refs.close.addEventListener('click', closeModal);
@@ -42,7 +36,7 @@ document.addEventListener('click', e => {
   if (!itsModal && !itsClose && !itsOpen && modalIsActive) {
     closeModal();
   }
-})
+});
 
 function openModal() {
   document.body.classList.toggle('overflow-hidden');

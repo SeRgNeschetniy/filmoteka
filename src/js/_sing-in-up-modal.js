@@ -1,43 +1,30 @@
-const refs = {
-    loginCloseModalBtn: document.querySelector('.js-loginBtnClose'),
-    loginModalBackdrop: document.querySelector('.js-loginBackdrop'),
-    loginSignIn: document.querySelector('.js-SignIn'),
-    registerCloseModalBtn: document.querySelector('.js-registerBtnClose'),
-    registerModalBackdrop: document.querySelector('.js-registerBackdrop'),
-    registerSignUp: document.querySelector('.js-SignUp'),
-};
-
-
+import { refs } from './refs';
 
 function registerToggleModal() {
-
-    refs.registerModalBackdrop.classList.toggle('is-hidden');
+  refs.registerModalBackdrop.classList.toggle('is-hidden');
 }
 function onSignUpClick(event) {
-    event.preventDefault();
-    registerToggleModal();
-    
+  event.preventDefault();
+  registerToggleModal();
 }
 if (refs.registerCloseModalBtn) {
-    refs.registerCloseModalBtn.addEventListener('click', onSignUpClick);
+  refs.registerCloseModalBtn.addEventListener('click', onSignUpClick);
 }
 if (refs.registerSignUp) {
-    refs.registerSignUp.addEventListener('click', onSignUpClick);
+  refs.registerSignUp.addEventListener('click', onSignUpClick);
 }
 
 function loginToggleModal() {
-    refs.loginModalBackdrop.classList.toggle('is-hidden');
-    
+  refs.loginModalBackdrop.classList.toggle('is-hidden');
 }
 function onSignInClick(event) {
-    event.preventDefault();
-    loginToggleModal();
-  
+  event.preventDefault();
+  loginToggleModal();
 }
 
 if (refs.loginCloseModalBtn) {
-    refs.loginCloseModalBtn.addEventListener('click', onSignInClick);
+  refs.loginCloseModalBtn.addEventListener('click', onSignInClick);
 }
 if (refs.loginSignIn) {
-    refs.loginSignIn.addEventListener('click', onSignInClick);
+  refs.loginSignIn.addEventListener('click', onSignInClick);
 }

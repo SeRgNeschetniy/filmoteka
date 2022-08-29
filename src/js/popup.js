@@ -1,11 +1,6 @@
 import { load, GENREFILMS_LOCALSTORAGE_KEY } from './storage/storage';
 import { getGenresById } from './getGenresById';
-
-const refs = {
-  moviesList: document.querySelector('.movies'),
-  popup: document.querySelector('.popup'),
-  close: document.querySelector('.close-btn'),
-};
+import { refs } from './refs';
 
 function popupHandler(el) {
   const li = el.closest('.movie-card');
@@ -82,10 +77,10 @@ if (refs.moviesList) {
     e.preventDefault();
 
     popupHandler(e.target);
-    refs.close = document.querySelector('.close-btn');
+    refs.popupClose = document.querySelector('.close-btn');
     refs.popup.classList.add('is-wisible');
     window.addEventListener('keydown', escapeClose);
-    refs.close.addEventListener('click', closePopup);
+    refs.popupClose.addEventListener('click', closePopup);
   });
 }
 
