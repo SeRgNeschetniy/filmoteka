@@ -86,10 +86,11 @@ const modalMoviemarkup = ({
     <button class="popup__btn" type="button" data-id=${id}>add to Watched</button>
     <button class="popup__btn" type="button" data-id=${id}>add to queue</button>
   </div>
+
+</div>
   <div id="video-overlay" class="video-overlay">
   <a class="video-overlay-close">&times;</a>
-  <div class="js-pleyer"><iframe width="560" height="315" src="${linkToYutube}" frameborder="0" allowfullscreen></iframe></div>
-</div>
+  <div class="js-pleyer"></div>
 </div>
 
   `;
@@ -147,11 +148,14 @@ function searchVideoFrame() {
   const player = document.getElementById('play-video');
   const closeVideo = document.querySelector('.video-overlay-close');
   const overlay = document.querySelector('.video-overlay');
-
+  const htmpleyer = `<iframe width="560" height="315" src="${linkToYutube}" frameborder="0" allowfullscreen></iframe>`;
+  let frame = '';
   player.addEventListener('click', function (e) {
     e.preventDefault();
     console.log('object');
     toOpen.classList.add('open');
+    toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
+
     backdropPpup.removeEventListener('click', popapbeckClose);
 
     // toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
@@ -168,6 +172,6 @@ function searchVideoFrame() {
     backdropPpup.addEventListener('click', popapbeckClose);
 
     toPleyer.innerHTML = '';
-    document.querySelector('.video-overlay.open').classList.remove('open');
+    toOpen.classList.remove('open');
   }
 }

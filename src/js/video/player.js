@@ -27,6 +27,6 @@ closeVideo.addEventListener('click', function (e) {
 });
 
 function close_video() {
-  toPleyer.innerHTML='';
-  document.querySelector('.video-overlay.open').classList.remove('open')
+  toPleyer.innerHTML = '';
+  document.querySelector('.video-overlay.open').classList.remove('open');
 }
