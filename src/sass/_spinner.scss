@@ -1,0 +1,40 @@
+.spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: inherit;
+    visibility: hidden;
+    z-index: 900;
+    // transition: opacity 5s, visibility 5s;
+  
+  }
+  .spinner--is-hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .spinner--is-active {
+    visibility: visible;
+  }
+  .spinner::after {
+    content: "";
+    width: 95px;
+    height: 95px;
+    border: 15px solid #fff;
+    border-top-color: #ff6b01;
+    border-radius: 50%;
+    animation: loading 0.3s ease infinite;
+  }
+  
+  @keyframes loading {
+    from {
+      transform: rotate(0turn);
+    }
+    to {
+      transform: rotate(1turn);
+    }
+  }
