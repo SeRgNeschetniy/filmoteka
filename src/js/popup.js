@@ -1,5 +1,5 @@
 import { load, GENREFILMS_LOCALSTORAGE_KEY } from './storage/storage';
-import { getGenresById } from './getGenresById';
+import { getAllGenresForModal } from './getAllGenresForModal';
 import { refs } from './refs';
 
 function popupHandler(el) {
@@ -7,15 +7,17 @@ function popupHandler(el) {
   const id = li.dataset.id;
   const films = JSON.parse(localStorage.getItem('current-films'));
   const film = films.find(el => el.id === parseInt(id));
-  //console.log('film', film);
+
   const results = modalMoviemarkup(film);
 
-  const popup = document.querySelector('.popup_content');
+  const popup = document.querySelector('.js-popup__content');
   popup.innerHTML = results;
 }
 
 const modalMoviemarkup = ({
   id,
+  title,
+  backdrop_path,
   poster_path,
   popularity,
   vote_average,
@@ -25,67 +27,81 @@ const modalMoviemarkup = ({
   overview,
   adult,
 }) => {
-  const genresNames = getGenresById(genre_ids);
-  return `
-  <div class="close-btn">  
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="14"
-            fill="currentColor"
-            class="bi bi-x-lg"
-            viewBox="0 0 16 16"
-          >
-        <path
-          d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
-        />
-      </svg>
-      </div>
-  <div class="popup_img">
-        <img class="img_modal" src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="#"  /></div>
-      
-      <div class="container_option">
-        <h2 class="container_title">${original_title}</h2>
-        <ul class="options">
-          <li class="option">
-            Vote / Votes<span class="option_item">
-              <span class="option_item--vote">${vote_average}</span> / <span class="option_item--votes">${vote_count}</span
-            >
-          </li>
-          <li class="option">
-            Popularity<span class="option_item">${popularity}</span>
-          </li>
-          <li class="option">
-            Original Title<span class="option_item">${original_title}</span>
-          </li>
-          <li class="option">Genre<span class="option_item">${genresNames} </span></li>
-        </ul>
-        <h3 class="About-title">About</h3>
-        <p class="About_text">
-          ${overview}
-        </p>
-        <div class="popup-btn">
-        <button class="btn1" type="button" data-id=${id}>add to Watched</button>
-        <button class="btn2" type="button" data-id=${id}>add to queue</button>
-      </div>
-      </div>
+  refs.popup.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${backdrop_path})`;
+  const genresNames = getAllGenresForModal(genre_ids);
+  return `<button class="popup__btn--close js-close-btn" type="button" data-modal-close>
+  <svg class="popup__svg--close" viewBox="0 0 30 30" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="m8 8 14 14M8 22 22 8" stroke="#000" stroke-width="2" />
+  </svg>
+</button>
+<div class="popup__img-wrapper">
+  ${
+    poster_path === null
+      ? `<img src="${placeholderImg}" alt="${title}" class="popup__img">`
+      : `<img src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title}" class="popup__img">`
+  }
+</div>
+<div class="popup__info-container film-info">
+  <h2 class="film-info__title">${title}</h2>
+  <ul class="film-info__details-list">
+  <li class="film-info__details-item">
+    <p class="film-info__category">Vote / Votes</p>
+    <p class="film-info__value">
+      <span class="film-info__value--vote">${
+        vote_average ? vote_average.toFixed(1) : '-'
+      }</span> / <span class="film-info__value--votes">${
+    vote_count ? vote_count : '-'
+  }</span>
+    </p>
+  </li>
+  <li class="film-info__details-item">
+    <p class="film-info__category">Popularity</p>
+    <p class="film-info__value">${popularity ? popularity : '-'}</p>
+  </li>
+  <li class="film-info__details-item">
+    <p class="film-info__category">Original Title</p>
+    <p class="film-info__value">${original_title ? original_title : title}</p>
+  </li>
+  <li class="film-info__details-item">
+    <p class="film-info__category">Genre</p>
+    <p class="film-info__value">${genresNames}</p>
+  </li>
+</ul>
+  <h3 class="film-info__about-title">About</h3>
+  <p class="film-info__about-text">
+    ${overview ? overview : "We can't find more information about this film."}
+  </p>
+  <div class="popup__btn-container">
+    <button class="popup__btn" type="button" data-id=${id}>add to Watched</button>
+    <button class="popup__btn" type="button" data-id=${id}>add to queue</button>
+  </div>
+</div>
   `;
 };
 
 if (refs.moviesList) {
-  refs.moviesList.addEventListener('click', e => {
-    e.preventDefault();
+  refs.moviesList.addEventListener('click', createCardMovieInfo);
+}
 
-    popupHandler(e.target);
-    refs.popupClose = document.querySelector('.close-btn');
-    refs.popup.classList.add('is-wisible');
-    window.addEventListener('keydown', escapeClose);
-    refs.popupClose.addEventListener('click', closePopup);
-  });
+if (refs.libraryMoviesList) {
+  refs.libraryMoviesList.addEventListener('click', createCardMovieInfo);
+}
+
+function createCardMovieInfo(e) {
+  e.preventDefault();
+
+  popupHandler(e.target);
+
+  document.body.classList.toggle('overflow-hidden');
+  refs.popup.classList.toggle('is-hidden');
+  refs.popupClose = document.querySelector('.js-close-btn');
+  refs.popupClose.addEventListener('click', closePopup);
+  window.addEventListener('keydown', escapeClose);
 }
 
 function closePopup() {
-  refs.popup.classList.remove('is-wisible');
+  refs.popup.classList.toggle('is-hidden');
+  document.body.classList.toggle('overflow-hidden');
   window.removeEventListener('keydown', escapeClose);
 }
 

@@ -30,11 +30,8 @@ const refs = {
   emptyLibrary: document.querySelector('.empty-notification'),
   guest: document.querySelector('.guest-notification'),
 
-  moviesList: document.querySelector('.movies'),
   popup: document.querySelector('.popup'),
-  popupClose: document.querySelector('.close-btn'),
-
-  moviesList: document.querySelector('.movies'),
+  popupClose: document.querySelector('.js-close-btn'),
 
   open: document.querySelector('[data-open-modal]'),
   close: document.querySelector('[data-close-modal]'),

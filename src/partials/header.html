@@ -40,23 +40,28 @@
       Search result not successful. Enter the correct movie name and
     </p>
     <div class="authorization">
+      <div class="authorization__container">
       <ul class="authorization__list">
         <li class="authorization__item">
           <a class="authorization__link js-SignUp" href="#">
             <svg class="authorization__icon" width="12" height="12">
               <use href="./images/symbol-defs.svg#icon-user"></use></svg>
-            Sing Up</a
-          >
+            Sing Up</a>
         </li>
         <li class="authorization__item">
           <a class="authorization__link js-SignIn" href="#">
             <svg class="authorization__icon" width="12" height="12">
               <use href="./images/symbol-defs.svg#icon-user-check"></use></svg>
-              Sing in</a>
+              Sign in</a>
         </li>
       </ul>
+       <button class="authorization__btn-out visually-hidden" type="button" id="logOutData">
+        <svg class="authorization__icon" width="12" height="12">
+              <use href="./images/symbol-defs.svg#icon-user-check"></use></svg>
+        log out</button>
+       </div>
+          </div>
+          <include src="./partials/tumbler.html"></include>
     </div>
-
-    <include src="./partials/tumbler.html"></include>
   </div>
 </header>

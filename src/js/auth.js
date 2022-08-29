@@ -100,6 +100,7 @@ function onLoginData(e) {
       Notify.success('Successfully logged in');
       document.getElementById('logForm').reset();
 
+
       save('userUID', user.uid);
       console.log(WATCHEDFILMS_LOCALSTORAGE_KEY);
       readUserData({
@@ -110,6 +111,7 @@ function onLoginData(e) {
         userId: user.uid,
         key: QUEUEFILMS_LOCALSTORAGE_KEY,
       });
+
       const logDate = new Date();
 
       update(ref(database, 'users/' + user.uid), {
@@ -202,4 +204,7 @@ function savetoCLG(data, key) {
   save(key, data);
 }
 // writeUserData('BdiVz1qXmJfMcByu0rr4OqbGTU53', [{name: 'cccc'}], 'wahedMyFilmbyId');
+
 export { setUserData, readUserData };
+
+//save('userUID', 'BdiVz1qXmJfMcByu0rr4OqbGTU53');

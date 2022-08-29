@@ -1,312 +1,233 @@
-.popup {
-    z-index: 10;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.795);
-    // background-imge: 
-    opacity: 0;
-    visibility: hidden;
-    // pointer-events: none;
+.overflow-hidden {
+    overflow: hidden;
 }
-.popup.is-wisible {
+
+.backdrop-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(0, 0, 0, 0.25);
+    background-position: 50% top;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+
     opacity: 1;
     visibility: visible;
-    
-    /* transform: scale(0); */
+    pointer-events: initial;
+    z-index: 5;
 
-}
-.popup_body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100%;
-    position: relative;
-
-
-}
-
-.popup_content {
-    background-color: #FFFFFF;
-
-    max-width: 280px;
-    max-height: 940px;
-    padding: 48px 20px;
-    position: relative;
-
-    @media screen and (min-width: 768px) {
-        min-width: 704px;
-        min-height: 522px;
-        padding-top: 40px;
-        padding-bottom: 40px;
-        padding-left: 36px;
-        padding-right: 72px;
-        display: flex;
-    }
-
-    @media screen and (min-width: 1280px) {
-        min-width: 806px;
-        min-height: 558px;
-        padding-top: 40px;
-        padding-bottom: 40px;
-        padding-left: 12px;
-        padding-right: 12px;
-        display: flex;
+    @include mq (notDesktop) {
+        overflow: auto;
     }
 
 }
-
-.img_modal {
-    @media screen and (min-width: 768px) {
-        width: 264px;
-        height: 374px;
-        margin-right: 68px;
-    }
-
-    @media screen and (min-width: 1280px) {
-        width: 375px;
-        height: 478px;
-        // margin-right: 16px;
-    }
+.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 
+.popup {
 
+    &__content { 
+        max-width: 280px;
+        max-height: 940px;
+        padding: 48px 20px;
 
+        background-color: #FFFFFF;
+        z-index: 7;
 
+        @include mq (notDesktop) {
+            position: relative;
+            margin: 20px auto;
+        }
 
-.popup-btn {
-    display: flex;
-    // justify-content: center;
-    padding-top: 26px;
-
-    @media screen and (min-width: 1280px) {
-        padding-right: 108px;
-        // margin-bottom: 111px;
+        @include mq(tablet-only) {
+            margin: 50px auto;
+        }
+        @include mq (tablet) {
+            min-width: 704px;
+            min-height: 522px;
+            padding: 40px 72px 40px 36px;
+            display: flex;
+        }
+        @include mq (desktop) {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 806px;
+            min-height: 558px;
+            padding: 40px 12px;
+        }
     }
-}
-
-.btn1 {
-    // padding: 6px 27px;
-    padding: 6px 27px;
-    margin-right: 20px;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 114%;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    text-transform: uppercase;
-    border: 1px solid #000000;
-    border-radius: 5px;
-    background: #FFFFFF;
-
-    &:hover,
-    &:focus {
-        box-shadow: 0 8px 43px rgb(255 107 1 / 60%);
-        background: #FF6B01;
-        color: #FFFFFF
-    }
-
-    @media screen and (min-width: 768px) {
-        padding-top: 14px;
-        padding-bottom: 12px;
-        padding-left: 10px;
-        padding-right: 10px;
-        margin-right: 15px;
-    }
-
-
-}
-
-.btn2 {
-    padding: 13px;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 114%;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    text-transform: uppercase;
-    white-space: nowrap;
-    border: 1px solid #000000;
-    border-radius: 5px;
-    background: #FFFFFF;
-
-    &:hover,
-    &:focus {
-        box-shadow: 0 8px 43px rgb(255 107 1 / 60%);
-        background: #FF6B01;
-        color: #FFFFFF
-    }
-
-    @media screen and (min-width: 768px) {
-        padding-top: 14px;
-        padding-bottom: 12px;
-        padding-left: 8px;
-        padding-right: 8px;
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 16px;
-        width: 125px;
+    //  кнопка закриття
+    &__btn--close {
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 0;
+
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 30px;
+        height: 30px;
+
+        border: none;
+        background-color: transparent;
+    }
+    &__svg--close {
+        fill: #000000;
+    }
+
+    // картинка фільму
+    &__img-wrapper {
+        width: 240px;
+        height: 357px;
+        margin-bottom: 20px;
+
+        @include mq(tablet) {
+            width: 264px;
+            height: 374px;
+            margin-right: 68px;
+        }
+        @include mq(desktop) {
+            width: 375px;
+            height: 478px;
+            margin-right: 16px;
+        }
+    }
+    &__img {
+        border-radius: 5px;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    // кнопки для функціоналу
+    &__btn-container {
+        display: flex;
+        gap: 20px;
+
+        @include mq(tablet) {
+            gap: 15px;
+        }
+        @include mq(desktop) {
+            margin-left: 8px;
+        }
+    }
+    &__btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 110px;
+        height: 44px;
+        padding: 0;
+
+        font-size: 12px;
+        text-transform: uppercase;
+        background-color: transparent;
+        border: 1px solid $main-dark-text-color;
+        border-radius: 5px;
+
+        @include mq(tablet) {
+            width: 125px;
+        }
+        @include mq(desktop) {
+            width: 136px;
+        }
+
+        &:hover,
+        &:focus {
+            box-shadow: 0 8px 43px rgb(255 107 1 / 60%);
+            border-color: transparent;
+            background-color: $button-accent-bg-color;
+            color: $white-text-color;
+        }
     }
 }
 
-.close-btn {
-    position: absolute;
-    top: 0;
-    right: 10px;
-    fill: #000000;
-    z-index: 99;
-    color: #000000;
-}
-
-.close_link {
-    // width: 14px;
-    // height: 14px;
-    fill: #000000;
-}
-
-.img_modal {
-    margin-right: 0;
-}
-
-.popup_img {
-    margin-bottom: 20px;
-    @media screen and (min-width: 768px) {
-        margin-right: 68px;
-        margin-bottom: 138px;
-    }
-
-    @media screen and (min-width: 1280px) {
-        margin-bottom: 40px;
-        margin-right: 16px;
-    }
-}
-
-
-.container_title {
-    font-family: 'Roboto';
-    font-style: normal;
+// інформація про фільм
+.film-info {
     font-weight: 500;
-    font-size: 20px;
-    line-height: 23px;
-    color: #000000;
+    color: $main-dark-text-color;
 
-    @media screen and (min-width: 1280px) {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 30px;
-        line-height: 35px;
+    &__title {
+        margin-bottom: 20px;
+        font-size: 20px;
+        line-height: 1.15;
 
-        color: #000000;
-    }
-}
-
-.option {
-    display: flex;
-    justify-content: space-between;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    color: #8C8C8C;
-    margin-bottom: 8px;
-}
-
-.option_item {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    color: #000000;
-
-
-}
-
-.option_item--vote {
-    background: #FF6B01;
-    border-radius: 4px;
-    padding: 1px 10px;
-    color: #FFFFFF;
-}
-
-.option_item--votes {
-    padding: 1px 4px;
-    background: #F7F7F7;
-    border-radius: 5px;
-}
-
-.options {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-right: 45px;
-
-    @media screen and (min-width: 1280px) {
-        padding-right: 144px;
-    }
-}
-
-.container_option {
-    //    margin-left: auto;
-    width: 100%;
-
-    @media screen and (min-width: 768px) {
-        width: 264px;
-        height: 260px;
+        @include mq(desktop) {
+            font-size: 30px;
+            line-height: 1.17;
+        }
     }
 
-    @media screen and (min-width: 1280px) {
-        width: 391px;
-        // padding-bottom: 111px;
+    &__details-list {
+        margin-bottom: 20px;
+        font-size: 12px;
+        line-height: 1.33;
+    }
+    &__details-item {
+        display: flex;
+    }
+    &__category {
+        display: inline-block;
+        min-width: 69px;
+        margin-right: 39px;
+
+        color: $secondary-dark-text-color;
+
+        @include mq(desktop) {
+            margin-right: 83px;
+        }
+    }
+    &__value:first-child {
+        color: $secondary-dark-text-color;
+    }
+    &__details-item:not(:last-child) {
+        margin-bottom: 8px;
     }
 
-}
-
-.About-title {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    padding-bottom: 8px;
-    text-transform: uppercase;
-
-    color: #000000;
-}
-
-.About_text {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 20px;
-    overflow: auto;
-    color: #000000;
-    height: 236px;
-    width: 240px;
-
-    @media screen and (min-width: 768px) {
-        width: 264px;
-        height: 236px;
+    &__value--vote {
+        background: $button-accent-bg-color;
+        border-radius: 5px;
+        padding: 1px 10px;
+        color: $white-text-color;
+    }
+    &__value--votes {
+        padding: 1px 4px;
+        background: $light-grey-bg-color;
+        border-radius: 5px;
     }
 
-    @media screen and (min-width: 1280px) {
-        width: 391px;
-        height: 160px;
+    &__about-title {
+        font-size: 12px;
+        line-height: 1.33;
+        margin-bottom: 8px;
+        text-transform: uppercase;
     }
 
+    &__about-text {
+        margin-bottom: 20px;
+        font-size: 12px;
+        line-height: 1.67;
+        overflow: auto;
+        max-height: 236px;
+        width: 240px;
+
+        @include mq(tablet) {
+            width: 264px;
+        }
+        @include mq(desktop) {
+            width: 391px;
+            max-height: 160px;
+        }
+    }
 }
