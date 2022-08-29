@@ -96,8 +96,19 @@ function createCardMovieInfo(e) {
   refs.popup.classList.toggle('is-hidden');
   refs.popupClose = document.querySelector('.js-close-btn');
   refs.popupClose.addEventListener('click', closePopup);
+
   window.addEventListener('keydown', escapeClose);
 }
+
+const backdropPpup = document.querySelector('.popup.backdrop-popup');
+const popupContent = document.querySelector('.popup__content');
+backdropPpup.addEventListener('click', e => {
+  const click = e.composedPath().includes(popupContent);
+  console.log(click);
+  if (click === false) {
+    closePopup();
+  }
+});
 
 function closePopup() {
   refs.popup.classList.toggle('is-hidden');
