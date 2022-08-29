@@ -41,67 +41,6 @@ save('qwery', '');
 
 const themoviedb = new themoviedbAPI();
 
-// save(GENREFILMS_LOCALSTORAGE_KEY, themoviedb.getGenres());
-
-// themoviedb
-//   .getTrendMovies(1)
-//   .then(data => {
-//     console.log('data');
-//     console.log(`DATARESULTS: ${data.results}`);
-//     save(CURRENTFILMS_LOCALSTORAGE_KEY, data.results);
-
-//     // refs.moviesList.innerHTML += createMovieCards(
-//     //   load(CURRENTFILMS_LOCALSTORAGE_KEY)
-//     // );
-//     renderCards(load(CURRENTFILMS_LOCALSTORAGE_KEY));
-
-//     save('total_pages', data.total_pages);
-
-//     // refs.moviesList.innerHTML += createMovieCards(load(CURRENTFILMS_LOCALSTORAGE_KEY));
-
-//     // refs.moviesList.innerHTML += createMovieCards(
-//     //   load(CURRENTFILMS_LOCALSTORAGE_KEY)
-//     // );
-
-//     // refs.moviesList.innerHTML += createMovieCards(
-//     //   load(CURRENTFILMS_LOCALSTORAGE_KEY)
-//     // );
-//   })
-//   .catch(error => console.log(error));
-
-// themoviedb
-//   .getQueryMovies('Top Gun: Maverick', 1)
-//   .then(data => {})
-//   .catch(error => console.log(error));
-
-// themoviedb.getMovieById(438148);
-
-// themoviedb.getGenres();
-
-// const createMovieCards = data => {
-//   console.log(data);
-//   return data
-//     ?.map(
-//       ({
-//         id,
-//         title,
-//         original_title,
-//         overview,
-//         popularity,
-//         poster_path,
-//         vote_average,
-//         vote_count,
-//       }) =>
-//         `<li data-id="${id}">
-//             <img class="movie-card__img" src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title}" loading="lazy" />
-//             <h2 class="movie-card__title">
-//                 ${title}
-//             </h2>
-//         </li>`
-//     )
-//     .join('');
-// };
-
 themoviedb
   .getGenres()
   .then(data => {
@@ -218,60 +157,9 @@ if (refs.form) {
 
 // ---------------------------------------- Library -----------------------------------------------
 import './js/libraryFilms';
-// let watchedFilmsList = [];
 
-// if (refs.moviesList) {
-//   refs.moviesList.addEventListener('click', onMovieCardClick);
-// }
-
-// function onMovieCardClick(i) {
-//   const cardId = i.target.dataset.id;
-//   themoviedb
-//     .getMovieById(cardId)
-//     .then(data => {
-//       watchedFilmsList.push(data);
-//       save(WATCHEDFILMS_LOCALSTORAGE_KEY, watchedFilmsList);
-//     })
-//     .catch(error => {
-//       console.log(error);
-//     });
-// }
-
-// if (refs.libraryWatchedBtn) {
-//   refs.libraryWatchedBtn.addEventListener('click', e => {
-//     e.preventDefault();
-//     onLibraryBtnClick(WATCHEDFILMS_LOCALSTORAGE_KEY);
-//   });
-// }
-
-// // if (refs.libraryQueueBtn) {
-// //   refs.libraryQueueBtn.addEventListener('click', e => {
-// //     e.preventDefault();
-// //     onLibraryBtnClick(QUEUEFILMS_LOCALSTORAGE_KEY);
-// //   })
-// // }
-
-// function onLibraryBtnClick(currentKey) {
-//   refs.libraryMoviesList.insertAdjacentHTML(
-//     'beforeend',
-//     renderCards(load(currentKey))
-//   );
-//   console.log(load(currentKey));
-// }
-
-// const popup = document.querySelector('.popup');
-// let close = document.querySelector('.close-btn');
-
-// refs.movieToClick.addEventListener('click', e => {
-//   e.preventDefault();
-
-//   popupHandler(e.target);
-//   close = document.querySelector('.close-btn');
-//   popup.classList.add('is-wisible');
-//   window.addEventListener('keydown', escapeClose);
-//   close.addEventListener('click', closePopup);
-// });
-
-refs.tumbler.addEventListener('click', e => {
-  document.body.classList.toggle('night-mode');
-});
+if (refs.tumbler) {
+  refs.tumbler.addEventListener('click', e => {
+    document.body.classList.toggle('night-mode');
+  });
+}

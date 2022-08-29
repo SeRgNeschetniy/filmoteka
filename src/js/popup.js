@@ -77,15 +77,17 @@ const modalMoviemarkup = ({
   `;
 };
 
-refs.moviesList.addEventListener('click', e => {
-  e.preventDefault();
+if (refs.moviesList) {
+  refs.moviesList.addEventListener('click', e => {
+    e.preventDefault();
 
-  popupHandler(e.target);
-  refs.close = document.querySelector('.close-btn');
-  refs.popup.classList.add('is-wisible');
-  window.addEventListener('keydown', escapeClose);
-  refs.close.addEventListener('click', closePopup);
-});
+    popupHandler(e.target);
+    refs.close = document.querySelector('.close-btn');
+    refs.popup.classList.add('is-wisible');
+    window.addEventListener('keydown', escapeClose);
+    refs.close.addEventListener('click', closePopup);
+  });
+}
 
 function closePopup() {
   refs.popup.classList.remove('is-wisible');
