@@ -56,8 +56,11 @@ function registrationNewUser(e) {
   e.preventDefault();
 
   const username = document.getElementById('registerFormUserName').value;
+  console.log('🚀 ~ username', username);
   const email = document.getElementById('registerFormEmail').value;
+  console.log('🚀 ~ email', email);
   const password = document.getElementById('registerFormPassword').value;
+  console.log('🚀 ~ password', password);
 
   if (validateEmail(email) === false) {
     Notify.failure('Please, enter valid email address or Password');
@@ -67,6 +70,7 @@ function registrationNewUser(e) {
   createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       const user = userCredential.user;
+      console.log('🚀 ~ user', user);
 
       set(ref(database, 'users/' + user.uid), {
         username: username,
@@ -92,7 +96,7 @@ function registrationNewUser(e) {
           // The write failed...
         });
 
-      Report.success.success(
+      Notify.success(
         'NICE!',
         'You have successfully registered with Filmoteka.',
         'Okay'
