@@ -45,13 +45,24 @@ if (refs.submitData) {
 
 function registrationNewUser(e) {
   e.preventDefault();
+
   const email = document.getElementById('registerFormEmail').value;
   const password = document.getElementById('registerFormPassword').value;
+
+  if (validateEmail(email) === false) {
+    Notify.failure('please, enter valid email address or Password');
+    return;
+  }
 
   createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       const user = userCredential.user;
-      Notify.success('successfully  created');
+
+      Report.success.success(
+        'Successfully',
+        'You have successfully registered with Filmoteka.',
+        'Okay'
+      );
       document.getElementById('regForm').reset();
       save('userUID', user.uid);
 
@@ -89,6 +100,7 @@ function registrationNewUser(e) {
 if (refs.logInData) {
   refs.logInData.addEventListener('click', onLoginData);
 }
+
 function onLoginData(e) {
   e.preventDefault();
 
@@ -140,6 +152,7 @@ function onLoginData(e) {
 if (refs.logOutData) {
   refs.logOutData.addEventListener('click', onLogOutData);
 }
+
 function onLogOutData(e) {
   e.preventDefault();
   signOut(auth)
@@ -229,3 +242,9 @@ function authUser() {
   }
 }
 authUser();
+
+function validateEmail(email) {
+  const expression = /^[^@]+@\w+(\.\w+)+\w$/;
+  console.log(expression.test(email));
+  return expression.test(email);
+}
