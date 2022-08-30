@@ -1,15 +1,24 @@
 <main>
-    <div class="container">
-      <p class="empty-notification notification">
-        You have not added any movies to your library
-      </p>
-      <p class="guest-notification notification">Please log in</p>
-      <ul class="library-movies js-movie-container"></ul>
+  <div class="container">
+    <div class="empty-notification notification">
+      <img class="empty-notification__gif" src="./images/travolta.gif" alt="" />
+      <span>You have not added any movies to your library</span>
     </div>
-    <div class="table-filter-info">
-      <div class="dt-pagination">
-        <ul class="dt-pagination-ul js-pg-library-container"></ul>
-        <ul class="dt-pagination-ul js-pg-library-container-mobile"></ul>
+    <div class="guest-notification notification">
+      <img class="guest-notification__gif" src="./images/guest.gif" alt="" />
+      <div class="guest-notification__text js-guestSignUp">
+        <svg class="guest-notification__icon" width="14" height="13">
+          <use href="./images/symbol-defs.svg#log-in"></use>
+        </svg>
+        <span>You need to sign in to access the library</span>
       </div>
     </div>
-  </main>
+    <ul class="library-movies js-movie-container"></ul>
+  </div>
+  <div class="table-filter-info">
+    <div class="dt-pagination">
+      <ul class="dt-pagination-ul js-pg-library-container"></ul>
+      <ul class="dt-pagination-ul js-pg-library-container-mobile"></ul>
+    </div>
+  </div>
+</main>
