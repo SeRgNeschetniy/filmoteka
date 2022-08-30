@@ -1,5 +1,6 @@
 .tumbler-wrapper {
   margin-left: auto;
+  margin-top: 20px;
   width: 50px;
   height: 30px;
   background-color: black;
@@ -20,7 +21,9 @@
 }
 
 .tumbler {
+  
   position: absolute;
+ 
   height: 20px;
   width: 20px;
   border-radius: 50%;
