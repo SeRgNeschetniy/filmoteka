@@ -80,7 +80,7 @@ const modalMoviemarkup = ({
   </li>
   <li class="film-info__details-item">
     <p class="film-info__category">Popularity</p>
-    <p class="film-info__value">${popularity ? popularity : '-'}</p>
+    <p class="film-info__value">${popularity ? popularity.toFixed(1) : '-'}</p>
   </li>
   <li class="film-info__details-item">
     <p class="film-info__category">Original Title</p>
