@@ -14,7 +14,7 @@ async function popupHandler(el) {
   const res = await themoviedb.getVideoById(id);
   linkToYutube = `https://www.youtube.com/embed/${res.results[0].key}`;
 
-  htmpleyer = `<iframe width="560" height="315" src="${linkToYutube}" frameborder="0" allowfullscreen></iframe>`;
+  htmpleyer = `<iframe class ="yt-pleyer"   src="${linkToYutube}" frameborder="0" allowfullscreen></iframe>`;
   toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
 
   const results = modalMoviemarkup(film);
@@ -142,7 +142,6 @@ function escapeClose(event) {
 }
 // ------------------------------------------------- player--------------
 function searchVideoFrame() {
-  const varName = document.querySelector('cssSelector');
   const toOpen = document.querySelector('.video-overlay');
   const player = document.getElementById('play-video');
   const closeVideo = document.querySelector('.video-overlay-close');
@@ -172,7 +171,6 @@ function searchVideoFrame() {
     toPleyer.innerHTML = '';
 
     toOpen.classList.remove('open');
-  toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
-
+    toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
   }
 }

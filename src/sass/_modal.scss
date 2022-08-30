@@ -362,3 +362,16 @@
   /* height: auto; */
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.75);
 }
+
+.yt-pleyer {
+  width: 320px;
+  height: 180px;
+  @include mq(tablet) {
+    width: 500px;
+    height: 281px;
+  }
+  @include mq(desktop) {
+    width: 768px;
+    height: 432px;
+  }
+}
