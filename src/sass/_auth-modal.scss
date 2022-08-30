@@ -94,6 +94,12 @@
       color: $accent-text-color;
       font-size: 12px;
     }
+    &:not(:placeholder-shown) + label {
+      top: -20px;
+      left: 0;
+      color: $accent-text-color;
+      font-size: 12px;
+    }
   }
 
   & label {
