@@ -215,7 +215,7 @@ function savetoCLG(data, key) {
 
 export { setUserData, readUserData };
 
-//save('userUID', 'BdiVz1qXmJfMcByu0rr4OqbGTU53');
+// save('userUID', 'BdiVz1qXmJfMcByu0rr4OqbGTU53');
 
 function authUser() {
   const authUser = load('userUID') ? load('userUID') : 'false';
