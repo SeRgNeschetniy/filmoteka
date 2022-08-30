@@ -232,13 +232,29 @@
       </li>
       <!-- * Artem Damirel -->
       <li class="team-modal__item">
-        <img
-          class="team-modal__img"
-          src="./images/team-modal/artem.jpg"
-          width="300"
-          height="300"
-          alt=""
-        />
+        <picture>
+          <source
+            srcset="
+              ./images/team-modal/artem.webp    1x,
+              ./images/team-modal/artem@2x.webp 2x
+            "
+            type="image/webp"
+          />
+          <source
+            srcset="
+              ./images/team-modal/artem.jpg    1x,
+              ./images/team-modal/artem@2x.jpg 2x
+            "
+            type="image/jpeg"
+          />
+          <img
+            class="team-modal__img"
+            src="./images/team-modal/artem.jpg"
+            width="300"
+            height="300"
+            alt=""
+          />
+        </picture>
         <h3 class="team-modal__subtitle">Artem Damirel</h3>
         <ul class="socials">
           <li class="socials__item">

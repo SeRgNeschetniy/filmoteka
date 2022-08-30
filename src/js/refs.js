@@ -27,6 +27,7 @@ const refs = {
 
   moviesContainer: document.querySelector('.movies'),
   emptyLibrary: document.querySelector('.empty-notification'),
+  guestSignUp: document.querySelector('.js-guestSignUp'),
   guest: document.querySelector('.guest-notification'),
 
   popup: document.querySelector('.popup'),
