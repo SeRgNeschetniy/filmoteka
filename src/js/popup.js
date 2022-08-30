@@ -12,8 +12,11 @@ async function popupHandler(el) {
   const films = JSON.parse(localStorage.getItem('current-films'));
   const film = films.find(el => el.id === parseInt(id));
   const res = await themoviedb.getVideoById(id);
-  linkToYutube = `https://www.youtube.com/embed/${res.results[0].key}`;
-
+  if (res.results[0]) {
+    linkToYutube = `https://www.youtube.com/embed/${res.results[0].key}`;
+  } else {
+    linkToYutube = `https://www.youtube.com/`;
+  }
   htmpleyer = `<iframe class ="yt-pleyer"   src="${linkToYutube}" frameborder="0" allowfullscreen></iframe>`;
   toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
 
