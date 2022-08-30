@@ -35,6 +35,15 @@ const firebaseConfig = {
   appId: '1:383304824407:web:bf9c893387e73116cb9512',
 };
 
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyBBNI47FJSPTNisEsrpUFjSBk5cNJEZVu8',
+//   authDomain: 'filmoteka-872c0.firebaseapp.com',
+//   projectId: 'filmoteka-872c0',
+//   storageBucket: 'filmoteka-872c0.appspot.com',
+//   messagingSenderId: '900769316106',
+//   appId: '1:900769316106:web:673174ba7b5cb41c3f8ef3',
+// };
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
@@ -46,11 +55,12 @@ if (refs.submitData) {
 function registrationNewUser(e) {
   e.preventDefault();
 
+  const username = document.getElementById('registerFormUserName').value;
   const email = document.getElementById('registerFormEmail').value;
   const password = document.getElementById('registerFormPassword').value;
 
   if (validateEmail(email) === false) {
-    Notify.failure('please, enter valid email address or Password');
+    Notify.failure('Please, enter valid email address or Password');
     return;
   }
 
@@ -58,17 +68,8 @@ function registrationNewUser(e) {
     .then(userCredential => {
       const user = userCredential.user;
 
-      Report.success.success(
-        'Successfully',
-        'You have successfully registered with Filmoteka.',
-        'Okay'
-      );
-      document.getElementById('regForm').reset();
-      save('userUID', user.uid);
-
-      refs.registerModalBackdrop.classList.toggle('is-hidden');
-
       set(ref(database, 'users/' + user.uid), {
+        username: username,
         email: email,
         watchedFilm: [],
         queueFilm: [],
@@ -90,6 +91,16 @@ function registrationNewUser(e) {
           Notify.failure('Something went wrong');
           // The write failed...
         });
+
+      Report.success.success(
+        'NICE!',
+        'You have successfully registered with Filmoteka.',
+        'Okay'
+      );
+      document.getElementById('regForm').reset();
+      save('userUID', user.uid);
+
+      refs.registerModalBackdrop.classList.toggle('is-hidden');
     })
     .catch(error => {
       const errorCode = error.code;
@@ -134,7 +145,6 @@ function onLoginData(e) {
       if (document.querySelector('.library-movies')) {
         onLibraryQueueInit();
         onLibraryWatchedInit();
-
       }
       update(ref(database, 'users/' + user.uid), {
         last_login: logDate,
@@ -167,13 +177,11 @@ function onLogOutData(e) {
 
       refs.loginSignIn.classList.toggle('visually-hidden');
       refs.logOutData.classList.toggle('visually-hidden');
-   if (document.querySelector('.library-movies')) {
-     onLibraryQueueInit();
-     onLibraryWatchedInit();
-     document.querySelector('.library-movies').innerHTML='';
-
-   }
-
+      if (document.querySelector('.library-movies')) {
+        onLibraryQueueInit();
+        onLibraryWatchedInit();
+        document.querySelector('.library-movies').innerHTML = '';
+      }
     })
     .catch(error => {
       Notify.failure('Something went wrong...');
@@ -257,6 +265,5 @@ authUser();
 
 function validateEmail(email) {
   const expression = /^[^@]+@\w+(\.\w+)+\w$/;
-  console.log(expression.test(email));
   return expression.test(email);
 }

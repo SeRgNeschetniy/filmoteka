@@ -9,6 +9,16 @@
     <form action="submit" method="post" class="auth-modal-form" id="regForm">
       <div class="auth-modal__box">
         <input
+          type="text"
+          name="username"
+          id="registerFormUserName"
+          class="auth-modal-form__input"
+          placeholder=" "
+        />
+        <label>User Name</label>
+      </div>
+      <div class="auth-modal__box">
+        <input
           type="email"
           name="name"
           id="registerFormEmail"
@@ -26,16 +36,6 @@
           placeholder=" "
         />
         <label>Password</label>
-      </div>
-      <div class="auth-modal__box">
-        <input
-          type="password"
-          name="password"
-          id="registerFormConfirmPassword"
-          class="auth-modal-form__input"
-          placeholder=" "
-        />
-        <label>Confirm password</label>
       </div>
       <div class="auth-modal-form__btn-box">
         <button class="auth-modal-form__btn" type="button" id="submitData">
