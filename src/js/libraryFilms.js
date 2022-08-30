@@ -16,10 +16,8 @@ import {
 import { showEmptyLibrary, hideEmptyLibrary, showGuest, hideGuest } from './empty-library';
 
 
-
 let watchedFilmsList = [];
 let queueFilmsList = [];
-
 
 
 if (refs.body) {
@@ -265,9 +263,41 @@ function getNewQueueMovie(qwery, num) {
 }
 
 
-
 // export function changeBtnTextContent(element, id, removeName) {
 //   if (id) {
 //     element.textContent = removeName;
 //   }
 // }
+
+
+
+
+// if (refs.body) {
+//   refs.body.addEventListener('click', onRemoveBtnClick);
+// }
+
+// function onRemoveBtnClick(event) {
+//   if (event.target.textContent !== 'Remove') {
+//     return;
+//   }
+//   const movieId = Number(event.target.dataset.id);
+
+//   if (movieId) {
+//     const libraryFilms = JSON.parse(
+//       localStorage.getItem(WATCHEDFILMS_LOCALSTORAGE_KEY)
+//     );
+
+//     remove(WATCHEDFILMS_LOCALSTORAGE_KEY);
+
+//     const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
+
+//     const index = libraryFilms.indexOf(selectedFilm);
+
+//     console.log(index);
+
+//     const newLibrary = libraryFilms.splice(index, 1);
+
+//     save(WATCHEDFILMS_LOCALSTORAGE_KEY, newLibrary);
+//   }
+// }
+
