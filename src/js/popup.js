@@ -108,7 +108,9 @@ if (refs.libraryMoviesList) {
 
 async function createCardMovieInfo(e) {
   e.preventDefault();
-
+  if (e.target.classList.contains('js-movie-container')) { 
+    return
+  }
   await popupHandler(e.target);
 
   document.body.classList.toggle('overflow-hidden');
