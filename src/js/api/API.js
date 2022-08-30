@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { load, save, GENREFILMS_LOCALSTORAGE_KEY } from '../storage/storage';
 
 export class themoviedbAPI {
   #API_KEY = 'f2c538717486cd7dc01f7314dfb697ab';
@@ -47,7 +48,7 @@ export class themoviedbAPI {
   async getGenres() {
     const url = `${this.#BASE_URL}/genre/movie/list?api_key=${this.#API_KEY}`;
     const response = await axios.get(url);
-    return response.data.genres;
+    save(GENREFILMS_LOCALSTORAGE_KEY, response.data.genres);
   }
 
   async getMovies({ qwery, num }) {
