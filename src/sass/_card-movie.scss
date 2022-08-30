@@ -19,7 +19,7 @@
     min-height: 442px;
     padding: 7px;
     border-radius: 5px;
-    transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1), scale 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
     @include mq(mobile-only) {
         &:not(:last-child) {
@@ -39,6 +39,7 @@
 
     &:hover {
         box-shadow: 0px 0px 59px -17px rgba(255, 107, 1, 1);
+        transform: scale(1.03);
     }
     &__img {        
         border-radius: 5px;

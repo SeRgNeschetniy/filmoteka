@@ -7,9 +7,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
+    // background-image: linear-gradient(to right, rgba(29, 29, 32, 0.26), rgba(47, 48, 58, 0.4)),
+    //     url(../images/header-background/desk-header-2x.jpg);
+    background-size: cover;
     background-color: inherit;
     visibility: hidden;
     z-index: 900;
+    opacity: 0.5;
     // transition: opacity 5s, visibility 5s;
   
   }
@@ -38,3 +43,4 @@
       transform: rotate(1turn);
     }
   }
+

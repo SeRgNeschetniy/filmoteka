@@ -13,5 +13,5 @@ function getRefs() {
     const refs = getRefs();
     setTimeout(function () {
       refs.spinner.classList.remove('spinner--is-active');
-    }, 400);
+    }, 600);
   }
