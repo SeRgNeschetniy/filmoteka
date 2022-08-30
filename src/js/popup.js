@@ -4,6 +4,8 @@ import { refs } from './refs';
 import { themoviedbAPI } from './api/API';
 const themoviedb = new themoviedbAPI();
 let linkToYutube = '';
+const toPleyer = document.querySelector('.js-pleyer');
+let htmpleyer = '';
 async function popupHandler(el) {
   const li = el.closest('.movie-card');
   const id = li.dataset.id;
@@ -11,8 +13,10 @@ async function popupHandler(el) {
   const film = films.find(el => el.id === parseInt(id));
   const res = await themoviedb.getVideoById(id);
   linkToYutube = `https://www.youtube.com/embed/${res.results[0].key}`;
-  console.log('themoviedb.getMovieById(id)');
-  console.log(linkToYutube);
+
+  htmpleyer = `<iframe width="560" height="315" src="${linkToYutube}" frameborder="0" allowfullscreen></iframe>`;
+  toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
+
   const results = modalMoviemarkup(film);
 
   const popup = document.querySelector('.js-popup__content');
@@ -140,17 +144,14 @@ function escapeClose(event) {
 function searchVideoFrame() {
   const varName = document.querySelector('cssSelector');
   const toOpen = document.querySelector('.video-overlay');
-  const toPleyer = document.querySelector('.js-pleyer');
   const player = document.getElementById('play-video');
   const closeVideo = document.querySelector('.video-overlay-close');
   const overlay = document.querySelector('.video-overlay');
-  const htmpleyer = `<iframe width="560" height="315" src="${linkToYutube}" frameborder="0" allowfullscreen></iframe>`;
   let frame = '';
   player.addEventListener('click', function (e) {
     e.preventDefault();
     console.log('object');
     toOpen.classList.add('open');
-    toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
 
     backdropPpup.removeEventListener('click', popapbeckClose);
 
@@ -169,6 +170,9 @@ function searchVideoFrame() {
     backdropPpup.addEventListener('click', popapbeckClose);
 
     toPleyer.innerHTML = '';
+
     toOpen.classList.remove('open');
+  toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
+
   }
 }
