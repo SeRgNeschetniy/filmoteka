@@ -2,41 +2,35 @@
   <div class="container header__container header-library__container">
     <nav class="header__site-nav">
       <a class="header-logo" href="./index.html">
-        <svg class="" width="24" height="24">
+        <svg class="header-logo__svg" width="24" height="24">
           <use href="./images/symbol-defs.svg#icon-film"></use>
         </svg>
         <p class="header-logo__text">Filmoteka</p>
       </a>
+      <div class="header-nav-contaiher">
       <ul class="header-nav">
         <li class="header-nav__item">
-          <a class="header-nav__link" href="./index.html">Home</a>
+          <a
+            class="header-nav__link "
+            href="./index.html"
+            >Home</a>
         </li>
         <li class="header-nav__item">
-          <a
-            class="header-nav__link header-nav__link--current"
-            href="./library.html"
-            >my library</a
-          >
+          <a class="header-nav__link header-nav__link--current" href="./library.html">my library</a>
         </li>
-        <li class="authorization__item">
-          <a class="authorization__link js-SignIn" href="#">
+        </ul> 
+        <div class="authorization">
+          <button class="authorization__btn-out js-SignIn"  type="button">
             <svg class="authorization__icon" width="12" height="12">
-              <use href="./images/symbol-defs.svg#icon-user-check"></use>
-            </svg>
-            Sign in</a
-          >
-        </li>
-        <button
-          class="authorization__btn-out visually-hidden"
-          type="button"
-          id="logOutData"
-        >
-          <svg class="authorization__icon" width="12" height="12">
-            <use href="./images/symbol-defs.svg#icon-user-check"></use>
-          </svg>
-          log out
-        </button>
-      </ul>
+              <use href="./images/symbol-defs.svg#icon-user-check"></use></svg>
+              Sign in</button>
+         
+        <button class="authorization__btn-out visually-hidden" type="button" id="logOutData">
+        <svg class="authorization__icon" width="12" height="12">
+              <use href="./images/symbol-defs.svg#icon-user"></use></svg>
+        log out</button>     
+        </div>  
+</div>
     </nav>
     <div class="header__buttons-container">
       <button
@@ -48,7 +42,6 @@
       </button>
       <button type="submit" class="header__btn" data-queue>queue</button>
     </div>
-
     <include src="./partials/tumbler.html"></include>
   </div>
 </header>

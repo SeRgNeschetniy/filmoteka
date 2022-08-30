@@ -7,29 +7,30 @@
         </svg>
         <p class="header-logo__text">Filmoteka</p>
       </a>
+      <div class="header-nav-contaiher">
       <ul class="header-nav">
         <li class="header-nav__item">
           <a
             class="header-nav__link header-nav__link--current"
             href="./index.html"
-            >Home</a
-          >
+            >Home</a>
         </li>
-        <li class="header-nav__item ">
+        <li class="header-nav__item">
           <a class="header-nav__link" href="./library.html">my library</a>
         </li>
-        <li class="authorization__item">
-          <a class="authorization__link js-SignIn" href="#">
+        </ul> 
+        <div class="authorization">
+          <button class="authorization__btn-out js-SignIn"  type="button">
             <svg class="authorization__icon" width="12" height="12">
               <use href="./images/symbol-defs.svg#icon-user-check"></use></svg>
-              Sign in</a>
-        </li>   
+              Sign in</button>
+         
         <button class="authorization__btn-out visually-hidden" type="button" id="logOutData">
         <svg class="authorization__icon" width="12" height="12">
-              <use href="./images/symbol-defs.svg#icon-user-check"></use></svg>
+              <use href="./images/symbol-defs.svg#icon-user"></use></svg>
         log out</button>     
-      </ul>   
-
+        </div>  
+</div>
     </nav>
     <div class="header-search header-search--current">
       <form class="header-search__form" id="search-form">
@@ -50,28 +51,6 @@
     <p class="header__massage-error hidden-message-js">
       Search result not successful. Enter the correct movie name and
     </p>
-    <!-- <div class="authorization">
-      <div class="authorization__container">
-      <ul class="authorization__list">
-        <li class="authorization__item">
-          <a class="authorization__link js-SignUp" href="#">
-            <svg class="authorization__icon" width="12" height="12">
-              <use href="./images/symbol-defs.svg#icon-user"></use></svg>
-            Sing Up</a>
-        </li>
-        <li class="authorization__item">
-          <a class="authorization__link js-SignIn" href="#">
-            <svg class="authorization__icon" width="12" height="12">
-              <use href="./images/symbol-defs.svg#icon-user-check"></use></svg>
-              Sign in</a>
-        </li>
-      </ul>
-       <button class="authorization__btn-out visually-hidden" type="button" id="logOutData">
-        <svg class="authorization__icon" width="12" height="12">
-              <use href="./images/symbol-defs.svg#icon-user-check"></use></svg>
-        log out</button>
-       </div>
-          </div> -->
           <include src="./partials/tumbler.html"></include>
     </div>
   </div>
