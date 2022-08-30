@@ -32,7 +32,10 @@ function whoWork(event) {
   if (event.target.textContent === 'add to Watched') {
     onWatchedBtnClick(event);
     renameBtn();
+    console.log('!!');
+
     if (curentobject) curentobject.inicialization();
+    console.log(curentobject);
 
     // onLibraryWatchedInit();
     return;
@@ -47,8 +50,11 @@ function whoWork(event) {
   }
   if (event.target.textContent === 'remove from watched') {
     onRemoveFromLibrery(event);
+    console.log('!!--!!');
+
     // onLibraryWatchedInit();
     if (curentobject) curentobject.inicialization();
+    console.log(curentobject);
 
     renameBtn();
 
@@ -64,6 +70,7 @@ function whoWork(event) {
     return;
   }
 }
+
 onLibraryQueueInit();
 
 onLibraryWatchedInit();
@@ -108,7 +115,6 @@ export function onLibraryWatchedInit() {
     );
   }
 }
-
 
 export function onLibraryQueueInit() {
   if (refs.libraryQueueBtn) {
@@ -174,6 +180,8 @@ function reRenderWATCHEDFILMS() {
   refs.libraryWatchedBtn.classList.add('header__btn--activ');
   // const libraryWatchedSlider = new MyPagimation(option);
   this.inicialization();
+  console.log('🚀 ~ this', this);
+
   curentobject = this;
 }
 
@@ -226,9 +234,19 @@ export function checkOnLibraryStorage(watchedBtn, queueBtn, filmID) {
   if (!load('userUID')) {
     return;
   }
-  const libraryQueueFilms = load(QUEUEFILMS_LOCALSTORAGE_KEY);
-  const libraryWatchedFilms = load(WATCHEDFILMS_LOCALSTORAGE_KEY);
+  let libraryQueueFilms = load(QUEUEFILMS_LOCALSTORAGE_KEY);
+  let libraryWatchedFilms = load(WATCHEDFILMS_LOCALSTORAGE_KEY);
+  if (libraryQueueFilms.length > 0)
+    if (libraryQueueFilms[0] === null) {
+      save(QUEUEFILMS_LOCALSTORAGE_KEY, []);
+    }
+  if (libraryWatchedFilms.length > 0)
+    if (libraryWatchedFilms[0] === null) {
+      save(WATCHEDFILMS_LOCALSTORAGE_KEY, []);
+    }
 
+  libraryQueueFilms = load(QUEUEFILMS_LOCALSTORAGE_KEY);
+  libraryWatchedFilms = load(WATCHEDFILMS_LOCALSTORAGE_KEY);
   if (libraryWatchedFilms.find(el => el.id === parseInt(filmID))) {
     watchedBtn.textContent = 'remove from watched';
   } else {
@@ -257,39 +275,50 @@ function onWatchedBtnClick(event) {
   const movieId = Number(event.target.dataset.id);
 
   if (movieId) {
-    const libraryFilms = JSON.parse(
+    let libraryFilms = JSON.parse(
       localStorage.getItem(CURRENTFILMS_LOCALSTORAGE_KEY)
     );
+    if (libraryFilms.length === 0) {
+      libraryFilms = [load('lastRemoveFilm')];
+    }
 
     const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
 
     if (load(WATCHEDFILMS_LOCALSTORAGE_KEY)) {
-      watchedFilmsList = load(WATCHEDFILMS_LOCALSTORAGE_KEY);
-    }
+      console.log(
+        '🚀 ~ load(WATCHEDFILMS_LOCALSTORAGE_KEY)',
+        load(WATCHEDFILMS_LOCALSTORAGE_KEY)
+      );
+      const watchedFilmsList = [...load(WATCHEDFILMS_LOCALSTORAGE_KEY)];
+      console.log('🚀 ~ watchedFilmsList', watchedFilmsList);
+      console.log('🚀 ~ libraryFilms', libraryFilms);
 
-    const watchedFilmsToCheck = JSON.parse(
-      localStorage.getItem(WATCHEDFILMS_LOCALSTORAGE_KEY)
-    );
-
-    if (!watchedFilmsToCheck.find(el => el.id === parseInt(movieId))) {
+      const watchedFilmsToCheck = JSON.parse(
+        localStorage.getItem(WATCHEDFILMS_LOCALSTORAGE_KEY)
+      );
       watchedFilmsList.push(selectedFilm);
+      console.log('🚀 ~ watchedFilmsList.push(selectedFilm)', watchedFilmsList);
       save(WATCHEDFILMS_LOCALSTORAGE_KEY, watchedFilmsList);
       save(
         'total_pages',
         Math.ceil(load(WATCHEDFILMS_LOCALSTORAGE_KEY).length / 20)
       );
-    } else {
-      Notiflix.Notify.failure(
-        'The movie has already been added to the library'
-      );
-    }
+      // if (!watchedFilmsToCheck.find(el => el.id === parseInt(movieId))) {
 
-    const seating = {
-      userId: load('userUID'),
-      data: watchedFilmsList,
-      key: WATCHEDFILMS_LOCALSTORAGE_KEY,
-    };
-    setUserData(seating);
+      // } else {
+      //   Notiflix.Notify.failure(
+      //     'The movie has already been added to the library'
+      //   );
+      // }
+
+      const seating = {
+        userId: load('userUID'),
+        data: watchedFilmsList,
+        key: WATCHEDFILMS_LOCALSTORAGE_KEY,
+      };
+      console.log('🚀 ~ seating', seating);
+      setUserData(seating);
+    }
   }
 }
 
@@ -308,10 +337,12 @@ function onQueueBtnClick(event) {
   const movieId = Number(event.target.dataset.id);
 
   if (movieId) {
-    const libraryFilms = JSON.parse(
+    let libraryFilms = JSON.parse(
       localStorage.getItem(CURRENTFILMS_LOCALSTORAGE_KEY)
     );
-
+    if (libraryFilms.length === 0) {
+      libraryFilms = [load('lastRemoveFilm')];
+    }
     const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
 
     if (load(QUEUEFILMS_LOCALSTORAGE_KEY)) {
@@ -365,8 +396,10 @@ function onRemoveFromLibrery(event) {
     // remove(tempLocalKey);
 
     const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
+    save('lastRemoveFilm', selectedFilm);
     const index = libraryFilms.indexOf(selectedFilm);
     libraryFilms.splice(index, 1);
+    console.log('🚀 ~ tempLocalKey', tempLocalKey);
 
     save(tempLocalKey, libraryFilms);
 
@@ -383,6 +416,7 @@ function onRemoveFromLibrery(event) {
 function renameBtn() {
   const changeQueueBtn = document.querySelector('.js-queue-popup__btn');
   const changeWatchedBtn = document.querySelector('.js-watched-popup__btn');
+  console.log('🚀 ~ changeWatchedBtn', changeWatchedBtn);
   const btnId = changeWatchedBtn.dataset.id;
   //  console.log('im work checkOnLibraryStorage');
   checkOnLibraryStorage(changeWatchedBtn, changeQueueBtn, btnId);
