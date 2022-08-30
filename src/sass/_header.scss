@@ -22,7 +22,7 @@
     }
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     background-image: url('../images/header-background/desk-header.jpg');
 
     @media (min-device-pixel-ratio: 2),
@@ -52,10 +52,23 @@
   display: flex;
   align-items: center;
   text-align: center;
+  border-radius: 10px;
   color: $white-text-color;
   padding: 10px 0;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    color: $secondary-dark-text-color;
+    box-shadow: 0px 0px 20px rgba(255, 38, 0, 0.588),
+      0 0 40px rgba(255, 0, 0, 0.313), 0 0 20px rgba(90, 98, 98, 0.643);
+  }
+  &:hover p {
+color: $secondary-dark-text-color;
 }
-
+}
+.header-logo__svg {
+  margin: 0 10px;
+}
 .header-logo__text {
   display: none;
 
@@ -65,7 +78,7 @@
     font-size: 30px;
     line-height: 1.17;
     color: $white-text-color;
-    margin-left: 10px;
+    margin-right: 10px;
   }
 }
 .header-nav-contaiher {
@@ -84,19 +97,23 @@
   line-height: 1.16;
   text-transform: uppercase;
   color: $white-text-color;
-  margin-right: 15px;
-  @media screen and (min-width: 768px) {
+  margin-right: 10px;
+  @media screen and (min-width: 480px) {
     margin-right: 39px;
   }
 }
 .header-nav__link {
-  padding: 12px 0;
+  padding: 5px;
+  border-radius: 5px;
   position: relative;
   color: $white-text-color;
-  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &:focus,
   &:hover {
     color: $secondary-dark-text-color;
+    box-shadow: 0px 0px 20px rgba(255, 38, 0, 0.588),
+      0 0 40px rgba(255, 0, 0, 0.313), 0 0 20px rgba(90, 98, 98, 0.643);
   }
   &--current::after {
     content: '';
@@ -104,12 +121,12 @@
     height: 3px;
     background-color: $red-accent-color;
     position: absolute;
-    bottom: 10px;
+    bottom: -2px;
     left: 0;
     transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   &--current:hover::after {
-    background-color: $secondary-dark-text-color;
+    background-color: transparent;
   }
 }
 
@@ -117,28 +134,37 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  // padding: 5px;
+  border-radius: 5px;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: end;
+  
+    &:hover {
+      color: $secondary-dark-text-color;
+      box-shadow: 0px 0px 20px rgba(255, 38, 0, 0.588),
+        0 0 40px rgba(255, 0, 0, 0.313), 0 0 20px rgba(90, 98, 98, 0.643);
+    }
 }
 
 .authorization__btn-out {
-  padding: 2px auto;
   background: transparent;
   border: none;
-  width: auto;
-  height: 14px;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
   color: $white-text-color;
   font-weight: 500;
   font-size: 12px;
   line-height: 1.16;
   text-transform: uppercase;
   align-items: baseline;
-  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
   text-align: end;
   &:hover {
     color: $secondary-dark-text-color;
-  }
-
-  &:hover svg {
-    fill: $secondary-dark-text-color;
   }
 }
 
@@ -149,6 +175,9 @@
 }
 .header-search {
   position: relative;
+  border-radius: 10px;
+  align-items: center;
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &--current::after {
     content: '';
     width: 100%;
@@ -159,15 +188,23 @@
     left: 0;
     transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
+  &:hover {
+    box-shadow: 0px 0px 20px rgba(255, 38, 0, 0.588),
+      0 0 40px rgba(255, 0, 0, 0.313), 0 0 20px rgba(90, 98, 98, 0.643);
+  }
+
   &--current:hover::after {
-    background-color: $red-accent-color;
+    background-color: transparent;
+  }
+  &:hover svg {
+    fill: $secondary-dark-text-color;
   }
   @media screen and (min-width: 768px) {
     width: 336px;
     margin-left: auto;
     margin-right: auto;
   }
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     width: 394px;
   }
 }
@@ -185,7 +222,8 @@
   outline: transparent;
   background: transparent;
   width: 100%;
-  padding: 4px;
+  height: 30px;
+  padding-left: 10px;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.16;
@@ -203,11 +241,11 @@
 }
 
 .header-search__btn {
+  padding-right: 10px;
   border: none;
   background: transparent;
-  padding: 4px;
   &:hover svg {
-    fill: transparent;
+    fill: $secondary-dark-text-color;
   }
 }
 .header__massage-error {
@@ -289,12 +327,22 @@
   color: $white-text-color;
   text-align: center;
   text-transform: uppercase;
-  border: 1px solid #ffffff;
+  border: 1px solid #fff;
+  outline: transparent;
+
   border-radius: 5px;
-  transition: border 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
   &--activ {
     background-color: $button-accent-bg-color;
     border: transparent;
+  }
+  &--activ:focus,
+  &--activ:hover {
+    border: transparent;
+    box-shadow: 0px 0px 20px rgba(255, 38, 0, 0.588),
+      0 0 40px rgba(255, 72, 0, 0.474), 0 0 80px rgba(90, 98, 98, 0.643);
+    outline: transparent;
   }
   &--indent {
     @media screen and (min-width: 768px) {
@@ -308,7 +356,10 @@
 
   &:focus,
   &:hover {
-    border: 1px solid $red-accent-color;
+    border: transparent;
+    box-shadow: 0px 0px 20px rgba(255, 38, 0, 0.588),
+      0 0 40px rgba(255, 72, 0, 0.474), 0 0 80px rgba(90, 98, 98, 0.643);
+    outline: transparent;
   }
   @media screen and (min-width: 768px) {
     padding: 13px 46px;
