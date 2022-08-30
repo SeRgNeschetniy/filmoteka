@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { load, save, GENREFILMS_LOCALSTORAGE_KEY } from '../storage/storage';
+import { save, GENREFILMS_LOCALSTORAGE_KEY } from '../storage/storage';
 
 export class themoviedbAPI {
   #API_KEY = 'f2c538717486cd7dc01f7314dfb697ab';
