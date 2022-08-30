@@ -164,6 +164,11 @@ function onLibraryWatchedInit() {
     libraryWatchedSlider.inicialization();
   
     refs.libraryWatchedBtn.addEventListener('click', () => {
+      if (load(WATCHEDFILMS_LOCALSTORAGE_KEY).length === 0) {
+          showEmptyLibrary();
+      } else {
+        hideEmptyLibrary();
+      }
       refs.libraryQueueBtn.classList.remove('header__btn--activ');
       refs.libraryWatchedBtn.classList.add('header__btn--activ');
       // const libraryWatchedSlider = new MyPagimation(option);
@@ -182,11 +187,11 @@ function onLibraryQueueInit() {
       return;
     }
     // console.log('QUEUE CLICK!!!!');
-    if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length === 0) {
-      console.log(load(QUEUEFILMS_LOCALSTORAGE_KEY).length);
-        addClassToQueueBtn();
-        showEmptyLibrary();
-    }
+    // if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length === 0) {
+    //   console.log(load(QUEUEFILMS_LOCALSTORAGE_KEY).length);
+    //     addClassToQueueBtn();
+    //     showEmptyLibrary();
+    // }
 
     if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length !== 0) {
       addClassToQueueBtn();
@@ -206,6 +211,11 @@ function onLibraryQueueInit() {
     };
   
     refs.libraryQueueBtn.addEventListener('click', () => {
+      if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length === 0) {
+          showEmptyLibrary();
+      } else {
+        hideEmptyLibrary();
+      }
       refs.libraryQueueBtn.classList.add('header__btn--activ');
       refs.libraryWatchedBtn.classList.remove('header__btn--activ');
       const libraryQueueSlider = new MyPagimation(option);
