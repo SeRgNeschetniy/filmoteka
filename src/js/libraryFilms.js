@@ -26,36 +26,49 @@ let queueFilmsList = [];
 if (refs.body) {
   refs.body.addEventListener('click', whoWork);
 }
+let curentobject;
 
 function whoWork(event) {
   if (event.target.textContent === 'add to Watched') {
     onWatchedBtnClick(event);
     renameBtn();
+    if (curentobject) curentobject.inicialization();
+
+    // onLibraryWatchedInit();
     return;
   }
   if (event.target.textContent === 'add to queue') {
     onQueueBtnClick(event);
     renameBtn();
+    // onLibraryQueueInit();
+    if (curentobject) curentobject.inicialization();
 
     return;
   }
   if (event.target.textContent === 'remove from watched') {
     onRemoveFromLibrery(event);
+    // onLibraryWatchedInit();
+    if (curentobject) curentobject.inicialization();
+
     renameBtn();
 
     return;
   }
   if (event.target.textContent === 'remove from queue') {
     onRemoveFromLibrery(event);
+    // onLibraryQueueInit();
+    if (curentobject) curentobject.inicialization();
+
     renameBtn();
 
     return;
   }
 }
+onLibraryQueueInit();
 
 onLibraryWatchedInit();
 
-function onLibraryWatchedInit() {
+export function onLibraryWatchedInit() {
   if (refs.libraryWatchedBtn) {
     if (!load('userUID')) {
       addClassToWatchedBtn();
@@ -63,6 +76,7 @@ function onLibraryWatchedInit() {
       return;
     }
 
+    hideGuest();
     if (load(WATCHEDFILMS_LOCALSTORAGE_KEY).length === 0) {
       addClassToWatchedBtn();
       showEmptyLibrary();
@@ -86,24 +100,17 @@ function onLibraryWatchedInit() {
 
     const libraryWatchedSlider = new MyPagimation(option);
     libraryWatchedSlider.inicialization();
+    curentobject = libraryWatchedSlider;
 
-    refs.libraryWatchedBtn.addEventListener('click', () => {
-      if (load(WATCHEDFILMS_LOCALSTORAGE_KEY).length === 0) {
-        showEmptyLibrary();
-      } else {
-        hideEmptyLibrary();
-      }
-      refs.libraryQueueBtn.classList.remove('header__btn--activ');
-      refs.libraryWatchedBtn.classList.add('header__btn--activ');
-      // const libraryWatchedSlider = new MyPagimation(option);
-      libraryWatchedSlider.inicialization();
-    });
+    refs.libraryWatchedBtn.addEventListener(
+      'click',
+      reRenderWATCHEDFILMS.bind(libraryWatchedSlider)
+    );
   }
 }
 
-onLibraryQueueInit();
 
-function onLibraryQueueInit() {
+export function onLibraryQueueInit() {
   if (refs.libraryQueueBtn) {
     if (!load('userUID')) {
       addClassToQueueBtn();
@@ -116,6 +123,7 @@ function onLibraryQueueInit() {
     //     addClassToQueueBtn();
     //     showEmptyLibrary();
     // }
+    hideGuest();
 
     if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length !== 0) {
       addClassToQueueBtn();
@@ -133,19 +141,40 @@ function onLibraryQueueInit() {
       localKey: QUEUEFILMS_LOCALSTORAGE_KEY,
       getNewFilm: getNewQueueMovie,
     };
-
-    refs.libraryQueueBtn.addEventListener('click', () => {
-      if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length === 0) {
-        showEmptyLibrary();
-      } else {
-        hideEmptyLibrary();
-      }
-      refs.libraryQueueBtn.classList.add('header__btn--activ');
-      refs.libraryWatchedBtn.classList.remove('header__btn--activ');
-      const libraryQueueSlider = new MyPagimation(option);
-      libraryQueueSlider.inicialization();
-    });
+    const libraryQueueSlider = new MyPagimation(option);
+    libraryQueueSlider.inicialization();
+    curentobject = libraryQueueSlider;
+    refs.libraryQueueBtn.addEventListener(
+      'click',
+      reRenderQUEUEFILMS.bind(libraryQueueSlider)
+    );
   }
+}
+
+function reRenderQUEUEFILMS() {
+  if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length === 0) {
+    showEmptyLibrary();
+  } else {
+    hideEmptyLibrary();
+  }
+  refs.libraryQueueBtn.classList.add('header__btn--activ');
+  refs.libraryWatchedBtn.classList.remove('header__btn--activ');
+  // const libraryQueueSlider = new MyPagimation(option);
+  this.inicialization();
+  curentobject = this;
+}
+
+function reRenderWATCHEDFILMS() {
+  if (load(WATCHEDFILMS_LOCALSTORAGE_KEY).length === 0) {
+    showEmptyLibrary();
+  } else {
+    hideEmptyLibrary();
+  }
+  refs.libraryQueueBtn.classList.remove('header__btn--activ');
+  refs.libraryWatchedBtn.classList.add('header__btn--activ');
+  // const libraryWatchedSlider = new MyPagimation(option);
+  this.inicialization();
+  curentobject = this;
 }
 
 function addClassToWatchedBtn() {
@@ -234,7 +263,6 @@ function onWatchedBtnClick(event) {
 
     const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
 
-
     if (load(WATCHEDFILMS_LOCALSTORAGE_KEY)) {
       watchedFilmsList = load(WATCHEDFILMS_LOCALSTORAGE_KEY);
     }
@@ -286,7 +314,6 @@ function onQueueBtnClick(event) {
 
     const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
 
-
     if (load(QUEUEFILMS_LOCALSTORAGE_KEY)) {
       queueFilmsList = load(QUEUEFILMS_LOCALSTORAGE_KEY);
     }
@@ -334,7 +361,6 @@ function onRemoveFromLibrery(event) {
   ) {
     // const libraryFilms = [...load(tempLocalKey)];
     const libraryFilms = load(tempLocalKey);
-  
 
     // remove(tempLocalKey);
 

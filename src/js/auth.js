@@ -16,7 +16,7 @@ import {
   child,
   onValue,
 } from 'firebase/database';
-
+import { onLibraryWatchedInit, onLibraryQueueInit } from './libraryFilms';
 import {
   save,
   load,
@@ -119,6 +119,11 @@ function onLoginData(e) {
 
       const logDate = new Date();
 
+      if (document.querySelector('.library-movies')) {
+        onLibraryQueueInit();
+        onLibraryWatchedInit();
+
+      }
       update(ref(database, 'users/' + user.uid), {
         last_login: logDate,
       })
@@ -149,6 +154,13 @@ function onLogOutData(e) {
 
       refs.loginSignIn.classList.toggle('visually-hidden');
       refs.logOutData.classList.toggle('visually-hidden');
+   if (document.querySelector('.library-movies')) {
+     onLibraryQueueInit();
+     onLibraryWatchedInit();
+     document.querySelector('.library-movies').innerHTML='';
+
+   }
+
     })
     .catch(error => {
       Notify.failure('Something went wrong...');
