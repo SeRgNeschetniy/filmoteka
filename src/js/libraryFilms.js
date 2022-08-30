@@ -13,119 +13,43 @@ import {
   WATCHEDFILMS_LOCALSTORAGE_KEY,
   QUEUEFILMS_LOCALSTORAGE_KEY,
 } from './storage/storage';
-import { showEmptyLibrary, hideEmptyLibrary, showGuest, hideGuest } from './empty-library';
-
+import {
+  showEmptyLibrary,
+  hideEmptyLibrary,
+  showGuest,
+  hideGuest,
+} from './empty-library';
 
 let watchedFilmsList = [];
 let queueFilmsList = [];
 
-
 if (refs.body) {
-  refs.body.addEventListener('click', onWatchedBtnClick);
+  refs.body.addEventListener('click', whoWork);
 }
 
-if (refs.body) {
-  refs.body.addEventListener('click', onQueueBtnClick);
-}
-
-
-
-function onWatchedBtnClick(event) {
-  if (event.target.textContent !== 'add to Watched') {
+function whoWork(event) {
+  if (event.target.textContent === 'add to Watched') {
+    onWatchedBtnClick(event);
+    renameBtn();
     return;
   }
+  if (event.target.textContent === 'add to queue') {
+    onQueueBtnClick(event);
+    renameBtn();
 
-  if (!load('userUID')) {
-    Notiflix.Notify.failure(
-      'You are not logged in or are not registered. Please sign in or sign up to continue.'
-    );
     return;
   }
+  if (event.target.textContent === 'remove from watched') {
+    onRemoveFromLibrery(event);
+    renameBtn();
 
-  const movieId = Number(event.target.dataset.id);
-
-  if (movieId) {
-    const libraryFilms = JSON.parse(
-      localStorage.getItem(CURRENTFILMS_LOCALSTORAGE_KEY)
-    );
-
-    const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
-
-    console.log(selectedFilm);
-
-    if (load(WATCHEDFILMS_LOCALSTORAGE_KEY)) {
-      watchedFilmsList = load(WATCHEDFILMS_LOCALSTORAGE_KEY);
-    }
-
-    const watchedFilmsToCheck = JSON.parse(localStorage.getItem(WATCHEDFILMS_LOCALSTORAGE_KEY));
-
-    if (!watchedFilmsToCheck.find(el => el.id === parseInt(movieId))) {
-      watchedFilmsList.push(selectedFilm);
-      save(WATCHEDFILMS_LOCALSTORAGE_KEY, watchedFilmsList);
-      save(
-        'total_pages',
-        Math.ceil(load(WATCHEDFILMS_LOCALSTORAGE_KEY).length / 20)
-      );
-    } else {
-      Notiflix.Notify.failure('The movie has already been added to the library');
-    }
-    
-    const seating = {
-      userId: load('userUID'),
-      data: watchedFilmsList,
-      key: WATCHEDFILMS_LOCALSTORAGE_KEY,
-    };
-    setUserData(seating);
-  }
-}
-
-
-function onQueueBtnClick(event) {
-  if (event.target.textContent !== 'add to queue') {
     return;
   }
+  if (event.target.textContent === 'remove from queue') {
+    onRemoveFromLibrery(event);
+    renameBtn();
 
-  if (!load('userUID')) {
-    Notiflix.Notify.failure(
-      'You are not logged in or are not registered. Please sign in or sign up to continue.'
-    );
     return;
-  }
-
-  const movieId = Number(event.target.dataset.id);
-
-  if (movieId) {
-    const libraryFilms = JSON.parse(
-      localStorage.getItem(CURRENTFILMS_LOCALSTORAGE_KEY)
-    );
-
-    const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
-
-    console.log(selectedFilm);
-
-    if (load(QUEUEFILMS_LOCALSTORAGE_KEY)) {
-      queueFilmsList = load(QUEUEFILMS_LOCALSTORAGE_KEY);
-    }
-
-    const queueFilmsToCheck = JSON.parse(localStorage.getItem(QUEUEFILMS_LOCALSTORAGE_KEY));
-
-    if (!queueFilmsToCheck.find(el => el.id === parseInt(movieId))) {
-      queueFilmsList.push(selectedFilm);
-      save(QUEUEFILMS_LOCALSTORAGE_KEY, queueFilmsList);
-      save(
-      'total_pages',
-      Math.ceil(load(QUEUEFILMS_LOCALSTORAGE_KEY).length / 20)
-      );
-    } else {
-      Notiflix.Notify.failure('The movie has already been added to the library');
-    }
-
-    const seating = {
-      userId: load('userUID'),
-      data: queueFilmsList,
-      key: QUEUEFILMS_LOCALSTORAGE_KEY,
-    };
-    setUserData(seating);
   }
 }
 
@@ -138,12 +62,12 @@ function onLibraryWatchedInit() {
       showGuest();
       return;
     }
-    
+
     if (load(WATCHEDFILMS_LOCALSTORAGE_KEY).length === 0) {
       addClassToWatchedBtn();
       showEmptyLibrary();
     }
-    
+
     if (load(WATCHEDFILMS_LOCALSTORAGE_KEY).length !== 0) {
       hideEmptyLibrary();
       save(
@@ -151,7 +75,7 @@ function onLibraryWatchedInit() {
         Math.ceil(load(WATCHEDFILMS_LOCALSTORAGE_KEY).length / 20)
       );
     }
-  
+
     const option = {
       cardContainer: 'library-movies',
       paginationContainer: 'js-pg-library-container',
@@ -159,13 +83,13 @@ function onLibraryWatchedInit() {
       localKey: WATCHEDFILMS_LOCALSTORAGE_KEY,
       getNewFilm: getNewWatchedMovie,
     };
-  
+
     const libraryWatchedSlider = new MyPagimation(option);
     libraryWatchedSlider.inicialization();
-  
+
     refs.libraryWatchedBtn.addEventListener('click', () => {
       if (load(WATCHEDFILMS_LOCALSTORAGE_KEY).length === 0) {
-          showEmptyLibrary();
+        showEmptyLibrary();
       } else {
         hideEmptyLibrary();
       }
@@ -201,7 +125,7 @@ function onLibraryQueueInit() {
         Math.ceil(load(QUEUEFILMS_LOCALSTORAGE_KEY).length / 20)
       );
     }
-  
+
     const option = {
       cardContainer: 'library-movies',
       paginationContainer: 'js-pg-library-container',
@@ -209,10 +133,10 @@ function onLibraryQueueInit() {
       localKey: QUEUEFILMS_LOCALSTORAGE_KEY,
       getNewFilm: getNewQueueMovie,
     };
-  
+
     refs.libraryQueueBtn.addEventListener('click', () => {
       if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length === 0) {
-          showEmptyLibrary();
+        showEmptyLibrary();
       } else {
         hideEmptyLibrary();
       }
@@ -238,8 +162,6 @@ function addClassToQueueBtn() {
   });
 }
 
-
-
 function getNewWatchedMovie(qwery, num) {
   const option = {
     qwery: qwery,
@@ -257,8 +179,6 @@ function getNewWatchedMovie(qwery, num) {
   );
 }
 
-
-
 function getNewQueueMovie(qwery, num) {
   const option = {
     qwery: qwery,
@@ -273,100 +193,238 @@ function getNewQueueMovie(qwery, num) {
   save('total_pages', Math.ceil(load(QUEUEFILMS_LOCALSTORAGE_KEY).length / 20));
 }
 
-
 export function checkOnLibraryStorage(watchedBtn, queueBtn, filmID) {
-
   if (!load('userUID')) {
     return;
-    }
-  
-    const libraryWatchedFilms = JSON.parse(
-      localStorage.getItem(WATCHEDFILMS_LOCALSTORAGE_KEY)
-    );
-      
-    if (libraryWatchedFilms.find(el => el.id === parseInt(filmID))) {
-      watchedBtn.textContent = 'remove from watched';
-    }
+  }
+  const libraryQueueFilms = load(QUEUEFILMS_LOCALSTORAGE_KEY);
+  const libraryWatchedFilms = load(WATCHEDFILMS_LOCALSTORAGE_KEY);
 
-    const libraryQueueFilms = JSON.parse(
-      localStorage.getItem(QUEUEFILMS_LOCALSTORAGE_KEY)
-    );
-  
-    if (libraryQueueFilms.find(el => el.id === parseInt(filmID))) {
-      queueBtn.textContent = 'remove from queue';
-    }
+  if (libraryWatchedFilms.find(el => el.id === parseInt(filmID))) {
+    watchedBtn.textContent = 'remove from watched';
+  } else {
+    watchedBtn.textContent = 'add to Watched';
+  }
+
+  if (libraryQueueFilms.find(el => el.id === parseInt(filmID))) {
+    queueBtn.textContent = 'remove from queue';
+  } else {
+    queueBtn.textContent = 'add to queue';
+  }
 }
 
-
-if (refs.body) {
-  refs.body.addEventListener('click', onRemoveFromWatchedClick);
-}
-
-function onRemoveFromWatchedClick(event) {
-
-  if (event.target.textContent !== 'remove from watched') {
+function onWatchedBtnClick(event) {
+  if (event.target.textContent !== 'add to Watched') {
     return;
   }
+
+  if (!load('userUID')) {
+    Notiflix.Notify.failure(
+      'You are not logged in or are not registered. Please sign in or sign up to continue.'
+    );
+    return;
+  }
+
   const movieId = Number(event.target.dataset.id);
 
   if (movieId) {
     const libraryFilms = JSON.parse(
-      localStorage.getItem(WATCHEDFILMS_LOCALSTORAGE_KEY)
+      localStorage.getItem(CURRENTFILMS_LOCALSTORAGE_KEY)
     );
-
-    remove(WATCHEDFILMS_LOCALSTORAGE_KEY);
 
     const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
 
-    const index = libraryFilms.indexOf(selectedFilm);
 
-    console.log(index);
+    if (load(WATCHEDFILMS_LOCALSTORAGE_KEY)) {
+      watchedFilmsList = load(WATCHEDFILMS_LOCALSTORAGE_KEY);
+    }
 
-    libraryFilms.splice(index, 1);
+    const watchedFilmsToCheck = JSON.parse(
+      localStorage.getItem(WATCHEDFILMS_LOCALSTORAGE_KEY)
+    );
 
-    save(WATCHEDFILMS_LOCALSTORAGE_KEY, libraryFilms);
+    if (!watchedFilmsToCheck.find(el => el.id === parseInt(movieId))) {
+      watchedFilmsList.push(selectedFilm);
+      save(WATCHEDFILMS_LOCALSTORAGE_KEY, watchedFilmsList);
+      save(
+        'total_pages',
+        Math.ceil(load(WATCHEDFILMS_LOCALSTORAGE_KEY).length / 20)
+      );
+    } else {
+      Notiflix.Notify.failure(
+        'The movie has already been added to the library'
+      );
+    }
 
     const seating = {
       userId: load('userUID'),
-      data: libraryFilms,
+      data: watchedFilmsList,
       key: WATCHEDFILMS_LOCALSTORAGE_KEY,
     };
     setUserData(seating);
   }
 }
 
-if (refs.body) {
-  refs.body.addEventListener('click', onRemoveFromQueueClick);
-}
-
-function onRemoveFromQueueClick(event) {
-  if (event.target.textContent !== 'remove from queue') {
+function onQueueBtnClick(event) {
+  if (event.target.textContent !== 'add to queue') {
     return;
   }
+
+  if (!load('userUID')) {
+    Notiflix.Notify.failure(
+      'You are not logged in or are not registered. Please sign in or sign up to continue.'
+    );
+    return;
+  }
+
   const movieId = Number(event.target.dataset.id);
 
   if (movieId) {
     const libraryFilms = JSON.parse(
-      localStorage.getItem(QUEUEFILMS_LOCALSTORAGE_KEY)
+      localStorage.getItem(CURRENTFILMS_LOCALSTORAGE_KEY)
     );
-
-    remove(QUEUEFILMS_LOCALSTORAGE_KEY);
 
     const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
 
-    const index = libraryFilms.indexOf(selectedFilm);
 
-    console.log(index);
+    if (load(QUEUEFILMS_LOCALSTORAGE_KEY)) {
+      queueFilmsList = load(QUEUEFILMS_LOCALSTORAGE_KEY);
+    }
 
-    libraryFilms.splice(index, 1);
+    const queueFilmsToCheck = JSON.parse(
+      localStorage.getItem(QUEUEFILMS_LOCALSTORAGE_KEY)
+    );
 
-    save(QUEUEFILMS_LOCALSTORAGE_KEY, libraryFilms);
+    if (!queueFilmsToCheck.find(el => el.id === parseInt(movieId))) {
+      queueFilmsList.push(selectedFilm);
+      save(QUEUEFILMS_LOCALSTORAGE_KEY, queueFilmsList);
+      save(
+        'total_pages',
+        Math.ceil(load(QUEUEFILMS_LOCALSTORAGE_KEY).length / 20)
+      );
+    } else {
+      Notiflix.Notify.failure(
+        'The movie has already been added to the library'
+      );
+    }
 
     const seating = {
       userId: load('userUID'),
-      data: libraryFilms,
+      data: queueFilmsList,
       key: QUEUEFILMS_LOCALSTORAGE_KEY,
     };
     setUserData(seating);
   }
 }
+
+function onRemoveFromLibrery(event) {
+  const btnText = event.target.textContent;
+  const movieId = Number(event.target.dataset.id);
+  let tempLocalKey;
+  if (btnText === 'remove from watched' || btnText === 'add to Watched') {
+    tempLocalKey = WATCHEDFILMS_LOCALSTORAGE_KEY;
+  }
+  if (btnText === 'remove from queue' || btnText === 'add to queue') {
+    tempLocalKey = QUEUEFILMS_LOCALSTORAGE_KEY;
+  }
+
+  if (
+    movieId &&
+    (btnText === 'remove from queue' || btnText === 'remove from watched')
+  ) {
+    // const libraryFilms = [...load(tempLocalKey)];
+    const libraryFilms = load(tempLocalKey);
+  
+
+    // remove(tempLocalKey);
+
+    const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
+    const index = libraryFilms.indexOf(selectedFilm);
+    libraryFilms.splice(index, 1);
+
+    save(tempLocalKey, libraryFilms);
+
+    const seating = {
+      userId: load('userUID'),
+      data: libraryFilms,
+      key: tempLocalKey,
+    };
+    setUserData(seating);
+    return;
+  }
+}
+
+function renameBtn() {
+  const changeQueueBtn = document.querySelector('.js-queue-popup__btn');
+  const changeWatchedBtn = document.querySelector('.js-watched-popup__btn');
+  const btnId = changeWatchedBtn.dataset.id;
+  //  console.log('im work checkOnLibraryStorage');
+  checkOnLibraryStorage(changeWatchedBtn, changeQueueBtn, btnId);
+}
+
+// if (refs.body) {
+//   refs.body.addEventListener('click', onRemoveFromLibrery);
+// }
+
+// function onRemoveFromQueueClick(event) {
+//   if (event.target.textContent !== 'remove from queue') {
+//     return;
+//   }
+//   const movieId = Number(event.target.dataset.id);
+
+//   if (movieId) {
+//     const libraryFilms = JSON.parse(
+//       localStorage.getItem(QUEUEFILMS_LOCALSTORAGE_KEY)
+//     );
+
+//     remove(QUEUEFILMS_LOCALSTORAGE_KEY);
+
+//     const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
+
+//     const index = libraryFilms.indexOf(selectedFilm);
+
+//     console.log(index);
+
+//     libraryFilms.splice(index, 1);
+
+//     save(QUEUEFILMS_LOCALSTORAGE_KEY, libraryFilms);
+
+//     const seating = {
+//       userId: load('userUID'),
+//       data: libraryFilms,
+//       key: QUEUEFILMS_LOCALSTORAGE_KEY,
+//     };
+//     setUserData(seating);
+//   }
+// }
+// function onRemoveFromWatchedClick(event) {
+//   if (event.target.textContent !== 'remove from watched') {
+//     return;
+//   }
+//   const movieId = Number(event.target.dataset.id);
+
+//   if (movieId) {
+//     const libraryFilms = JSON.parse(
+//       localStorage.getItem(WATCHEDFILMS_LOCALSTORAGE_KEY)
+//     );
+
+//     remove(WATCHEDFILMS_LOCALSTORAGE_KEY);
+
+//     const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
+
+//     const index = libraryFilms.indexOf(selectedFilm);
+
+//     console.log(index);
+
+//     libraryFilms.splice(index, 1);
+
+//     save(WATCHEDFILMS_LOCALSTORAGE_KEY, libraryFilms);
+
+//     const seating = {
+//       userId: load('userUID'),
+//       data: libraryFilms,
+//       key: WATCHEDFILMS_LOCALSTORAGE_KEY,
+//     };
+//     setUserData(seating);
+//   }
+// }

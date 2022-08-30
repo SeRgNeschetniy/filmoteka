@@ -30,6 +30,7 @@ async function popupHandler(el) {
   const changeQueueBtn = document.querySelector('.js-queue-popup__btn');
   const changeWatchedBtn = document.querySelector('.js-watched-popup__btn');
   const btnId = changeWatchedBtn.dataset.id;
+  console.log('im work checkOnLibraryStorage');
   checkOnLibraryStorage(changeWatchedBtn, changeQueueBtn, btnId);
 }
 
@@ -131,7 +132,6 @@ const backdropPpup = document.querySelector('.popup.backdrop-popup');
 const popupContent = document.querySelector('.popup__content');
 function popapbeckClose(e) {
   const click = e.composedPath().includes(popupContent);
-  console.log(click);
   if (click === false) {
     closePopup();
   }
@@ -160,7 +160,6 @@ function searchVideoFrame() {
   let frame = '';
   player.addEventListener('click', function (e) {
     e.preventDefault();
-    console.log('object');
     toOpen.classList.add('open');
 
     backdropPpup.removeEventListener('click', popapbeckClose);
@@ -168,7 +167,6 @@ function searchVideoFrame() {
     // toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
   });
   overlay.addEventListener('click', function (e) {
-    console.log(e.target);
     e.preventDefault();
     close_video();
   });
