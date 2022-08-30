@@ -2,6 +2,7 @@ import { load, GENREFILMS_LOCALSTORAGE_KEY } from './storage/storage';
 import { getAllGenresForModal } from './getAllGenresForModal';
 import { refs } from './refs';
 import { themoviedbAPI } from './api/API';
+import { checkOnLibraryStorage } from './libraryFilms';
 const themoviedb = new themoviedbAPI();
 let linkToYutube = '';
 const toPleyer = document.querySelector('.js-pleyer');
@@ -25,6 +26,11 @@ async function popupHandler(el) {
   const popup = document.querySelector('.js-popup__content');
   popup.innerHTML = results;
   searchVideoFrame();
+
+  const changeQueueBtn = document.querySelector('.js-queue-popup__btn');
+  const changeWatchedBtn = document.querySelector('.js-watched-popup__btn');
+  const btnId = changeWatchedBtn.dataset.id;
+  checkOnLibraryStorage(changeWatchedBtn, changeQueueBtn, btnId);
 }
 
 const modalMoviemarkup = ({
@@ -90,8 +96,8 @@ const modalMoviemarkup = ({
     ${overview ? overview : "We can't find more information about this film."}
   </p>
   <div class="popup__btn-container">
-    <button class="popup__btn" type="button" data-id=${id}>add to Watched</button>
-    <button class="popup__btn" type="button" data-id=${id}>add to queue</button>
+    <button class="popup__btn js-watched-popup__btn" type="button" data-id=${id}>add to Watched</button>
+    <button class="popup__btn js-queue-popup__btn" type="button" data-id=${id}>add to queue</button>
   </div>
 
 
