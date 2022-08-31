@@ -70,7 +70,6 @@ function registrationNewUser(e) {
   createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       const user = userCredential.user;
-
       set(ref(database, 'users/' + user.uid), {
         username: username,
         email: email,
@@ -86,26 +85,59 @@ function registrationNewUser(e) {
             userId: user.uid,
             key: QUEUEFILMS_LOCALSTORAGE_KEY,
           });
-
-          // Data saved successfully!
         })
         .catch(error => {
           save('userUID', false);
           Notify.Success('Something went wrong', 3000);
-          // The write failed...
         });
 
-      Notify.success('You have successfully registered with Filmoteka.', 3000);
+      Notify.Success('You have successfully registered with Filmoteka.', 3000);
       document.getElementById('regForm').reset();
-      save('userUID', user.uid);
       refs.registerModalBackdrop.classList.toggle('is-hidden');
     })
     .catch(error => {
-      //const errorCode = error.code;
-      const errorMessage = error.message;
-      Notify.Error('User is currently exists', 3000); // ..
+      Notify.Error('User with such email already exists', 3000);
     });
+
+  // createUserWithEmailAndPassword(auth, email, password)
+  //   .then(userCredential => {
+  //     const user = userCredential.user;
+
+  //     set(ref(database, 'users/' + user.uid), {
+  //       username: username,
+  //       email: email,
+  //        watchedFilm: [],
+  //        queueFilm: [],
+  //     });
+  //      .then(() => {
+  //         readUserData({
+  //           userId: user.uid,
+  //           key: WATCHEDFILMS_LOCALSTORAGE_KEY,
+  //         });
+  //         readUserData({
+  //           userId: user.uid,
+  //           key: QUEUEFILMS_LOCALSTORAGE_KEY,
+  //         });
+  //         Data saved successfully!
+  //      })
+  //      .catch(error => {
+  //        save('userUID', false);
+  //        Notify.Success('Something went wrong', 3000);
+  //        // The write failed...
+  //      });
+
+  //     Notify.success('You have successfully registered with Filmoteka.', 3000);
+  //     document.getElementById('regForm').reset();
+  //     //save('userUID', user.uid);
+  //     refs.registerModalBackdrop.classList.toggle('is-hidden');
+  //   })
+  //   .catch(error => {
+  //     //const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     Notify.Error('User is currently exists', 3000); // ..
+  //   });
 }
+
 if (refs.logInData) {
   refs.logInData.addEventListener('click', onLoginData);
 }
@@ -156,8 +188,8 @@ function onLoginData(e) {
         });
     })
     .catch(error => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+      //const errorCode = error.code;
+      //const errorMessage = error.message;
       Notify.Error('Login failed, check email or password', 3000);
     });
 }
