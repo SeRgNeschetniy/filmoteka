@@ -293,13 +293,6 @@ function onWatchedBtnClick(event) {
         'total_pages',
         Math.ceil(load(WATCHEDFILMS_LOCALSTORAGE_KEY).length / 20)
       );
-      // if (!watchedFilmsToCheck.find(el => el.id === parseInt(movieId))) {
-
-      // } else {
-      //   Notiflix.Notify.failure(
-      //     'The movie has already been added to the library'
-      //   );
-      // }
 
       const seating = {
         userId: load('userUID'),
