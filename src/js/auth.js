@@ -161,7 +161,7 @@ function onLoginData(e) {
       Notify.Success('Successfully logged in', 3000);
       document.getElementById('logForm').reset();
 
-      refs.loginModalBackdrop.classList.remove('is-hidden');
+      refs.loginModalBackdrop.classList.add('is-hidden');
       refs.loginSignIn.classList.toggle('visually-hidden');
       refs.logOutData.classList.toggle('visually-hidden');
 
