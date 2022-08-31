@@ -212,6 +212,8 @@ function onLogOutData(e) {
       save(WATCHEDFILMS_LOCALSTORAGE_KEY, []);
 
       Notify.Success('Successfully logged out');
+      location.href = location.href;
+
 
       refs.loginSignIn.classList.toggle('visually-hidden');
       refs.logOutData.classList.toggle('visually-hidden');
@@ -231,6 +233,7 @@ function onLogOutData(e) {
 }
 
 let myfilm = [];
+
 
 async function readUserData({ userId, key }) {
   onValue(
