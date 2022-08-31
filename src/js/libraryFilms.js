@@ -60,10 +60,14 @@ onLibraryQueueInit();
 onLibraryWatchedInit();
 
 export function onLibraryWatchedInit() {
+
   if (refs.libraryWatchedBtn) {
     if (!load('userUID')) {
       addClassToWatchedBtn();
       showGuest();
+      hideEmptyLibrary();
+      console.log("sxsaxsa");
+
       return;
     }
 
@@ -101,10 +105,13 @@ export function onLibraryWatchedInit() {
 }
 
 export function onLibraryQueueInit() {
+  hideEmptyLibrary();
+  hideGuest();
   if (refs.libraryQueueBtn) {
     if (!load('userUID')) {
       addClassToQueueBtn();
       showGuest();
+      hideEmptyLibrary();
       return;
     }
     hideGuest();
@@ -297,6 +304,7 @@ function onWatchedBtnClick(event) {
 function onQueueBtnClick(event) {
   if (event.target.textContent !== 'add to queue') {
     return;
+    q;
   }
 
   if (!load('userUID')) {
