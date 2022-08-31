@@ -136,7 +136,7 @@ export function onLibraryQueueInit() {
 }
 
 function reRenderQUEUEFILMS() {
-  if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length === 0) {
+  if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length === 0 && load('userUID')) {
     showEmptyLibrary();
   } else {
     hideEmptyLibrary();
@@ -149,7 +149,7 @@ function reRenderQUEUEFILMS() {
 }
 
 function reRenderWATCHEDFILMS() {
-  if (load(WATCHEDFILMS_LOCALSTORAGE_KEY).length === 0) {
+  if (load(WATCHEDFILMS_LOCALSTORAGE_KEY).length === 0 && load('userUID')) {
     showEmptyLibrary();
   } else {
     hideEmptyLibrary();
@@ -459,3 +459,9 @@ function renameBtn() {
 //     setUserData(seating);
 //   }
 // }
+
+if (refs.libraryWatchedBtn) {
+  refs.logOutData.addEventListener('click', () => {
+    hideEmptyLibrary();
+  })
+}
