@@ -1,7 +1,6 @@
 import Swiper, { Navigation, Autoplay } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 import { refs } from './refs';
-import { Notify } from './notify';
 
 const swiper = new Swiper('.swiper', {
   modules: [Navigation, Autoplay],
