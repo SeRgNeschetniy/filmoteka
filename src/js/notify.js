@@ -3,7 +3,7 @@ import { refs } from './refs';
 var Notify;
 (function (Notify) {
   var _settings = {
-    soundsOff: true,
+    soundsOff: false,
     sounds: {
       success: 'sounds/success, warning/1.mp3',
       warning: 'sounds/success, warning/3.mp3',
@@ -15,6 +15,7 @@ var Notify;
       error: 4000,
     },
   };
+
   Object.defineProperty(Notify, 'Settings', {
     get: function () {
       return _settings;
