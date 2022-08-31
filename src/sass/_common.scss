@@ -71,16 +71,15 @@ body {
   height: 100%;
 }
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+::-webkit-scrollbar {
+  /* 1 - скроллбар */
+  width: 5px;
+  height: 5px;
+  background-color: #d1d1d1;
 }
 
-.content {
-  flex: 1 0 auto;
-}
-
-.footer {
-  flex: 0 0 auto;
+::-webkit-scrollbar-thumb {
+  /* 5 - ползунок */
+  border-radius: 2px;
+  background-color: $accent-text-color;
 }
