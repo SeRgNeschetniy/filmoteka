@@ -244,7 +244,6 @@ export default class MyPagimation {
                       </li>
 `;
     }).join('');
-    console.log('🚀 ~ MyPagimation ~ result', HTMLNumberOfButtonsDesktop);
 
     const resultMobile = HTMLNumberOfButtonsMobile.map(btn => {
       return `
