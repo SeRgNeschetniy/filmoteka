@@ -165,7 +165,7 @@ function onLogOutData(e) {
   signOut(auth)
     .then(() => {
       save('userUID', false);
-      Notify.success('Successfully logged out');
+      Notify.Success('Successfully logged out');
 
       refs.loginSignIn.classList.toggle('visually-hidden');
       refs.logOutData.classList.toggle('visually-hidden');
