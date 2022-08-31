@@ -1,3 +1,10 @@
+.movies-container, 
+.library-movies-container {
+    @include mq(mobile-only) {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+}
 .movies, .library-movies {
     margin: 20px 0 40px 0;
 
