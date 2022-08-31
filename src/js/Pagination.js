@@ -150,7 +150,6 @@ export default class MyPagimation {
         currentNumPage_1 + 2,
         currentNumPage_1 + 5
       );
-      // sliced1 (5, 5+1) -> [6]
       HTMLNumberOfButtonsMobile = [...sliced1];
     } else if (currentNumPage_1 > numOfButtons.length - 3) {
       const sliced1 = numOfButtons.slice(numOfButtons.length - 5);
@@ -160,12 +159,10 @@ export default class MyPagimation {
         currentNumPage_1 - 3,
         currentNumPage_1
       );
-      // sliced1 (5-2, 5) -> [4,5]
       const sliced2 = numOfButtons.slice(
         currentNumPage_1,
         currentNumPage_1 + 2
       );
-      // sliced1 (5, 5+1) -> [6]
       HTMLNumberOfButtonsMobile = [...sliced1, ...sliced2];
     }
 
