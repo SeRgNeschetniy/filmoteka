@@ -1,6 +1,9 @@
 import { refs } from './refs';
 
 var Notify;
+
+
+
 (function (Notify) {
   var _settings = {
     soundsOff: true,

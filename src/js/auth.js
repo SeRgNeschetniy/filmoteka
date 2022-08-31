@@ -22,9 +22,11 @@ import {
   load,
   WATCHEDFILMS_LOCALSTORAGE_KEY,
   QUEUEFILMS_LOCALSTORAGE_KEY,
+  CURRENTFILMS_LOCALSTORAGE_KEY,
 } from './storage/storage.js';
 
 import { Notify } from './notify';
+// import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCkRsLU3jXV2QSp_hCd--4ayctHmz1-Kl8',
@@ -92,12 +94,51 @@ function registrationNewUser(e) {
         });
 
       Notify.Success('You have successfully registered with Filmoteka.', 3000);
+
       document.getElementById('regForm').reset();
       refs.registerModalBackdrop.classList.toggle('is-hidden');
     })
     .catch(error => {
       Notify.Error('User with such email already exists', 3000);
     });
+
+  // createUserWithEmailAndPassword(auth, email, password)
+  //   .then(userCredential => {
+  //     const user = userCredential.user;
+
+  //     set(ref(database, 'users/' + user.uid), {
+  //       username: username,
+  //       email: email,
+  //        watchedFilm: [],
+  //        queueFilm: [],
+  //     });
+  //      .then(() => {
+  //         readUserData({
+  //           userId: user.uid,
+  //           key: WATCHEDFILMS_LOCALSTORAGE_KEY,
+  //         });
+  //         readUserData({
+  //           userId: user.uid,
+  //           key: QUEUEFILMS_LOCALSTORAGE_KEY,
+  //         });
+  //         Data saved successfully!
+  //      })
+  //      .catch(error => {
+  //        save('userUID', false);
+  //        Notify.Success('Something went wrong', 3000);
+  //        // The write failed...
+  //      });
+
+  //     Notify.Success('You have successfully registered with Filmoteka.', 3000);
+  //     document.getElementById('regForm').reset();
+  //     //save('userUID', user.uid);
+  //     refs.registerModalBackdrop.classList.toggle('is-hidden');
+  //   })
+  //   .catch(error => {
+  //     //const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     Notify.Error('User is currently exists', 3000); // ..
+  //   });
 }
 
 if (refs.logInData) {
@@ -134,10 +175,6 @@ function onLoginData(e) {
 
       const logDate = new Date();
 
-      if (document.querySelector('.library-movies')) {
-        onLibraryQueueInit();
-        onLibraryWatchedInit();
-      }
       update(ref(database, 'users/' + user.uid), {
         last_login: logDate,
       })
@@ -165,15 +202,22 @@ function onLogOutData(e) {
   signOut(auth)
     .then(() => {
       save('userUID', false);
+
+      save(QUEUEFILMS_LOCALSTORAGE_KEY, []);
+      save(WATCHEDFILMS_LOCALSTORAGE_KEY, []);
+
       Notify.Success('Successfully logged out');
 
       refs.loginSignIn.classList.toggle('visually-hidden');
       refs.logOutData.classList.toggle('visually-hidden');
 
       if (document.querySelector('.library-movies')) {
+        save(CURRENTFILMS_LOCALSTORAGE_KEY, []);
+
         onLibraryQueueInit();
         onLibraryWatchedInit();
         document.querySelector('.library-movies').innerHTML = '';
+        document.querySelector('.dt-pagination').innerHTML = '';
       }
     })
     .catch(error => {
@@ -190,6 +234,11 @@ async function readUserData({ userId, key }) {
       const myFilm = (snapshot.val() && snapshot.val()[key]) || [];
       myfilm = [...myFilm];
       savetoCLG(myFilm, key);
+
+      if (document.querySelector('.library-movies')) {
+        onLibraryQueueInit();
+        onLibraryWatchedInit();
+      }
       // ...
     },
     {
