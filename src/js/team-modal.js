@@ -1,8 +1,7 @@
 import Swiper, { Navigation, Autoplay } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 import { refs } from './refs';
-
-// import { showEmptyLibrary, hideEmptyLibrary, showGuest, hideGuest } from './empty-library';
+import { Notify } from './notify';
 
 const swiper = new Swiper('.swiper', {
   modules: [Navigation, Autoplay],
@@ -10,17 +9,11 @@ const swiper = new Swiper('.swiper', {
   direction: 'horizontal',
   loop: true,
 
-  // pagination: {
-  //   el: '.swiper-pagination',
-  //   type: 'bullets',
-  //   clickable: true,
-  //   dynamicBullets: true,
-  // },
-
   navigation: {
     nextEl: '.swiper-button-next',
     prevEl: '.swiper-button-prev',
   },
+
   breakpoints: {
     768: {
       slidesPerView: 2,
@@ -29,6 +22,7 @@ const swiper = new Swiper('.swiper', {
       slidesPerView: 3,
     },
   },
+
   autoplay: {
     delay: 5000,
   },

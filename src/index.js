@@ -8,3 +8,4 @@ import './js/theme';
 import './js/libraryFilms';
 import './js/indexFilm';
 import './js/scroll';
+import './js/notify';
