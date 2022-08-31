@@ -60,13 +60,12 @@ onLibraryQueueInit();
 onLibraryWatchedInit();
 
 export function onLibraryWatchedInit() {
-
   if (refs.libraryWatchedBtn) {
     if (!load('userUID')) {
       addClassToWatchedBtn();
       showGuest();
       hideEmptyLibrary();
-      console.log("sxsaxsa");
+      //console.log("sxsaxsa");
 
       return;
     }
@@ -471,5 +470,5 @@ function renameBtn() {
 if (refs.libraryWatchedBtn) {
   refs.logOutData.addEventListener('click', () => {
     hideEmptyLibrary();
-  })
+  });
 }

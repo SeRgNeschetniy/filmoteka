@@ -7,7 +7,7 @@ const htmpleyer =
   '<iframe width="560" height="315" src="https://www.youtube.com/embed/ngElkyQ6Rhs" frameborder="0" allowfullscreen></iframe>';
 player.addEventListener('click', function (e) {
   e.preventDefault();
-  console.log('object');
+  //console.log('object');
   toOpen.classList.add('open');
   toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
 });
