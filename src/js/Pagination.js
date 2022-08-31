@@ -244,6 +244,7 @@ export default class MyPagimation {
                       </li>
 `;
     }).join('');
+    console.log('🚀 ~ MyPagimation ~ result', HTMLNumberOfButtonsDesktop);
 
     const resultMobile = HTMLNumberOfButtonsMobile.map(btn => {
       return `
@@ -257,6 +258,12 @@ export default class MyPagimation {
 `;
     }).join('');
 
+    if (HTMLNumberOfButtonsDesktop.length === 0) {
+      return {
+        navigation: '',
+        navigationMobile: '',
+      };
+    }
     return {
       navigation: [prevBTN, result, nextBTN].join(''),
       navigationMobile: [prevBTN, resultMobile, nextBTN].join(''),

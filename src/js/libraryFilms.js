@@ -33,6 +33,7 @@ function whoWork(event) {
     onWatchedBtnClick(event);
     renameBtn();
     if (curentobject) curentobject.inicialization();
+    
     return;
   }
   if (event.target.textContent === 'add to queue') {
@@ -45,12 +46,19 @@ function whoWork(event) {
   if (event.target.textContent === 'remove from watched') {
     onRemoveFromLibrery(event);
     if (curentobject) curentobject.inicialization();
+     if (load(WATCHEDFILMS_LOCALSTORAGE_KEY).length === 0) {
+       showEmptyLibrary();
+     }
+    
     renameBtn();
     return;
   }
   if (event.target.textContent === 'remove from queue') {
     onRemoveFromLibrery(event);
     if (curentobject) curentobject.inicialization();
+     if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length === 0) {
+       showEmptyLibrary();
+     }
     renameBtn();
     return;
   }
@@ -106,6 +114,7 @@ export function onLibraryWatchedInit() {
 export function onLibraryQueueInit() {
   hideEmptyLibrary();
   hideGuest();
+
   if (refs.libraryQueueBtn) {
     if (!load('userUID')) {
       addClassToQueueBtn();
@@ -113,7 +122,10 @@ export function onLibraryQueueInit() {
       hideEmptyLibrary();
       return;
     }
-    hideGuest();
+    if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length === 0) {
+      hideGuest();
+      showEmptyLibrary();
+    }
 
     if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length !== 0) {
       addClassToQueueBtn();
@@ -387,6 +399,8 @@ function onRemoveFromLibrery(event) {
       key: tempLocalKey,
     };
     setUserData(seating);
+
+   
     return;
   }
 }
