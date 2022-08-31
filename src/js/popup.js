@@ -14,7 +14,7 @@ async function popupHandler(el) {
   const id = li.dataset.id;
   const films = JSON.parse(localStorage.getItem('current-films'));
   const film = films.find(el => el.id === parseInt(id));
-
+  
   const res = await themoviedb.getVideoById(id);
   if (res.results[0]) {
     linkToYutube = `https://www.youtube.com/embed/${res.results[0].key}`;
@@ -122,12 +122,12 @@ async function createCardMovieInfo(e) {
   refs.popup.classList.toggle('is-hidden');
   refs.popupClose = document.querySelector('.js-close-btn');
   refs.popupClose.addEventListener('click', closePopup);
-  window.addEventListener('keydown', escapeClose);
+
+  // window.addEventListener('keydown', escapeClose);
 }
 
 const backdropPpup = document.querySelector('.popup.backdrop-popup');
 const popupContent = document.querySelector('.popup__content');
-
 function popapbeckClose(e) {
   const click = e.composedPath().includes(popupContent);
   if (click === false) {
