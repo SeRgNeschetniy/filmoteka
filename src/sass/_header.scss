@@ -1,4 +1,7 @@
 .header {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
   background: $light-grey-bg-color;
   background-image: url('../images/header-background/mob-header.jpg');
 
@@ -56,15 +59,15 @@
   color: $white-text-color;
   padding: 10px 0;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
-      box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &:hover {
     color: $secondary-dark-text-color;
     box-shadow: 0px 0px 20px rgba(255, 38, 0, 0.588),
       0 0 40px rgba(255, 0, 0, 0.313), 0 0 20px rgba(90, 98, 98, 0.643);
   }
   &:hover p {
-color: $secondary-dark-text-color;
-}
+    color: $secondary-dark-text-color;
+  }
 }
 .header-logo__svg {
   margin: 0 10px;
@@ -137,14 +140,14 @@ color: $secondary-dark-text-color;
   // padding: 5px;
   border-radius: 5px;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
-      box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    text-align: end;
-  
-    &:hover {
-      color: $secondary-dark-text-color;
-      box-shadow: 0px 0px 20px rgba(255, 38, 0, 0.588),
-        0 0 40px rgba(255, 0, 0, 0.313), 0 0 20px rgba(90, 98, 98, 0.643);
-    }
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: end;
+
+  &:hover {
+    color: $secondary-dark-text-color;
+    box-shadow: 0px 0px 20px rgba(255, 38, 0, 0.588),
+      0 0 40px rgba(255, 0, 0, 0.313), 0 0 20px rgba(90, 98, 98, 0.643);
+  }
 }
 
 .authorization__btn-out {
@@ -161,7 +164,7 @@ color: $secondary-dark-text-color;
   text-transform: uppercase;
   align-items: baseline;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
-      box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
   text-align: end;
   &:hover {
     color: $secondary-dark-text-color;
@@ -269,6 +272,9 @@ color: $secondary-dark-text-color;
 
 // header-library
 .header-library {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
   background-image: url('../images/library-background/library-header-mob.jpg');
 
   @media (min-device-pixel-ratio: 2),

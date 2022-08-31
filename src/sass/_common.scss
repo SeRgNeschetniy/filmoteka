@@ -32,6 +32,15 @@ body {
   font-family: 'Roboto';
   color: #212121;
   font-style: normal;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+main {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
 }
 
 .container {
@@ -43,9 +52,9 @@ body {
   @media screen and (min-width: 320px) {
     max-width: 320px;
   }
- @media screen and (min-width: 480px) {
-   max-width: 480px;
- }
+  @media screen and (min-width: 480px) {
+    max-width: 480px;
+  }
   @media screen and (min-width: 768px) {
     max-width: 768px;
     padding-left: 32px;
