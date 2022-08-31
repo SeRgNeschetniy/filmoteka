@@ -79,6 +79,7 @@ function registrationNewUser(e) {
         queueFilm: [],
       })
         .then(() => {
+          save('userUID', user.uid);
           readUserData({
             userId: user.uid,
             key: WATCHEDFILMS_LOCALSTORAGE_KEY,
@@ -92,6 +93,10 @@ function registrationNewUser(e) {
           save('userUID', false);
           Notify.Success('Something went wrong', 3000);
         });
+
+      refs.loginModalBackdrop.classList.toggle('is-hidden');
+      refs.loginSignIn.classList.toggle('visually-hidden');
+      refs.logOutData.classList.toggle('visually-hidden');
 
       Notify.Success('You have successfully registered with Filmoteka.', 3000);
 
