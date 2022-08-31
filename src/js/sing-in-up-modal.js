@@ -1,34 +1,26 @@
 import { refs } from './refs';
 
-function registerToggleModal() {
-  //document.body.classList.toggle('overflow-hidden');
-  refs.registerModalBackdrop.classList.toggle('is-hidden');
-}
-function onSignUpClick(event) {
-  event.preventDefault();
-  loginToggleModal();
-  registerToggleModal();
-}
 if (refs.registerCloseModalBtn) {
-  refs.registerCloseModalBtn.addEventListener('click', onSignUpClick);
-}
-if (refs.registerSignUp) {
-  refs.registerSignUp.addEventListener('click', onSignUpClick);
-}
-
-function loginToggleModal() {
-  //document.body.classList.toggle('overflow-hidden');
-  refs.loginModalBackdrop.classList.toggle('is-hidden');
-}
-
-function onSignInClick(event) {
-  event.preventDefault();
-  loginToggleModal();
+  refs.registerCloseModalBtn.addEventListener('click', () => {
+    refs.registerModalBackdrop.classList.add('is-hidden');
+  });
 }
 
 if (refs.loginCloseModalBtn) {
-  refs.loginCloseModalBtn.addEventListener('click', onSignInClick);
+  refs.loginCloseModalBtn.addEventListener('click', () => {
+    refs.loginModalBackdrop.classList.add('is-hidden');
+  });
 }
+
+if (refs.registerSignUp) {
+  refs.registerSignUp.addEventListener('click', () => {
+    refs.registerModalBackdrop.classList.remove('is-hidden');
+    refs.loginModalBackdrop.classList.add('is-hidden');
+  });
+}
+
 if (refs.loginSignIn) {
-  refs.loginSignIn.addEventListener('click', onSignInClick);
+  refs.loginSignIn.addEventListener('click', () => {
+    refs.loginModalBackdrop.classList.remove('is-hidden');
+  });
 }
