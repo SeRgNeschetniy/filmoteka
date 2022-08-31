@@ -3,15 +3,18 @@ import { getAllGenresForModal } from './getAllGenresForModal';
 import { refs } from './refs';
 import { themoviedbAPI } from './api/API';
 import { checkOnLibraryStorage } from './libraryFilms';
+
 const themoviedb = new themoviedbAPI();
 let linkToYutube = '';
 const toPleyer = document.querySelector('.js-pleyer');
 let htmpleyer = '';
+
 async function popupHandler(el) {
   const li = el.closest('.movie-card');
   const id = li.dataset.id;
   const films = JSON.parse(localStorage.getItem('current-films'));
   const film = films.find(el => el.id === parseInt(id));
+  
   const res = await themoviedb.getVideoById(id);
   if (res.results[0]) {
     linkToYutube = `https://www.youtube.com/embed/${res.results[0].key}`;
@@ -30,7 +33,6 @@ async function popupHandler(el) {
   const changeQueueBtn = document.querySelector('.js-queue-popup__btn');
   const changeWatchedBtn = document.querySelector('.js-watched-popup__btn');
   const btnId = changeWatchedBtn.dataset.id;
-  console.log('im work checkOnLibraryStorage');
   checkOnLibraryStorage(changeWatchedBtn, changeQueueBtn, btnId);
 }
 
@@ -58,7 +60,6 @@ const modalMoviemarkup = ({
 <a id="play-video" class="video-play-button" href="#">
   <span></span>
 </a>
-
   ${
     poster_path === null
       ? `<img src="${placeholderImg}" alt="${title}" class="popup__img">`

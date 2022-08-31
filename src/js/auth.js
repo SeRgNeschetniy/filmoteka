@@ -23,8 +23,8 @@ import {
   WATCHEDFILMS_LOCALSTORAGE_KEY,
   QUEUEFILMS_LOCALSTORAGE_KEY,
 } from './storage/storage.js';
-import Notiflix from 'notiflix';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
+import { Notify } from './notify';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCkRsLU3jXV2QSp_hCd--4ayctHmz1-Kl8',
@@ -60,8 +60,7 @@ function registrationNewUser(e) {
   const password = document.getElementById('registerFormPassword').value;
 
   if (validateEmail(email) === false) {
-    Notify.failure('Please, enter valid email address or Password');
-    return;
+    Notify.Warning('Please, enter valid email address or Password', 3000);
   }
 
   createUserWithEmailAndPassword(auth, email, password)
@@ -88,24 +87,19 @@ function registrationNewUser(e) {
         })
         .catch(error => {
           save('userUID', false);
-          Notify.failure('Something went wrong');
+          Notify.Success('Something went wrong', 3000);
           // The write failed...
         });
 
-      Notify.success(
-        'NICE!',
-        'You have successfully registered with Filmoteka.',
-        'Okay'
-      );
+      Notify.success('You have successfully registered with Filmoteka.', 3000);
       document.getElementById('regForm').reset();
       save('userUID', user.uid);
-
       refs.registerModalBackdrop.classList.toggle('is-hidden');
     })
     .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      Notify.failure('User is currently exists'); // ..
+      Notify.Error('User is currently exists', 3000); // ..
     });
 }
 if (refs.logInData) {
@@ -122,7 +116,7 @@ function onLoginData(e) {
     .then(userCredential => {
       const user = userCredential.user;
 
-      Notify.success('Successfully logged in');
+      Notify.success('Successfully logged in', 3000);
       document.getElementById('logForm').reset();
 
       refs.loginModalBackdrop.classList.toggle('is-hidden');
@@ -153,14 +147,14 @@ function onLoginData(e) {
         })
         .catch(error => {
           save('userUID', false);
-          Notify.failure('Something went wrong');
+          Notify.Error('Something went wrong', 3000);
           // The write failed...
         });
     })
     .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      Notify.failure('Login failed, check email or password');
+      Notify.Error('Login failed, check email or password', 3000);
     });
 }
 if (refs.logOutData) {
@@ -184,34 +178,13 @@ function onLogOutData(e) {
       }
     })
     .catch(error => {
-      Notify.failure('Something went wrong...');
+      Notify.Error('Something went wrong...', 3000);
     });
 }
-
-// function Validation() {
-//   let nameregex = /[a-zA-Z]+/;
-//   let email = /[a-zA-Z0*9]+@(gmail|yahoo|outlook|microsoft)\.com/;
-//   let userregex = /[a-zA-Z0*9]{5,}/;
-
-//   if (nameregex!==refs.name.value) {
-//     alert("invalid name");
-//     return;
-//   }
-//   if (!email !== refs.email.value) {
-//     alert("wrong email");
-//     return;
-//   }
-//   if (userregex !== refs.nick.value) {
-//     alert("invalid username");
-//     return;
-//   }
-// }
 
 let myfilm = [];
 
 async function readUserData({ userId, key }) {
-  //alert(`Save film to local ${key}`);
-
   onValue(
     ref(database, 'users/' + userId),
     snapshot => {
@@ -229,26 +202,19 @@ async function readUserData({ userId, key }) {
 async function setUserData({ userId, data, key }) {
   const options = {};
   options[key] = data;
-  //alert(userId);
   update(ref(database, 'users/' + userId), options)
     .then(() => {
       // Data saved successfully!
     })
     .catch(error => {
-      Notify.failure('Something went wrong');
+      Notify.Error('Something went wrong', 3000);
       // The write failed...
     });
 }
 
 function savetoCLG(data, key) {
-  // console.log(`eeeee ${data}`);
   save(key, data);
 }
-// writeUserData('BdiVz1qXmJfMcByu0rr4OqbGTU53', [{name: 'cccc'}], 'wahedMyFilmbyId');
-
-export { setUserData, readUserData };
-
-// save('userUID', 'BdiVz1qXmJfMcByu0rr4OqbGTU53');
 
 function authUser() {
   const authUser = load('userUID') ? load('userUID') : 'false';
@@ -267,3 +233,5 @@ function validateEmail(email) {
   const expression = /^[^@]+@\w+(\.\w+)+\w$/;
   return expression.test(email);
 }
+
+export { setUserData, readUserData };

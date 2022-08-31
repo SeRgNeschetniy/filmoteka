@@ -2,7 +2,7 @@ import {} from './preloader';
 import MyPagimation from './Pagination';
 import 'lazysizes';
 import { refs } from './refs';
-import Notiflix from 'notiflix';
+import { Notify } from './notify';
 import { setUserData } from './auth';
 import {
   save,
@@ -32,41 +32,26 @@ function whoWork(event) {
   if (event.target.textContent === 'add to Watched') {
     onWatchedBtnClick(event);
     renameBtn();
-    //console.log('!!');
-
     if (curentobject) curentobject.inicialization();
-    //console.log(curentobject);
-
-    // onLibraryWatchedInit();
     return;
   }
   if (event.target.textContent === 'add to queue') {
     onQueueBtnClick(event);
     renameBtn();
-    // onLibraryQueueInit();
     if (curentobject) curentobject.inicialization();
 
     return;
   }
   if (event.target.textContent === 'remove from watched') {
     onRemoveFromLibrery(event);
-    //console.log('!!--!!');
-
-    // onLibraryWatchedInit();
     if (curentobject) curentobject.inicialization();
-    //console.log(curentobject);
-
     renameBtn();
-
     return;
   }
   if (event.target.textContent === 'remove from queue') {
     onRemoveFromLibrery(event);
-    // onLibraryQueueInit();
     if (curentobject) curentobject.inicialization();
-
     renameBtn();
-
     return;
   }
 }
@@ -122,12 +107,6 @@ export function onLibraryQueueInit() {
       showGuest();
       return;
     }
-    // console.log('QUEUE CLICK!!!!');
-    // if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length === 0) {
-    //   console.log(load(QUEUEFILMS_LOCALSTORAGE_KEY).length);
-    //     addClassToQueueBtn();
-    //     showEmptyLibrary();
-    // }
     hideGuest();
 
     if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length !== 0) {
@@ -177,10 +156,7 @@ function reRenderWATCHEDFILMS() {
   }
   refs.libraryQueueBtn.classList.remove('header__btn--activ');
   refs.libraryWatchedBtn.classList.add('header__btn--activ');
-  // const libraryWatchedSlider = new MyPagimation(option);
   this.inicialization();
-  //console.log('🚀 ~ this', this);
-
   curentobject = this;
 }
 
@@ -265,8 +241,9 @@ function onWatchedBtnClick(event) {
   }
 
   if (!load('userUID')) {
-    Notiflix.Notify.failure(
-      'You are not logged in or are not registered. Please sign in or sign up to continue.'
+    Notify.Error(
+      'You are not logged in or are not registered. Please sign in or sign up to continue.',
+      3000
     );
     return;
   }
@@ -284,10 +261,6 @@ function onWatchedBtnClick(event) {
     const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
 
     if (load(WATCHEDFILMS_LOCALSTORAGE_KEY)) {
-      // console.log(
-      //   '🚀 ~ load(WATCHEDFILMS_LOCALSTORAGE_KEY)',
-      //   load(WATCHEDFILMS_LOCALSTORAGE_KEY)
-      // );
       const watchedFilmsList = [...load(WATCHEDFILMS_LOCALSTORAGE_KEY)];
       // console.log('🚀 ~ watchedFilmsList', watchedFilmsList);
       // console.log('🚀 ~ libraryFilms', libraryFilms);
@@ -327,8 +300,9 @@ function onQueueBtnClick(event) {
   }
 
   if (!load('userUID')) {
-    Notiflix.Notify.failure(
-      'You are not logged in or are not registered. Please sign in or sign up to continue.'
+    Notify.Error(
+      'You are not logged in or are not registered. Please sign in or sign up to continue.',
+      3000
     );
     return;
   }
@@ -360,9 +334,7 @@ function onQueueBtnClick(event) {
         Math.ceil(load(QUEUEFILMS_LOCALSTORAGE_KEY).length / 20)
       );
     } else {
-      Notiflix.Notify.failure(
-        'The movie has already been added to the library'
-      );
+      Notify.Error('The movie has already been added to the library', 3000);
     }
 
     const seating = {
