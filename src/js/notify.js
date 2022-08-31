@@ -1,47 +1,54 @@
 import { refs } from './refs';
 
 var Notify;
-
-
-
 (function (Notify) {
   var _settings = {
     soundsOff: true,
     sounds: {
-      success: 'sounds/success,\ warning/1.mp3',
-      warning: 'sounds/success,\ warning/3.mp3',
-      error: 'sounds/errors/1.mp3'
+      success: 'sounds/success, warning/1.mp3',
+      warning: 'sounds/success, warning/3.mp3',
+      error: 'sounds/errors/1.mp3',
     },
     animDuration: {
       success: 4000,
       warning: 4000,
-      error: 4000
-    }
+      error: 4000,
+    },
   };
   Object.defineProperty(Notify, 'Settings', {
     get: function () {
       return _settings;
     },
     set: function (settings) {
-      _settings.sounds = settings["sounds"] || _settings.sounds;
-      _settings.animDuration = settings["animDuration"] || _settings.animDuration;
-      _settings.soundsOff = settings["soundsOff"] != undefined ? settings["soundsOff"] : _settings.soundsOff;
-    }
+      _settings.sounds = settings['sounds'] || _settings.sounds;
+      _settings.animDuration =
+        settings['animDuration'] || _settings.animDuration;
+      _settings.soundsOff =
+        settings['soundsOff'] != undefined
+          ? settings['soundsOff']
+          : _settings.soundsOff;
+    },
   });
 
   //:::PUBLIC::://
   function Error(message, autoCloseDuration) {
-    if (autoCloseDuration === void 0) { autoCloseDuration = _settings.animDuration.error; }
+    if (autoCloseDuration === void 0) {
+      autoCloseDuration = _settings.animDuration.error;
+    }
     Show('error', message, autoCloseDuration, ShowNotificationBar('error'));
   }
   Notify.Error = Error;
   function Success(message, autoCloseDuration) {
-    if (autoCloseDuration === void 0) { autoCloseDuration = _settings.animDuration.success; }
+    if (autoCloseDuration === void 0) {
+      autoCloseDuration = _settings.animDuration.success;
+    }
     Show('success', message, autoCloseDuration, ShowNotificationBar('success'));
   }
   Notify.Success = Success;
   function Warning(message, autoCloseDuration) {
-    if (autoCloseDuration === void 0) { autoCloseDuration = _settings.animDuration.warning; }
+    if (autoCloseDuration === void 0) {
+      autoCloseDuration = _settings.animDuration.warning;
+    }
     Show('warning', message, autoCloseDuration, ShowNotificationBar('warning'));
   }
   Notify.Warning = Warning;
@@ -55,8 +62,7 @@ var Notify;
       if (e.propertyName != 'bottom' || parent == null) return;
       setTimeout(function () {
         var childs = parent.getElementsByClassName('component-notify').length;
-        if (childs === 0)
-          parent.remove();
+        if (childs === 0) parent.remove();
       }, 0);
 
       e.currentTarget.remove();
@@ -77,7 +83,7 @@ var Notify;
       e.stopPropagation();
       var component = e.target.closest('.component-notify');
       Close(component);
-    })
+    });
     btnClose.innerHTML = '<span>&#10006;</span>';
 
     wrapp.appendChild(textContent);
@@ -93,32 +99,40 @@ var Notify;
       var audio = document.createElement('audio'),
         soundSRC = _settings.sounds[notificationType];
       audio.autoplay = 'autoplay';
-      audio.onended = function () { this.remove(); }
+      audio.onended = function () {
+        this.remove();
+      };
       audio.className = 'notify-sound';
-      audio.innerHTML = '<source src="' + soundSRC + '" type="audio/mpeg" />' +
-        '<embed hidden="true" autostart="true" loop="false" src="' + soundSRC + '" />';
+      audio.innerHTML =
+        '<source src="' +
+        soundSRC +
+        '" type="audio/mpeg" />' +
+        '<embed hidden="true" autostart="true" loop="false" src="' +
+        soundSRC +
+        '" />';
 
       container.appendChild(audio);
     }
 
-    container.insertAdjacentElement("afterBegin", wrapp);
+    container.insertAdjacentElement('afterBegin', wrapp);
     return wrapp;
   }
 
   function Show(className, message, autoCloseDuration, notify) {
-    message = message || "«ñîîáùåíèå íå ïåðåäàíî»";
+    message = message || '«ñîîáùåíèå íå ïåðåäàíî»';
     var mainContainer = notify.closest('#notify-container'),
       textContainer = notify.getElementsByClassName('--text')[0];
     textContainer.textContent = message;
     setTimeout(function () {
       notify.classList.add('active');
       notify.classList.add(className);
-    }, 0)
+    }, 0);
 
     if (autoCloseDuration)
-      setTimeout(function () { Notify.Close(notify); }, autoCloseDuration);
+      setTimeout(function () {
+        Notify.Close(notify);
+      }, autoCloseDuration);
   }
-
 })(Notify || (Notify = {}));
 
-export { Notify }
+export { Notify };
