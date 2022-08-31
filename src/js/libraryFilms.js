@@ -1,5 +1,5 @@
 import {} from './preloader';
-import MyPagimation from './Pagination';
+import MyPagimation from './pagination';
 import 'lazysizes';
 import { refs } from './refs';
 import { Notify } from './notify';
