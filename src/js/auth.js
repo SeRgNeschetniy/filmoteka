@@ -59,7 +59,7 @@ function registrationNewUser(e) {
   const email = document.getElementById('registerFormEmail').value;
   const password = document.getElementById('registerFormPassword').value.trim();
 
-  if (validateEmail(email) === false || username !== '' || password !== '') {
+  if (validateEmail(email) === false || username === '' || password === '') {
     Notify.Warning(
       'Please, enter valid email Address, Username, Password',
       3000
@@ -101,7 +101,7 @@ function registrationNewUser(e) {
       refs.registerModalBackdrop.classList.toggle('is-hidden');
     })
     .catch(error => {
-      const errorCode = error.code;
+      //const errorCode = error.code;
       const errorMessage = error.message;
       Notify.Error('User is currently exists', 3000); // ..
     });
