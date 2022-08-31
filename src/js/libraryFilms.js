@@ -33,7 +33,7 @@ function whoWork(event) {
     onWatchedBtnClick(event);
     renameBtn();
     if (curentobject) curentobject.inicialization();
-    
+
     return;
   }
   if (event.target.textContent === 'add to queue') {
@@ -46,19 +46,19 @@ function whoWork(event) {
   if (event.target.textContent === 'remove from watched') {
     onRemoveFromLibrery(event);
     if (curentobject) curentobject.inicialization();
-     if (load(WATCHEDFILMS_LOCALSTORAGE_KEY).length === 0) {
-       showEmptyLibrary();
-     }
-    
+    if (load(WATCHEDFILMS_LOCALSTORAGE_KEY).length === 0) {
+      showEmptyLibrary();
+    }
+
     renameBtn();
     return;
   }
   if (event.target.textContent === 'remove from queue') {
     onRemoveFromLibrery(event);
     if (curentobject) curentobject.inicialization();
-     if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length === 0) {
-       showEmptyLibrary();
-     }
+    if (load(QUEUEFILMS_LOCALSTORAGE_KEY).length === 0) {
+      showEmptyLibrary();
+    }
     renameBtn();
     return;
   }
@@ -73,7 +73,7 @@ export function onLibraryWatchedInit() {
       addClassToWatchedBtn();
       showGuest();
       hideEmptyLibrary();
-      //console.log("sxsaxsa");
+      //
 
       return;
     }
@@ -280,14 +280,14 @@ function onWatchedBtnClick(event) {
 
     if (load(WATCHEDFILMS_LOCALSTORAGE_KEY)) {
       const watchedFilmsList = [...load(WATCHEDFILMS_LOCALSTORAGE_KEY)];
-      // console.log('🚀 ~ watchedFilmsList', watchedFilmsList);
-      // console.log('🚀 ~ libraryFilms', libraryFilms);
+      //
+      //
 
       const watchedFilmsToCheck = JSON.parse(
         localStorage.getItem(WATCHEDFILMS_LOCALSTORAGE_KEY)
       );
       watchedFilmsList.push(selectedFilm);
-      //console.log('🚀 ~ watchedFilmsList.push(selectedFilm)', watchedFilmsList);
+      //
       save(WATCHEDFILMS_LOCALSTORAGE_KEY, watchedFilmsList);
       save(
         'total_pages',
@@ -306,7 +306,7 @@ function onWatchedBtnClick(event) {
         data: watchedFilmsList,
         key: WATCHEDFILMS_LOCALSTORAGE_KEY,
       };
-      //console.log('🚀 ~ seating', seating);
+      //
       setUserData(seating);
     }
   }
@@ -389,7 +389,7 @@ function onRemoveFromLibrery(event) {
     save('lastRemoveFilm', selectedFilm);
     const index = libraryFilms.indexOf(selectedFilm);
     libraryFilms.splice(index, 1);
-    //console.log('🚀 ~ tempLocalKey', tempLocalKey);
+    //
 
     save(tempLocalKey, libraryFilms);
 
@@ -400,7 +400,6 @@ function onRemoveFromLibrery(event) {
     };
     setUserData(seating);
 
-   
     return;
   }
 }
@@ -408,78 +407,11 @@ function onRemoveFromLibrery(event) {
 function renameBtn() {
   const changeQueueBtn = document.querySelector('.js-queue-popup__btn');
   const changeWatchedBtn = document.querySelector('.js-watched-popup__btn');
-  //console.log('🚀 ~ changeWatchedBtn', changeWatchedBtn);
+  //
   const btnId = changeWatchedBtn.dataset.id;
-  //  console.log('im work checkOnLibraryStorage');
+  //
   checkOnLibraryStorage(changeWatchedBtn, changeQueueBtn, btnId);
 }
-
-// if (refs.body) {
-//   refs.body.addEventListener('click', onRemoveFromLibrery);
-// }
-
-// function onRemoveFromQueueClick(event) {
-//   if (event.target.textContent !== 'remove from queue') {
-//     return;
-//   }
-//   const movieId = Number(event.target.dataset.id);
-
-//   if (movieId) {
-//     const libraryFilms = JSON.parse(
-//       localStorage.getItem(QUEUEFILMS_LOCALSTORAGE_KEY)
-//     );
-
-//     remove(QUEUEFILMS_LOCALSTORAGE_KEY);
-
-//     const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
-
-//     const index = libraryFilms.indexOf(selectedFilm);
-
-//     console.log(index);
-
-//     libraryFilms.splice(index, 1);
-
-//     save(QUEUEFILMS_LOCALSTORAGE_KEY, libraryFilms);
-
-//     const seating = {
-//       userId: load('userUID'),
-//       data: libraryFilms,
-//       key: QUEUEFILMS_LOCALSTORAGE_KEY,
-//     };
-//     setUserData(seating);
-//   }
-// }
-// function onRemoveFromWatchedClick(event) {
-//   if (event.target.textContent !== 'remove from watched') {
-//     return;
-//   }
-//   const movieId = Number(event.target.dataset.id);
-
-//   if (movieId) {
-//     const libraryFilms = JSON.parse(
-//       localStorage.getItem(WATCHEDFILMS_LOCALSTORAGE_KEY)
-//     );
-
-//     remove(WATCHEDFILMS_LOCALSTORAGE_KEY);
-
-//     const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
-
-//     const index = libraryFilms.indexOf(selectedFilm);
-
-//     console.log(index);
-
-//     libraryFilms.splice(index, 1);
-
-//     save(WATCHEDFILMS_LOCALSTORAGE_KEY, libraryFilms);
-
-//     const seating = {
-//       userId: load('userUID'),
-//       data: libraryFilms,
-//       key: WATCHEDFILMS_LOCALSTORAGE_KEY,
-//     };
-//     setUserData(seating);
-//   }
-// }
 
 if (refs.libraryWatchedBtn) {
   refs.logOutData.addEventListener('click', () => {
