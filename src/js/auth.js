@@ -55,12 +55,16 @@ if (refs.submitData) {
 function registrationNewUser(e) {
   e.preventDefault();
 
-  const username = document.getElementById('registerFormUserName').value;
+  const username = document.getElementById('registerFormUserName').value.trim();
   const email = document.getElementById('registerFormEmail').value;
-  const password = document.getElementById('registerFormPassword').value;
+  const password = document.getElementById('registerFormPassword').value.trim();
 
-  if (validateEmail(email) === false) {
-    Notify.Warning('Please, enter valid email address or Password', 3000);
+  if (validateEmail(email) === false || username !== '' || password !== '') {
+    Notify.Warning(
+      'Please, enter valid email Address, Username, Password',
+      3000
+    );
+    return;
   }
 
   createUserWithEmailAndPassword(auth, email, password)

@@ -11,10 +11,10 @@
   width: 100%;
   position: relative;
   bottom: -60px;
-  -moz-transition: all ease-in-out .4s;
-  -o-transition: all ease-in-out .4s;
-  -webkit-transition: all ease-in-out .4s;
-  transition: all ease-in-out .4s;
+  -moz-transition: all ease-in-out 0.4s;
+  -o-transition: all ease-in-out 0.4s;
+  -webkit-transition: all ease-in-out 0.4s;
+  transition: all ease-in-out 0.4s;
   overflow: hidden;
   z-index: 999999;
 }
@@ -24,7 +24,7 @@
 }
 
 .component-notify.success {
-  background-color: #5CB85C;
+  background-color: #32c682;
   border-bottom: 1px solid #339633;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .component-notify.error {
-  background-color: #D9534F;
+  background-color: #ff5549;
   border-bottom: 1px solid #a52d2a;
 }
 
@@ -42,7 +42,7 @@
 }
 
 .component-notify.warning {
-  background-color: #d18922;
+  background-color: #eebf31;
   border-bottom: 1px solid #b6700c;
 }
 
