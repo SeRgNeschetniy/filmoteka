@@ -65,8 +65,6 @@ export function onLibraryWatchedInit() {
       addClassToWatchedBtn();
       showGuest();
       hideEmptyLibrary();
-      //console.log("sxsaxsa");
-
       return;
     }
 
