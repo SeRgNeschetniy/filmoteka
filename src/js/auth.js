@@ -94,14 +94,12 @@ function registrationNewUser(e) {
           Notify.Success('Something went wrong', 3000);
         });
 
-      refs.loginModalBackdrop.classList.toggle('is-hidden');
+      refs.registerModalBackdrop.classList.add('is-hidden');
       refs.loginSignIn.classList.toggle('visually-hidden');
       refs.logOutData.classList.toggle('visually-hidden');
 
       Notify.Success('You have successfully registered with Filmoteka.', 3000);
-
       document.getElementById('regForm').reset();
-      refs.registerModalBackdrop.classList.toggle('is-hidden');
     })
     .catch(error => {
       Notify.Error('User with such email already exists', 3000);
@@ -163,7 +161,7 @@ function onLoginData(e) {
       Notify.Success('Successfully logged in', 3000);
       document.getElementById('logForm').reset();
 
-      refs.loginModalBackdrop.classList.toggle('is-hidden');
+      refs.loginModalBackdrop.classList.remove('is-hidden');
       refs.loginSignIn.classList.toggle('visually-hidden');
       refs.logOutData.classList.toggle('visually-hidden');
 
@@ -214,7 +212,6 @@ function onLogOutData(e) {
       Notify.Success('Successfully logged out');
       location.href = location.href;
 
-
       refs.loginSignIn.classList.toggle('visually-hidden');
       refs.logOutData.classList.toggle('visually-hidden');
 
@@ -233,7 +230,6 @@ function onLogOutData(e) {
 }
 
 let myfilm = [];
-
 
 async function readUserData({ userId, key }) {
   onValue(
