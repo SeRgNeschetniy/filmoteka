@@ -26,7 +26,6 @@ import {
 } from './storage/storage.js';
 
 import { Notify } from './notify';
-// import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCkRsLU3jXV2QSp_hCd--4ayctHmz1-Kl8',
