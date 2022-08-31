@@ -22,9 +22,11 @@ import {
   load,
   WATCHEDFILMS_LOCALSTORAGE_KEY,
   QUEUEFILMS_LOCALSTORAGE_KEY,
+  CURRENTFILMS_LOCALSTORAGE_KEY,
 } from './storage/storage.js';
 
 import { Notify } from './notify';
+// import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCkRsLU3jXV2QSp_hCd--4ayctHmz1-Kl8',
@@ -92,6 +94,7 @@ function registrationNewUser(e) {
         });
 
       Notify.Success('You have successfully registered with Filmoteka.', 3000);
+
       document.getElementById('regForm').reset();
       refs.registerModalBackdrop.classList.toggle('is-hidden');
     })
@@ -126,7 +129,7 @@ function registrationNewUser(e) {
   //        // The write failed...
   //      });
 
-  //     Notify.success('You have successfully registered with Filmoteka.', 3000);
+  //     Notify.Success('You have successfully registered with Filmoteka.', 3000);
   //     document.getElementById('regForm').reset();
   //     //save('userUID', user.uid);
   //     refs.registerModalBackdrop.classList.toggle('is-hidden');
@@ -152,7 +155,9 @@ function onLoginData(e) {
     .then(userCredential => {
       const user = userCredential.user;
 
-      Notify.success('Successfully logged in', 3000);
+      console.log('🚀 ~ Notify.Success', Notify.Success);
+
+      Notify.Success('Successfully logged in', 3000);
       document.getElementById('logForm').reset();
 
       refs.loginModalBackdrop.classList.toggle('is-hidden');
@@ -171,10 +176,6 @@ function onLoginData(e) {
 
       const logDate = new Date();
 
-      if (document.querySelector('.library-movies')) {
-        onLibraryQueueInit();
-        onLibraryWatchedInit();
-      }
       update(ref(database, 'users/' + user.uid), {
         last_login: logDate,
       })
@@ -202,7 +203,10 @@ function onLogOutData(e) {
   signOut(auth)
     .then(() => {
       save('userUID', false);
-      Notify.success('Successfully logged out');
+      save(CURRENTFILMS_LOCALSTORAGE_KEY, []);
+      save(WATCHEDFILMS_LOCALSTORAGE_KEY, []);
+
+      Notify.Success('Successfully logged out');
 
       refs.loginSignIn.classList.toggle('visually-hidden');
       refs.logOutData.classList.toggle('visually-hidden');
@@ -211,6 +215,7 @@ function onLogOutData(e) {
         onLibraryQueueInit();
         onLibraryWatchedInit();
         document.querySelector('.library-movies').innerHTML = '';
+        document.querySelector('.dt-pagination').innerHTML = '';
       }
     })
     .catch(error => {
@@ -227,6 +232,11 @@ async function readUserData({ userId, key }) {
       const myFilm = (snapshot.val() && snapshot.val()[key]) || [];
       myfilm = [...myFilm];
       savetoCLG(myFilm, key);
+
+      if (document.querySelector('.library-movies')) {
+        onLibraryQueueInit();
+        onLibraryWatchedInit();
+      }
       // ...
     },
     {
