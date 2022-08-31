@@ -21,9 +21,8 @@
 }
 
 .tumbler {
-  
   position: absolute;
- 
+
   height: 20px;
   width: 20px;
   border-radius: 50%;
@@ -87,6 +86,17 @@ body {
 
       & .auth-modal__box label {
         color: #fff;
+      }
+
+      & .auth-modal-form__btn:hover {
+        color: #fff;
+        background-color: #0000;
+        border: 1px solid #fff;
+      }
+      & .auth-modal-form__link:hover {
+        color: #fff;
+        background-color: #0000;
+        border: 1px solid #fff;
       }
     }
     & .team-modal {

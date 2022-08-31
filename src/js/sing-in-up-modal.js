@@ -1,6 +1,7 @@
 import { refs } from './refs';
 
 function registerToggleModal() {
+  document.body.classList.toggle('overflow-hidden');
   refs.registerModalBackdrop.classList.toggle('is-hidden');
 }
 function onSignUpClick(event) {
@@ -16,6 +17,7 @@ if (refs.registerSignUp) {
 }
 
 function loginToggleModal() {
+  document.body.classList.toggle('overflow-hidden');
   refs.loginModalBackdrop.classList.toggle('is-hidden');
 }
 
