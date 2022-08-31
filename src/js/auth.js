@@ -56,11 +56,8 @@ function registrationNewUser(e) {
   e.preventDefault();
 
   const username = document.getElementById('registerFormUserName').value;
-  console.log('🚀 ~ username', username);
   const email = document.getElementById('registerFormEmail').value;
-  console.log('🚀 ~ email', email);
   const password = document.getElementById('registerFormPassword').value;
-  console.log('🚀 ~ password', password);
 
   if (validateEmail(email) === false) {
     Notify.failure('Please, enter valid email address or Password');
@@ -70,7 +67,6 @@ function registrationNewUser(e) {
   createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       const user = userCredential.user;
-      console.log('🚀 ~ user', user);
 
       set(ref(database, 'users/' + user.uid), {
         username: username,
@@ -134,7 +130,6 @@ function onLoginData(e) {
       refs.logOutData.classList.toggle('visually-hidden');
 
       save('userUID', user.uid);
-      console.log(WATCHEDFILMS_LOCALSTORAGE_KEY);
       readUserData({
         userId: user.uid,
         key: WATCHEDFILMS_LOCALSTORAGE_KEY,
@@ -181,6 +176,7 @@ function onLogOutData(e) {
 
       refs.loginSignIn.classList.toggle('visually-hidden');
       refs.logOutData.classList.toggle('visually-hidden');
+
       if (document.querySelector('.library-movies')) {
         onLibraryQueueInit();
         onLibraryWatchedInit();

@@ -56,12 +56,12 @@ async function getNewMovi(qwery, num) {
       ) {
         refs.errorText.classList.remove('hidden-message-js');
       }
-      console.log(`num1 = ${num}`);
-      removeSpinner()
+      //console.log(`num1 = ${num}`);
+      removeSpinner();
     })
     .catch(error => {
       console.log(error, `ERRRRR`);
-      removeSpinner()
+      removeSpinner();
       if (refs.errorText.classList.contains('hidden-message-js')) {
         refs.errorText.classList.remove('hidden-message-js');
       }

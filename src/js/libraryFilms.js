@@ -32,10 +32,10 @@ function whoWork(event) {
   if (event.target.textContent === 'add to Watched') {
     onWatchedBtnClick(event);
     renameBtn();
-    console.log('!!');
+    //console.log('!!');
 
     if (curentobject) curentobject.inicialization();
-    console.log(curentobject);
+    //console.log(curentobject);
 
     // onLibraryWatchedInit();
     return;
@@ -50,11 +50,11 @@ function whoWork(event) {
   }
   if (event.target.textContent === 'remove from watched') {
     onRemoveFromLibrery(event);
-    console.log('!!--!!');
+    //console.log('!!--!!');
 
     // onLibraryWatchedInit();
     if (curentobject) curentobject.inicialization();
-    console.log(curentobject);
+    //console.log(curentobject);
 
     renameBtn();
 
@@ -72,7 +72,6 @@ function whoWork(event) {
 }
 
 onLibraryQueueInit();
-
 onLibraryWatchedInit();
 
 export function onLibraryWatchedInit() {
@@ -180,7 +179,7 @@ function reRenderWATCHEDFILMS() {
   refs.libraryWatchedBtn.classList.add('header__btn--activ');
   // const libraryWatchedSlider = new MyPagimation(option);
   this.inicialization();
-  console.log('🚀 ~ this', this);
+  //console.log('🚀 ~ this', this);
 
   curentobject = this;
 }
@@ -285,19 +284,19 @@ function onWatchedBtnClick(event) {
     const selectedFilm = libraryFilms.find(el => el.id === parseInt(movieId));
 
     if (load(WATCHEDFILMS_LOCALSTORAGE_KEY)) {
-      console.log(
-        '🚀 ~ load(WATCHEDFILMS_LOCALSTORAGE_KEY)',
-        load(WATCHEDFILMS_LOCALSTORAGE_KEY)
-      );
+      // console.log(
+      //   '🚀 ~ load(WATCHEDFILMS_LOCALSTORAGE_KEY)',
+      //   load(WATCHEDFILMS_LOCALSTORAGE_KEY)
+      // );
       const watchedFilmsList = [...load(WATCHEDFILMS_LOCALSTORAGE_KEY)];
-      console.log('🚀 ~ watchedFilmsList', watchedFilmsList);
-      console.log('🚀 ~ libraryFilms', libraryFilms);
+      // console.log('🚀 ~ watchedFilmsList', watchedFilmsList);
+      // console.log('🚀 ~ libraryFilms', libraryFilms);
 
       const watchedFilmsToCheck = JSON.parse(
         localStorage.getItem(WATCHEDFILMS_LOCALSTORAGE_KEY)
       );
       watchedFilmsList.push(selectedFilm);
-      console.log('🚀 ~ watchedFilmsList.push(selectedFilm)', watchedFilmsList);
+      //console.log('🚀 ~ watchedFilmsList.push(selectedFilm)', watchedFilmsList);
       save(WATCHEDFILMS_LOCALSTORAGE_KEY, watchedFilmsList);
       save(
         'total_pages',
@@ -316,7 +315,7 @@ function onWatchedBtnClick(event) {
         data: watchedFilmsList,
         key: WATCHEDFILMS_LOCALSTORAGE_KEY,
       };
-      console.log('🚀 ~ seating', seating);
+      //console.log('🚀 ~ seating', seating);
       setUserData(seating);
     }
   }
@@ -399,7 +398,7 @@ function onRemoveFromLibrery(event) {
     save('lastRemoveFilm', selectedFilm);
     const index = libraryFilms.indexOf(selectedFilm);
     libraryFilms.splice(index, 1);
-    console.log('🚀 ~ tempLocalKey', tempLocalKey);
+    //console.log('🚀 ~ tempLocalKey', tempLocalKey);
 
     save(tempLocalKey, libraryFilms);
 
@@ -416,7 +415,7 @@ function onRemoveFromLibrery(event) {
 function renameBtn() {
   const changeQueueBtn = document.querySelector('.js-queue-popup__btn');
   const changeWatchedBtn = document.querySelector('.js-watched-popup__btn');
-  console.log('🚀 ~ changeWatchedBtn', changeWatchedBtn);
+  //console.log('🚀 ~ changeWatchedBtn', changeWatchedBtn);
   const btnId = changeWatchedBtn.dataset.id;
   //  console.log('im work checkOnLibraryStorage');
   checkOnLibraryStorage(changeWatchedBtn, changeQueueBtn, btnId);

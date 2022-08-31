@@ -100,9 +100,6 @@ const modalMoviemarkup = ({
     <button class="popup__btn js-watched-popup__btn" type="button" data-id=${id}>add to Watched</button>
     <button class="popup__btn js-queue-popup__btn" type="button" data-id=${id}>add to queue</button>
   </div>
-
-
-
   `;
 };
 
