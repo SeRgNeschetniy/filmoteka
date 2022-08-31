@@ -1,5 +1,5 @@
 import { refs } from './refs';
-import MyPagimation from './pagination';
+import MyPagimation from './1pagination';
 import { addSpinner, removeSpinner } from './spinner';
 import {
   save,
