@@ -144,7 +144,6 @@ function registrationNewUser(e) {
   //     const errorMessage = error.message;
   //     Notify.Error('User is currently exists', 3000); // ..
   //   });
-
 }
 
 if (refs.logInData) {
@@ -209,9 +208,8 @@ function onLogOutData(e) {
     .then(() => {
       save('userUID', false);
 
-      save(CURRENTFILMS_LOCALSTORAGE_KEY, []);
+      save(QUEUEFILMS_LOCALSTORAGE_KEY, []);
       save(WATCHEDFILMS_LOCALSTORAGE_KEY, []);
-
 
       Notify.Success('Successfully logged out');
 
@@ -219,6 +217,8 @@ function onLogOutData(e) {
       refs.logOutData.classList.toggle('visually-hidden');
 
       if (document.querySelector('.library-movies')) {
+        save(CURRENTFILMS_LOCALSTORAGE_KEY, []);
+
         onLibraryQueueInit();
         onLibraryWatchedInit();
         document.querySelector('.library-movies').innerHTML = '';
