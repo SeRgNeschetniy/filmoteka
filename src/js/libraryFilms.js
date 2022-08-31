@@ -73,8 +73,6 @@ export function onLibraryWatchedInit() {
       addClassToWatchedBtn();
       showGuest();
       hideEmptyLibrary();
-      //
-
       return;
     }
 

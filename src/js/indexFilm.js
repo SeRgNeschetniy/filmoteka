@@ -17,10 +17,8 @@ const themoviedb = new themoviedbAPI();
 if (refs.form) {
   const option = {
     cardContainer: 'movies',
-    // cardContainerMobile:'movies-mobile',
     paginationContainer: 'js-pg-container',
     paginationContainerMobile: 'js-pg-container-mobile',
-    // mobileDots: false,
     localKey: CURRENTFILMS_LOCALSTORAGE_KEY,
     getNewFilm: getNewMovi,
   };
@@ -56,7 +54,6 @@ async function getNewMovi(qwery, num) {
       ) {
         refs.errorText.classList.remove('hidden-message-js');
       }
-      //console.log(`num1 = ${num}`);
       removeSpinner();
     })
     .catch(error => {
