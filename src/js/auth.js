@@ -98,44 +98,6 @@ function registrationNewUser(e) {
     .catch(error => {
       Notify.Error('User with such email already exists', 3000);
     });
-
-  // createUserWithEmailAndPassword(auth, email, password)
-  //   .then(userCredential => {
-  //     const user = userCredential.user;
-
-  //     set(ref(database, 'users/' + user.uid), {
-  //       username: username,
-  //       email: email,
-  //        watchedFilm: [],
-  //        queueFilm: [],
-  //     });
-  //      .then(() => {
-  //         readUserData({
-  //           userId: user.uid,
-  //           key: WATCHEDFILMS_LOCALSTORAGE_KEY,
-  //         });
-  //         readUserData({
-  //           userId: user.uid,
-  //           key: QUEUEFILMS_LOCALSTORAGE_KEY,
-  //         });
-  //         Data saved successfully!
-  //      })
-  //      .catch(error => {
-  //        save('userUID', false);
-  //        Notify.Success('Something went wrong', 3000);
-  //        // The write failed...
-  //      });
-
-  //     Notify.success('You have successfully registered with Filmoteka.', 3000);
-  //     document.getElementById('regForm').reset();
-  //     //save('userUID', user.uid);
-  //     refs.registerModalBackdrop.classList.toggle('is-hidden');
-  //   })
-  //   .catch(error => {
-  //     //const errorCode = error.code;
-  //     const errorMessage = error.message;
-  //     Notify.Error('User is currently exists', 3000); // ..
-  //   });
 }
 
 if (refs.logInData) {
@@ -152,7 +114,7 @@ function onLoginData(e) {
     .then(userCredential => {
       const user = userCredential.user;
 
-      Notify.success('Successfully logged in', 3000);
+      Notify.Success('Successfully logged in', 3000);
       document.getElementById('logForm').reset();
 
       refs.loginModalBackdrop.classList.toggle('is-hidden');
@@ -160,6 +122,7 @@ function onLoginData(e) {
       refs.logOutData.classList.toggle('visually-hidden');
 
       save('userUID', user.uid);
+
       readUserData({
         userId: user.uid,
         key: WATCHEDFILMS_LOCALSTORAGE_KEY,
