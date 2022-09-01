@@ -34,7 +34,7 @@
 по настройке твоего репозитория. Зайди во вкладку `Settings` и в подсекции
 `Actions` выбери выбери пункт `General`.
 
-![GitHub actions settings](./assets/actions-config-step-1.png)
+![GitHub actions settings](https://github.com/SeRgNeschetniy/filmoteka/blob/main/src/images/meta-image.jpg)
 
 Пролистай страницу до последней секции, в которой убедись что выбраны опции как
 на следующем изображении и нажми `Save`. Без этих настроек у сборки будет
