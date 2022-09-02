@@ -7,7 +7,9 @@ export default class MyPagimation {
     cardContainer,
     paginationContainer,
     paginationContainerMobile,
-    getNewFilm, //callback who  save sava data ('current film', lendth ) to local storege to render current page
+    getNewFilm,
+    localKey,
+    //callback who  save sava data ('current film', lendth ) to local storege to render current page
   }) {
     this.tbody = document.querySelector(`.${cardContainer}`);
     this.paginationContainer = document.querySelector(
@@ -16,7 +18,7 @@ export default class MyPagimation {
     this.paginationContainerMobile = document.querySelector(
       `.${paginationContainerMobile}`
     );
-
+    this.localKey = localKey;
     this.datatableUsers = load(CURRENTFILMS_LOCALSTORAGE_KEY);
     this.callGoTo;
     this.callNextBtn;
@@ -263,6 +265,7 @@ export default class MyPagimation {
         navigationMobile: '',
       };
     }
+
     return {
       navigation: [prevBTN, result, nextBTN].join(''),
       navigationMobile: [prevBTN, resultMobile, nextBTN].join(''),

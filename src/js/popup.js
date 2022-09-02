@@ -3,6 +3,7 @@ import { getAllGenresForModal } from './getAllGenresForModal';
 import { refs } from './refs';
 import { themoviedbAPI } from './api/API';
 import { checkOnLibraryStorage } from './libraryFilms';
+import 'lazysizes';
 
 const themoviedb = new themoviedbAPI();
 let linkToYutube = '';
@@ -23,10 +24,18 @@ async function popupHandler(el) {
   }
   htmpleyer = `<iframe class ="yt-pleyer"   src="${linkToYutube}" frameborder="0" allowfullscreen></iframe>`;
   toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
+  let results;
+  var img = document.createElement('img');
+  img.src = `https://image.tmdb.org/t/p/original/${film.backdrop_path}`;
 
-  const results = modalMoviemarkup(film);
+  img.src.onload = function () {
+    // устанавливаем новое изображение в photo_wrap
+  };
+
+  results = modalMoviemarkup(film);
 
   const popup = document.querySelector('.js-popup__content');
+
   popup.innerHTML = results;
   searchVideoFrame();
 
@@ -49,6 +58,8 @@ const modalMoviemarkup = ({
   overview,
   adult,
 }) => {
+  refs.popup.classList.add('lazyload');
+  refs.popup.classList.add('blur-up');
   refs.popup.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${backdrop_path})`;
   const genresNames = getAllGenresForModal(genre_ids);
   return `<button class="popup__btn--close js-close-btn" type="button" data-modal-close>
@@ -62,8 +73,8 @@ const modalMoviemarkup = ({
 </a>
   ${
     poster_path === null
-      ? `<img src="${placeholderImg}" alt="${title}" class="popup__img">`
-      : `<img src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title}" class="popup__img"> `
+      ? `<img src="${placeholderImg}" alt="${title}" class="popup__img lazyload blur-up">`
+      : `<img src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title}" class="popup__img lazyload blur-up"> `
   }
 </div>
 
@@ -98,8 +109,8 @@ const modalMoviemarkup = ({
     ${overview ? overview : "We can't find more information about this film."}
   </p>
   <div class="popup__btn-container">
-    <button class="popup__btn js-watched-popup__btn" type="button" data-id=${id}>add to Watched</button>
-    <button class="popup__btn js-queue-popup__btn" type="button" data-id=${id}>add to queue</button>
+    <button class="popup__btn js-watched-popup__btn" type="button" data-id=${id} data-modalbtnlibrery="watched">add to Watched</button>
+    <button class="popup__btn js-queue-popup__btn" type="button" data-id=${id} data-modalbtnlibrery="queue">add to queue</button>
   </div>
   `;
 };
