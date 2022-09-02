@@ -3,9 +3,7 @@ import { getAllGenresForModal } from './getAllGenresForModal';
 import { refs } from './refs';
 import { themoviedbAPI } from './api/API';
 import { checkOnLibraryStorage } from './libraryFilms';
-import 'lazysizes';
-import { Notify } from './notify';
-import placeholderImg from '../images/movie_img_placeholder.png';
+
 const themoviedb = new themoviedbAPI();
 let linkToYutube = '';
 const toPleyer = document.querySelector('.js-pleyer');
@@ -20,20 +18,17 @@ async function popupHandler(el) {
   const res = await themoviedb.getVideoById(id);
   if (res.results[0]) {
     linkToYutube = `https://www.youtube.com/embed/${res.results[0].key}`;
-    htmpleyer = `<iframe class ="yt-pleyer"   src="${linkToYutube}" frameborder="0" allowfullscreen></iframe>`;
-    toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
+  } else {
+    linkToYutube = `https://www.youtube.com/`;
   }
+  htmpleyer = `<iframe class ="yt-pleyer"   src="${linkToYutube}" frameborder="0" allowfullscreen></iframe>`;
+  toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
 
   const results = modalMoviemarkup(film);
 
   const popup = document.querySelector('.js-popup__content');
-
   popup.innerHTML = results;
-  if (res.results[0]) {
-    searchVideoFrame(1);
-  } else {
-    searchVideoFrame(0);
-  }
+  searchVideoFrame();
 
   const changeQueueBtn = document.querySelector('.js-queue-popup__btn');
   const changeWatchedBtn = document.querySelector('.js-watched-popup__btn');
@@ -54,13 +49,7 @@ const modalMoviemarkup = ({
   overview,
   adult,
 }) => {
-  refs.popup.classList.add('lazyload');
-  refs.popup.classList.add('blur-up');
-  refs.popup.style.backgroundImage = ``;
-
-  if (backdrop_path) {
-    refs.popup.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${backdrop_path})`;
-  }
+  refs.popup.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${backdrop_path})`;
   const genresNames = getAllGenresForModal(genre_ids);
   return `<button class="popup__btn--close js-close-btn" type="button" data-modal-close>
   <svg class="popup__svg--close" viewBox="0 0 30 30" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -73,8 +62,8 @@ const modalMoviemarkup = ({
 </a>
   ${
     poster_path === null
-      ? `<img src="${placeholderImg}" alt="${title}" class="popup__img lazyload blur-up">`
-      : `<img src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title}" class="popup__img lazyload blur-up"> `
+      ? `<img src="${placeholderImg}" alt="${title}" class="popup__img">`
+      : `<img src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title}" class="popup__img"> `
   }
 </div>
 
@@ -109,8 +98,8 @@ const modalMoviemarkup = ({
     ${overview ? overview : "We can't find more information about this film."}
   </p>
   <div class="popup__btn-container">
-    <button class="popup__btn js-watched-popup__btn" type="button" data-id=${id} data-modalbtnlibrery="watched">add to Watched</button>
-    <button class="popup__btn js-queue-popup__btn" type="button" data-id=${id} data-modalbtnlibrery="queue">add to queue</button>
+    <button class="popup__btn js-watched-popup__btn" type="button" data-id=${id}>add to Watched</button>
+    <button class="popup__btn js-queue-popup__btn" type="button" data-id=${id}>add to queue</button>
   </div>
   `;
 };
@@ -160,19 +149,14 @@ function escapeClose(event) {
   }
 }
 // ------------------------------------------------- player--------------
-function searchVideoFrame(film) {
+function searchVideoFrame() {
   const toOpen = document.querySelector('.video-overlay');
   const player = document.getElementById('play-video');
   const closeVideo = document.querySelector('.video-overlay-close');
   const overlay = document.querySelector('.video-overlay');
   let frame = '';
-
   player.addEventListener('click', function (e) {
     e.preventDefault();
-    if (film === 0) {
-      Notify.Error('Film exist', 3000);
-      return;
-    }
     toOpen.classList.add('open');
 
     backdropPpup.removeEventListener('click', popapbeckClose);
