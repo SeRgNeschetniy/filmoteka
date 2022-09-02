@@ -25,7 +25,6 @@ async function popupHandler(el) {
   toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
 
   const results = modalMoviemarkup(film);
-
   const popup = document.querySelector('.js-popup__content');
   popup.innerHTML = results;
   searchVideoFrame();

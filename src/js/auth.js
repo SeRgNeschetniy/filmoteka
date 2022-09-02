@@ -101,8 +101,6 @@ function registrationNewUser(e) {
       document.getElementById('regForm').reset();
     })
     .catch(error => {
-      //
-
       Notify.Error(
         'User with such email already exists or password not strong',
         3000
@@ -175,9 +173,9 @@ function onLogOutData(e) {
       save(QUEUEFILMS_LOCALSTORAGE_KEY, []);
       save(WATCHEDFILMS_LOCALSTORAGE_KEY, []);
 
-      Notify.Success('Successfully logged out');
-      location.href = location.href;
-
+      Notify.Success('Successfully logged out', 3000);
+      // location.href = location.href;
+      
       refs.loginSignIn.classList.toggle('visually-hidden');
       refs.logOutData.classList.toggle('visually-hidden');
 

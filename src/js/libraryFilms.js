@@ -20,8 +20,15 @@ import {
   hideGuest,
 } from './empty-library';
 
-let watchedFilmsList = [];
-let queueFilmsList = [];
+
+let localKey;
+const cof = 20;
+
+const dataAtributAndlocalKey = {
+  watched: WATCHEDFILMS_LOCALSTORAGE_KEY,
+  queue: QUEUEFILMS_LOCALSTORAGE_KEY,
+  curent: CURRENTFILMS_LOCALSTORAGE_KEY,
+};
 
 if (refs.body) {
   refs.body.addEventListener('click', whoWork);

@@ -69,7 +69,6 @@ export default class MyPagimation {
 
       await this.getNewFilm(this.qwery, this.state.currentNumPage + 1);
       this.loadDataForRender();
-
       this.render();
     }
   }
