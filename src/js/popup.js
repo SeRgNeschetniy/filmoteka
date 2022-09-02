@@ -65,7 +65,11 @@ const modalMoviemarkup = ({
 }) => {
   refs.popup.classList.add('lazyload');
   refs.popup.classList.add('blur-up');
-  refs.popup.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${backdrop_path})`;
+  refs.popup.style.backgroundImage = ``;
+
+  if (backdrop_path) {
+    refs.popup.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${backdrop_path})`;
+  }
   const genresNames = getAllGenresForModal(genre_ids);
   return `<button class="popup__btn--close js-close-btn" type="button" data-modal-close>
   <svg class="popup__svg--close" viewBox="0 0 30 30" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
