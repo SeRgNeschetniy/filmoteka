@@ -20,14 +20,11 @@ async function popupHandler(el) {
   const res = await themoviedb.getVideoById(id);
   if (res.results[0]) {
     linkToYutube = `https://www.youtube.com/embed/${res.results[0].key}`;
-  } else {
-    linkToYutube = `https://www.youtube.com/`;
+    htmpleyer = `<iframe class ="yt-pleyer"   src="${linkToYutube}" frameborder="0" allowfullscreen></iframe>`;
+    toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
   }
-  htmpleyer = `<iframe class ="yt-pleyer"   src="${linkToYutube}" frameborder="0" allowfullscreen></iframe>`;
-  toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
-  let results;
 
-  results = modalMoviemarkup(film);
+  const results = modalMoviemarkup(film);
 
   const popup = document.querySelector('.js-popup__content');
 
