@@ -175,7 +175,7 @@ async function onLogOutData(e) {
       save(QUEUEFILMS_LOCALSTORAGE_KEY, []);
       save(WATCHEDFILMS_LOCALSTORAGE_KEY, []);
 
-      Notify.Success('Successfully logged out');
+      Notify.Success('Successfully logged out', 3000);
       // location.href = location.href;
 
       refs.loginSignIn.classList.toggle('visually-hidden');
