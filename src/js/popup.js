@@ -4,6 +4,7 @@ import { refs } from './refs';
 import { themoviedbAPI } from './api/API';
 import { checkOnLibraryStorage } from './libraryFilms';
 import 'lazysizes';
+import { Notify } from './notify';
 
 const themoviedb = new themoviedbAPI();
 let linkToYutube = '';
@@ -37,7 +38,11 @@ async function popupHandler(el) {
   const popup = document.querySelector('.js-popup__content');
 
   popup.innerHTML = results;
-  searchVideoFrame();
+  if (res.results[0]) {
+    searchVideoFrame(1);
+  } else {
+    searchVideoFrame(0);
+  }
 
   const changeQueueBtn = document.querySelector('.js-queue-popup__btn');
   const changeWatchedBtn = document.querySelector('.js-watched-popup__btn');
@@ -160,14 +165,18 @@ function escapeClose(event) {
   }
 }
 // ------------------------------------------------- player--------------
-function searchVideoFrame() {
+function searchVideoFrame(film) {
   const toOpen = document.querySelector('.video-overlay');
   const player = document.getElementById('play-video');
   const closeVideo = document.querySelector('.video-overlay-close');
   const overlay = document.querySelector('.video-overlay');
   let frame = '';
+
   player.addEventListener('click', function (e) {
     e.preventDefault();
+    if (film === 0) {
+      Notify.Error('Film exist');
+    }
     toOpen.classList.add('open');
 
     backdropPpup.removeEventListener('click', popapbeckClose);
