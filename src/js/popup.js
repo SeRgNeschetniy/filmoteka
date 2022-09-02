@@ -170,7 +170,7 @@ function searchVideoFrame(film) {
   player.addEventListener('click', function (e) {
     e.preventDefault();
     if (film === 0) {
-      Notify.Error('Film exist');
+      Notify.Error('Film exist', 3000);
       return;
     }
     toOpen.classList.add('open');
