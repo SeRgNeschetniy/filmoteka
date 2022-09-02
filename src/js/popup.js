@@ -176,6 +176,7 @@ function searchVideoFrame(film) {
     e.preventDefault();
     if (film === 0) {
       Notify.Error('Film exist');
+      return;
     }
     toOpen.classList.add('open');
 
