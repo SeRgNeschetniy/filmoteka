@@ -1,7 +1,7 @@
 import { load, GENREFILMS_LOCALSTORAGE_KEY } from './storage/storage';
 
 export function getAllGenresForModal(genre_ids) {
-  if (genre_ids.length !== 0) {
+  if (genre_ids !== undefined && genre_ids.length !== 0) {
     const allGenres = Array.from(load(GENREFILMS_LOCALSTORAGE_KEY));
 
     const myGenres = allGenres.filter(genre => genre_ids.includes(genre.id));

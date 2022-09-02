@@ -72,7 +72,7 @@ const modalMoviemarkup = ({
   <span></span>
 </a>
   ${
-    poster_path === null
+    !poster_path
       ? `<img src="${placeholderImg}" alt="${title}" class="popup__img lazyload blur-up">`
       : `<img src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title}" class="popup__img lazyload blur-up"> `
   }

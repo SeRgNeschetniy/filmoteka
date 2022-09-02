@@ -20,7 +20,7 @@ export function renderCards(data) {
         return `<li class="movie-card" data-id="${id}">
   <div class="img-container">
   ${
-    poster_path === null
+    !poster_path
       ? `<img
       src="${placeholderImg}" alt="${title}" class="movie-card__img">`
       : `<img
