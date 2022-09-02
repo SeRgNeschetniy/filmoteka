@@ -1,7 +1,6 @@
 import { load, GENREFILMS_LOCALSTORAGE_KEY } from './storage/storage';
 
 export function getGenresById(genre_ids) {
-  console.log(genre_ids);
   if (genre_ids !== undefined && genre_ids.length !== 0) {
     const tmpLoad = load(GENREFILMS_LOCALSTORAGE_KEY)
       ? load(GENREFILMS_LOCALSTORAGE_KEY)
