@@ -5,7 +5,7 @@ import { themoviedbAPI } from './api/API';
 import { checkOnLibraryStorage } from './libraryFilms';
 import 'lazysizes';
 import { Notify } from './notify';
-
+import placeholderImg from '../images/movie_img_placeholder.png';
 const themoviedb = new themoviedbAPI();
 let linkToYutube = '';
 const toPleyer = document.querySelector('.js-pleyer');
