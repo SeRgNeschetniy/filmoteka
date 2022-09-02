@@ -49,7 +49,6 @@ const librarySlider = new MyPagimation(option);
 
 const imInLibreryPage = document.querySelector('.library-movies');
 if (imInLibreryPage) {
-  // librarySlider.inicialization();
   chekILoginAndEmpty();
 }
 
@@ -73,8 +72,6 @@ function whoWork(event) {
 }
 function checkExsistInLibrery(id, keyLocalStorage) {
   if (!load('userUID')) {
-    // Notify.Error('You are not authorized', 3000);
-
     return;
   }
 
@@ -242,8 +239,3 @@ export function chekILoginAndEmpty() {
     }
   }
 }
-// if (refs.libraryWatchedBtn) {
-//   refs.logOutData.addEventListener('click', () => {
-//     hideEmptyLibrary();
-//   });
-// }
