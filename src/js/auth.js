@@ -16,7 +16,6 @@ import {
   child,
   onValue,
 } from 'firebase/database';
-import { onLibraryWatchedInit, onLibraryQueueInit } from './libraryFilms';
 import {
   save,
   load,
@@ -24,7 +23,7 @@ import {
   QUEUEFILMS_LOCALSTORAGE_KEY,
   CURRENTFILMS_LOCALSTORAGE_KEY,
 } from './storage/storage.js';
-
+import { chekILoginAndEmpty } from './libraryFilms';
 import { Notify } from './notify';
 
 const firebaseConfig = {
@@ -87,6 +86,7 @@ function registrationNewUser(e) {
             userId: user.uid,
             key: QUEUEFILMS_LOCALSTORAGE_KEY,
           });
+          chekILoginAndEmpty();
         })
         .catch(error => {
           save('userUID', false);
@@ -114,7 +114,7 @@ if (refs.logInData) {
   refs.logInData.addEventListener('click', onLoginData);
 }
 
-function onLoginData(e) {
+async function onLoginData(e) {
   e.preventDefault();
 
   const email = document.getElementById('loginFormEmail').value;
@@ -166,7 +166,7 @@ if (refs.logOutData) {
   refs.logOutData.addEventListener('click', onLogOutData);
 }
 
-function onLogOutData(e) {
+async function onLogOutData(e) {
   e.preventDefault();
   signOut(auth)
     .then(() => {
@@ -176,7 +176,7 @@ function onLogOutData(e) {
       save(WATCHEDFILMS_LOCALSTORAGE_KEY, []);
 
       Notify.Success('Successfully logged out');
-      location.href = location.href;
+      // location.href = location.href;
 
       refs.loginSignIn.classList.toggle('visually-hidden');
       refs.logOutData.classList.toggle('visually-hidden');
@@ -184,11 +184,10 @@ function onLogOutData(e) {
       if (document.querySelector('.library-movies')) {
         save(CURRENTFILMS_LOCALSTORAGE_KEY, []);
 
-        onLibraryQueueInit();
-        onLibraryWatchedInit();
         document.querySelector('.library-movies').innerHTML = '';
         document.querySelector('.dt-pagination').innerHTML = '';
       }
+      chekILoginAndEmpty();
     })
     .catch(error => {
       Notify.Error('Something went wrong...', 3000);
@@ -205,11 +204,7 @@ async function readUserData({ userId, key }) {
       myfilm = [...myFilm];
       savetoCLG(myFilm, key);
 
-      if (document.querySelector('.library-movies')) {
-        onLibraryQueueInit();
-        onLibraryWatchedInit();
-      }
-      // ...
+      chekILoginAndEmpty();
     },
     {
       onlyOnce: true,
