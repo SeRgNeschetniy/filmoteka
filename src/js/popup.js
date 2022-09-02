@@ -26,12 +26,6 @@ async function popupHandler(el) {
   htmpleyer = `<iframe class ="yt-pleyer"   src="${linkToYutube}" frameborder="0" allowfullscreen></iframe>`;
   toPleyer.insertAdjacentHTML('beforeend', htmpleyer);
   let results;
-  var img = document.createElement('img');
-  img.src = `https://image.tmdb.org/t/p/original/${film.backdrop_path}`;
-
-  img.src.onload = function () {
-    // устанавливаем новое изображение в photo_wrap
-  };
 
   results = modalMoviemarkup(film);
 
