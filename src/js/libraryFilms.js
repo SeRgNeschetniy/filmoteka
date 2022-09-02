@@ -72,6 +72,12 @@ function whoWork(event) {
   }
 }
 function checkExsistInLibrery(id, keyLocalStorage) {
+  if (!load('userUID')) {
+    // Notify.Error('You are not authorized', 3000);
+
+    return;
+  }
+
   const films = [...load(keyLocalStorage)];
 
   //проверка на адекватность данных
