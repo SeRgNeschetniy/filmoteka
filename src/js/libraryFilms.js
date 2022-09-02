@@ -87,6 +87,12 @@ function checkExsistInLibrery(id, keyLocalStorage) {
 }
 //123
 function toLibreryBtnsClick(id, keyLocalStorage, todo) {
+  if (!load('userUID')) {
+    Notify.Error('You are not authorized', 3000);
+
+    return;
+  }
+
   const filmOnPageKey = CURRENTFILMS_LOCALSTORAGE_KEY;
   const movieId = id;
   let filmOnPage = [...load(filmOnPageKey)];
@@ -173,6 +179,8 @@ function renameBtn() {
 }
 export function checkOnLibraryStorage(watchedBtn, queueBtn, filmID) {
   if (!load('userUID')) {
+    // Notify.Error('You are not authorized', 3000);
+
     return;
   }
 
