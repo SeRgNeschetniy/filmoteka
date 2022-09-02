@@ -16,6 +16,7 @@ import {
   child,
   onValue,
 } from 'firebase/database';
+import { onLibraryWatchedInit, onLibraryQueueInit } from './libraryFilms';
 import {
   save,
   load,
@@ -23,9 +24,8 @@ import {
   QUEUEFILMS_LOCALSTORAGE_KEY,
   CURRENTFILMS_LOCALSTORAGE_KEY,
 } from './storage/storage.js';
-import { chekILoginAndEmpty } from './libraryFilms';
+
 import { Notify } from './notify';
-// import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCkRsLU3jXV2QSp_hCd--4ayctHmz1-Kl8',
@@ -87,7 +87,6 @@ function registrationNewUser(e) {
             userId: user.uid,
             key: QUEUEFILMS_LOCALSTORAGE_KEY,
           });
-          chekILoginAndEmpty();
         })
         .catch(error => {
           save('userUID', false);
@@ -115,7 +114,7 @@ if (refs.logInData) {
   refs.logInData.addEventListener('click', onLoginData);
 }
 
-async function onLoginData(e) {
+function onLoginData(e) {
   e.preventDefault();
 
   const email = document.getElementById('loginFormEmail').value;
@@ -167,7 +166,7 @@ if (refs.logOutData) {
   refs.logOutData.addEventListener('click', onLogOutData);
 }
 
-async function onLogOutData(e) {
+function onLogOutData(e) {
   e.preventDefault();
   signOut(auth)
     .then(() => {
@@ -177,7 +176,7 @@ async function onLogOutData(e) {
       save(WATCHEDFILMS_LOCALSTORAGE_KEY, []);
 
       Notify.Success('Successfully logged out');
-      // location.href = location.href;
+      location.href = location.href;
 
       refs.loginSignIn.classList.toggle('visually-hidden');
       refs.logOutData.classList.toggle('visually-hidden');
@@ -185,10 +184,11 @@ async function onLogOutData(e) {
       if (document.querySelector('.library-movies')) {
         save(CURRENTFILMS_LOCALSTORAGE_KEY, []);
 
+        onLibraryQueueInit();
+        onLibraryWatchedInit();
         document.querySelector('.library-movies').innerHTML = '';
         document.querySelector('.dt-pagination').innerHTML = '';
       }
-      chekILoginAndEmpty();
     })
     .catch(error => {
       Notify.Error('Something went wrong...', 3000);
@@ -205,7 +205,11 @@ async function readUserData({ userId, key }) {
       myfilm = [...myFilm];
       savetoCLG(myFilm, key);
 
-      chekILoginAndEmpty();
+      if (document.querySelector('.library-movies')) {
+        onLibraryQueueInit();
+        onLibraryWatchedInit();
+      }
+      // ...
     },
     {
       onlyOnce: true,
