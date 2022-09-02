@@ -64,18 +64,17 @@ const modalMoviemarkup = ({
   const genresNames = getAllGenresForModal(genre_ids);
   return `<button class="popup__btn--close js-close-btn" type="button" data-modal-close>
   <svg class="popup__svg--close" viewBox="0 0 30 30" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path d="m8 8 14 14M8 22 22 8" stroke="#000" stroke-width="2" />
+    <path d="m8 8 14 14M8 22 22 8" stroke="currentColor" stroke-width="2" />
   </svg>
 </button>
 <div class="popup__img-wrapper">
 <a id="play-video" class="video-play-button" href="#">
   <span></span>
 </a>
-  ${
-    poster_path === null
+  ${poster_path === null
       ? `<img src="${placeholderImg}" alt="${title}" class="popup__img lazyload blur-up">`
       : `<img src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title}" class="popup__img lazyload blur-up"> `
-  }
+    }
 </div>
 
 <div class="popup__info-container film-info">
@@ -84,11 +83,9 @@ const modalMoviemarkup = ({
   <li class="film-info__details-item">
     <p class="film-info__category">Vote / Votes</p>
     <p class="film-info__value">
-      <span class="film-info__value--vote">${
-        vote_average ? vote_average.toFixed(1) : '-'
-      }</span> / <span class="film-info__value--votes">${
-    vote_count ? vote_count : '-'
-  }</span>
+      <span class="film-info__value--vote">${vote_average ? vote_average.toFixed(1) : '-'
+    }</span> / <span class="film-info__value--votes">${vote_count ? vote_count : '-'
+    }</span>
     </p>
   </li>
   <li class="film-info__details-item">

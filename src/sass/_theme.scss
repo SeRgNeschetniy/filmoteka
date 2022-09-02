@@ -58,16 +58,20 @@ body {
       & .film-info {
         color: white;
       }
+
       & .popup__btn {
         border: 1px solid #fff;
         color: white;
       }
+
       & .film-info__value--votes {
         color: #000;
       }
+
       & .popup__svg--close {
-        fill: #fff;
-        background: #fff;
+        color: #fff;
+        // fill: #fff;
+        // background: #fff;
       }
     }
 
@@ -93,12 +97,14 @@ body {
         background-color: #0000;
         border: 1px solid #fff;
       }
+
       & .auth-modal-form__link:hover {
         color: #fff;
         background-color: #0000;
         border: 1px solid #fff;
       }
     }
+
     & .team-modal {
       background-color: #0e171e;
       box-shadow: 0 0 59px -17px #ff6b01;
@@ -120,6 +126,7 @@ body {
         color: #fff;
       }
     }
+
     & .footer {
       background-color: #0e171e;
       border-top: 1px solid #fff;
