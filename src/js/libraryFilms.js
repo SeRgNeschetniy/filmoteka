@@ -24,7 +24,7 @@ import {
 let localKey;
 // let watchedFilmsList = [];
 // let queueFilmsList = [];
-const cof = 4;
+const cof = 20;
 
 const dataAtributAndlocalKey = {
   watched: WATCHEDFILMS_LOCALSTORAGE_KEY,
